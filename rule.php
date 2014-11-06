@@ -22,42 +22,21 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/quiz/accessrule/accessrulebase.php');
 
 
 /**
- * A rule requiring the student to promise not to cheat.
+ * A rule that hijacks the standard attempt.php page, and replaces it with @author tim
+ * different script which loads all the questions at once and then allows the
+ * student to keep working, even if the network connection is lost. However,
+ * if the network is working, responses are saved back to the server.
  *
- * @copyright  2011 The Open University
+ * @copyright  2014 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quizaccess_offlinemode extends quiz_access_rule_base {
-
-    public function is_preflight_check_required($attemptid) {
-        return empty($attemptid);
-    }
-
-    public function add_preflight_check_form_fields(mod_quiz_preflight_check_form $quizform,
-            MoodleQuickForm $mform, $attemptid) {
-
-        $mform->addElement('header', 'offlinemodeheader',
-                get_string('offlinemodeheader', 'quizaccess_offlinemode'));
-        $mform->addElement('static', 'offlinemodemessage', '',
-                get_string('offlinemodestatement', 'quizaccess_offlinemode'));
-        $mform->addElement('checkbox', 'offlinemode', '',
-                get_string('offlinemodelabel', 'quizaccess_offlinemode'));
-    }
-
-    public function validate_preflight_check($data, $files, $errors, $attemptid) {
-        if (empty($data['offlinemode'])) {
-            $errors['offlinemode'] = get_string('youmustagree', 'quizaccess_offlinemode');
-        }
-
-        return $errors;
-    }
 
     public static function make(quiz $quizobj, $timenow, $canignoretimelimits) {
 

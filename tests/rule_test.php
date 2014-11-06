@@ -18,7 +18,7 @@
  * Unit tests for the quizaccess_offlinemode plugin.
  *
  * @package   quizaccess_offlinemode
- * @copyright 2011 The Open University
+ * @copyright 2014 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/mod/quiz/accessrule/offlinemode/rule.php');
 /**
  * Unit tests for the quizaccess_offlinemode plugin.
  *
- * @copyright  2011 The Open University
+ * @copyright  2014 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quizaccess_offlinemode_test extends basic_testcase {

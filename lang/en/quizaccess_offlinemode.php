@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the quizaccess_offlinemode plugin.
+ * Strings for the quizaccess_offlinemode plugin.
  *
  * @package   quizaccess_offlinemode
  * @copyright 2014 The Open University
@@ -24,9 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014110600;
-$plugin->requires  = 2014041100;
-$plugin->cron      = 0;
-$plugin->component = 'quizaccess_offlinemode';
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = 'work-in-progress for Moodle 2.7+';
+$string['offlinemodeenabled'] = 'Experimental offline attempt mode';
+$string['offlinemodeenabled_help'] = 'The goal of this experimental option is to let students attempt a quiz even if the network connection is not reliable. For example on a train going through tunnels, or just with bad wi-fi. The students can move between pages of the quiz even if the server is not avaialble, and all their answers are stored locally, and sent to the server when possible.';
+$string['pluginname'] = 'Quiz offline attempt mode';

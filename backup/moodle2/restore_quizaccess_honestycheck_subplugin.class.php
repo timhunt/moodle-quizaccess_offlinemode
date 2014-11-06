@@ -18,7 +18,7 @@
  * Restore code for the quizaccess_offlinemode plugin.
  *
  * @package   quizaccess_offlinemode
- * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @copyright 2014 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
