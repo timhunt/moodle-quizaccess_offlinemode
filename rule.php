@@ -49,25 +49,21 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public static function add_settings_form_fields(
             mod_quiz_mod_form $quizform, MoodleQuickForm $mform) {
-        $mform->addElement('select', 'offlinemoderequired',
-                get_string('offlinemoderequired', 'quizaccess_offlinemode'),
-                array(
-                    0 => get_string('notrequired', 'quizaccess_offlinemode'),
-                    1 => get_string('offlinemoderequiredoption', 'quizaccess_offlinemode'),
-                ));
-        $mform->addHelpButton('offlinemoderequired',
-                'offlinemoderequired', 'quizaccess_offlinemode');
+        $mform->addElement('selectyesno', 'offlinemodeenabled',
+                get_string('offlinemodeenabled', 'quizaccess_offlinemode'));
+        $mform->addHelpButton('offlinemodeenabled',
+                'offlinemodeenabled', 'quizaccess_offlinemode');
     }
 
     public static function save_settings($quiz) {
         global $DB;
-        if (empty($quiz->offlinemoderequired)) {
+        if (empty($quiz->offlinemodeenabled)) {
             $DB->delete_records('quizaccess_offlinemode', array('quizid' => $quiz->id));
         } else {
             if (!$DB->record_exists('quizaccess_offlinemode', array('quizid' => $quiz->id))) {
                 $record = new stdClass();
                 $record->quizid = $quiz->id;
-                $record->offlinemoderequired = 1;
+                $record->offlinemodeenabled = 1;
                 $DB->insert_record('quizaccess_offlinemode', $record);
             }
         }
@@ -80,7 +76,7 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public static function get_settings_sql($quizid) {
         return array(
-            'offlinemoderequired',
+            'offlinemodeenabled',
             'LEFT JOIN {quizaccess_offlinemode} offlinemode ON offlinemode.quizid = quiz.id',
             array());
     }

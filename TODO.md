@@ -3,10 +3,10 @@
 1. DONE Clone quizaccess_honestycheck as a starting point.
 2. DONE Do a bulk rename honestycheck -> offlinemode.
 3. DONE Create git repo to hold the work.
-4. Fix up version.php, lang strings, comments, etc.
-4. Flesh out this TODO list with what really needs to be done.
-5. Create the right DB table.
-6. Callback to get the setting on the quiz form, disableIf not deferred feedback & save it.
+4. DONE Fix up version.php, lang strings, comments, etc.
+4. DONE Flesh out this TODO list with what really needs to be done.
+5. DONE Create the right DB table.
+6. DONE Callback to get the setting on the quiz form, disableIf not deferred feedback & save it.
 7. settings.php
 8. Behat tests of the forms.
 9. Unit tests for the basic bit of the rule class.
