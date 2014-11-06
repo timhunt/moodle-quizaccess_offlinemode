@@ -40,7 +40,7 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public static function make(quiz $quizobj, $timenow, $canignoretimelimits) {
 
-        if (empty($quizobj->get_quiz()->offlinemoderequired)) {
+        if (empty($quizobj->get_quiz()->offlinemodeenabled)) {
             return null;
         }
 
