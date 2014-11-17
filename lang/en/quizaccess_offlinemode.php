@@ -25,5 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['offlinemodeenabled'] = 'Experimental offline attempt mode';
+$string['offlinemodeenabled_desc'] = 'Whether the offline attempt mode should be enabled by default for new quizzes, and also whether it should be an advanced settings (behind \'Show more ...\') on the quiz settings form.';
 $string['offlinemodeenabled_help'] = 'The goal of this experimental option is to let students attempt a quiz even if the network connection is not reliable. For example on a train going through tunnels, or just with bad wi-fi. The students can move between pages of the quiz even if the server is not avaialble, and all their answers are stored locally, and sent to the server when possible.';
 $string['pluginname'] = 'Quiz offline attempt mode';

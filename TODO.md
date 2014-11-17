@@ -7,7 +7,7 @@
 4. DONE Flesh out this TODO list with what really needs to be done.
 5. DONE Create the right DB table.
 6. DONE Callback to get the setting on the quiz form, disableIf not deferred feedback & save it.
-7. settings.php
+7. DONE settings.php
 8. DONE Basic PHPunit tests of the rule.
 9. Behat tests of the forms.
 10. Unit tests for the basic bit of the rule class.

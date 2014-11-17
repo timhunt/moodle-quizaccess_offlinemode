@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the quizaccess_offlinemode plugin.
+ * Configuration settings for the quizaccess_offlinemode plugin.
  *
  * @package   quizaccess_offlinemode
- * @copyright 2014 The Open University
+ * @copyright 2013 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2014111701;
-$plugin->requires  = 2014041100;
-$plugin->cron      = 0;
-$plugin->component = 'quizaccess_offlinemode';
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = 'work-in-progress for Moodle 2.7+';
+if ($ADMIN->fulltree) {
+    $settings->add(new admin_setting_configcheckbox_with_advanced('quizaccess_offlinemode/defaultenabled',
+            get_string('offlinemodeenabled', 'quizaccess_offlinemode'),
+            get_string('offlinemodeenabled_desc', 'quizaccess_offlinemode'),
+            array('value' => 0, 'adv' => false)));
+}

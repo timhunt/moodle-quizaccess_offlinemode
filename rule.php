@@ -40,7 +40,7 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public static function make(quiz $quizobj, $timenow, $canignoretimelimits) {
 
-        if (empty($quizobj->get_quiz()->offlinemodeenabled)) {
+        if (empty($quizobj->get_quiz()->offlinemode_enabled)) {
             return null;
         }
 
@@ -49,21 +49,24 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public static function add_settings_form_fields(
             mod_quiz_mod_form $quizform, MoodleQuickForm $mform) {
-        $mform->addElement('selectyesno', 'offlinemodeenabled',
+        $config = get_config('quizaccess_offlinemode');
+        $mform->addElement('selectyesno', 'offlinemode_enabled',
                 get_string('offlinemodeenabled', 'quizaccess_offlinemode'));
-        $mform->addHelpButton('offlinemodeenabled',
+        $mform->addHelpButton('offlinemode_enabled',
                 'offlinemodeenabled', 'quizaccess_offlinemode');
+        $mform->setDefault('offlinemode_enabled', !empty($config->defaultenabled));
+        $mform->setAdvanced('offlinemode_enabled', !empty($config->defaultenabled_adv));
     }
 
     public static function save_settings($quiz) {
         global $DB;
-        if (empty($quiz->offlinemodeenabled)) {
+        if (empty($quiz->offlinemode_enabled)) {
             $DB->delete_records('quizaccess_offlinemode', array('quizid' => $quiz->id));
         } else {
             if (!$DB->record_exists('quizaccess_offlinemode', array('quizid' => $quiz->id))) {
                 $record = new stdClass();
                 $record->quizid = $quiz->id;
-                $record->offlinemodeenabled = 1;
+                $record->enabled = 1;
                 $DB->insert_record('quizaccess_offlinemode', $record);
             }
         }
@@ -76,7 +79,7 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public static function get_settings_sql($quizid) {
         return array(
-            'offlinemodeenabled',
+            'COALESCE(offlinemode.enabled, 0) AS offlinemode_enabled',
             'LEFT JOIN {quizaccess_offlinemode} offlinemode ON offlinemode.quizid = quiz.id',
             array());
     }

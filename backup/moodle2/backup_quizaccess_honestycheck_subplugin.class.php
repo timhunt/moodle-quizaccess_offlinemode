@@ -44,7 +44,7 @@ class backup_quizaccess_offlinemode_subplugin extends backup_mod_quiz_access_sub
         $subplugin = $this->get_subplugin_element();
         $subpluginwrapper = new backup_nested_element($this->get_recommended_name());
         $subplugintablesettings = new backup_nested_element('quizaccess_offlinemode',
-                null, array('offlinemodeenabled'));
+                null, array('enabled'));
 
         // Connect XML elements into the tree.
         $subplugin->add_child($subpluginwrapper);
