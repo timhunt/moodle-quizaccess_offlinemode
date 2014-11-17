@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
  * Provides the information to backup the offlinemode quiz access plugin.
  *
  * If this plugin is requires, a single
- * <quizaccess_offlinemode><required>1</required></quizaccess_offlinemode> tag
+ * <quizaccess_offlinemode><enabled>1</enabled></quizaccess_offlinemode> tag
  * will be added to the XML in the appropriate place. Otherwise nothing will be
  * added. This matches the DB structure.
  */

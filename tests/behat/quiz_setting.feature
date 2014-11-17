@@ -1,0 +1,64 @@
+@quizaccess @quizaccess_offlinemode
+Feature: Offline mode quiz setting
+  In order to run quizzes with dodgy wifi
+  As an teacher
+  I need to turn the offline quiz mode on and off.
+
+  Background:
+    Given the following "courses" exist:
+      | fullname | shortname | format |
+      | Course 1 | C1        | topics |
+    And the following "users" exist:
+      | username | firstname |
+      | teacher  | Teachy    |
+    And the following "course enrolments" exist:
+      | user    | course | role           |
+      | teacher | C1     | editingteacher |
+    And I log in as "teacher"
+    And I follow "Course 1"
+
+  @javascript
+  Scenario: Create a quiz with the setting on.
+    When I turn editing mode on
+    And I add a "Quiz" to section "0" and I fill the form with:
+      | Name                              | Quiz with offline mode |
+      | Experimental offline attempt mode | Yes                    |
+    And I follow "Quiz with offline mode"
+    And I navigate to "Edit settings" node in "Quiz administration"
+    Then the field "Experimental offline attempt mode" matches value "Yes"
+
+  @javascript
+  Scenario: Create a quiz with the setting off.
+    When I turn editing mode on
+    And I add a "Quiz" to section "0" and I fill the form with:
+      | Name                              | Quiz without offline mode |
+      | Experimental offline attempt mode | No                        |
+    And I follow "Quiz without offline mode"
+    And I navigate to "Edit settings" node in "Quiz administration"
+    Then the field "Experimental offline attempt mode" matches value "No"
+
+  @javascript
+  Scenario: Change the setting for a quiz from off to on.
+    Given the following "activities" exist:
+      | activity   | name   | course | idnumber | offlinemode_enabled |
+      | quiz       | Quiz 1 | C1     | quiz1    | 0                   |
+    When I follow "Course 1"
+    And I follow "Quiz 1"
+    And I navigate to "Edit settings" node in "Quiz administration"
+    And I set the field "Experimental offline attempt mode" to "Yes"
+    And I press "Save and display"
+    And I navigate to "Edit settings" node in "Quiz administration"
+    Then the field "Experimental offline attempt mode" matches value "Yes"
+
+  @javascript
+  Scenario: Change the setting for a quiz from on to off.
+    Given the following "activities" exist:
+      | activity   | name   | course | idnumber | offlinemode_enabled |
+      | quiz       | Quiz 1 | C1     | quiz1    | 1                   |
+    When I follow "Course 1"
+    And I follow "Quiz 1"
+    And I navigate to "Edit settings" node in "Quiz administration"
+    And I set the field "Experimental offline attempt mode" to "No"
+    And I press "Save and display"
+    And I navigate to "Edit settings" node in "Quiz administration"
+    Then the field "Experimental offline attempt mode" matches value "No"
