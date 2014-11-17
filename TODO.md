@@ -10,7 +10,7 @@
 7. DONE settings.php
 8. DONE Basic PHPunit tests of the rule.
 9. Behat tests of the forms.
-10. Unit tests for the basic bit of the rule class.
+10. DONE Unit tests for the basic bit of the rule class.
 11. Intercept attemp.php script (if setting && !DF) (setup attempt page? prevent_...?) and redirect to new script.
 12. Our own attempt.php script, that displays all the quetsions in the quiz, in different divs.
 13. Create skeleton YUI module and init it.

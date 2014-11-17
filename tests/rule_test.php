@@ -45,7 +45,7 @@ class quizaccess_offlinemode_test extends basic_testcase {
         $rule = quizaccess_offlinemode::make($quizobj, 0, false);
         $this->assertNull($rule);
 
-        $quiz->offlinemodeenabled = true;
+        $quiz->offlinemode_enabled = true;
         $rule = quizaccess_offlinemode::make($quizobj, 0, false);
         $this->assertInstanceOf('quizaccess_offlinemode', $rule);
     }
