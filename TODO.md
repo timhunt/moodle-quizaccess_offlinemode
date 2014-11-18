@@ -12,7 +12,7 @@
 9. DONE Basic PHPunit tests of the rule.
 10. DONE Behat tests of the forms.
 11. DONE Unit tests for the basic bit of the rule class.
-12. Intercept attemp.php script (if setting && !DF) (setup attempt page? prevent_...?) and redirect to new script.
+12. DONE Intercept attemp.php script (if setting && !DF) (setup attempt page? prevent_...?) and redirect to new script.
 13. Our own attempt.php script, that displays all the quetsions in the quiz, in different divs.
 14. Create skeleton YUI module and init it.
 15. For testing (developer debug?) a button to toggle simulated network disconnection.
@@ -25,7 +25,7 @@
 21. ??? New style warning if ajax not working.
 22. Behat tests for the autosaving and warning.
 23. ??? Think about custom timing requirements.
-24. ??? What happens at the end?
+24. ??? What happens at the end? Summary page?
 25. Behat tests for final submit.
 26. When there are unsaved answers, a local download link.
 27. Behat tests for that download (if possible).

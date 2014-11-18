@@ -104,4 +104,10 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
             'LEFT JOIN {quizaccess_offlinemode} offlinemode ON offlinemode.quizid = quiz.id',
             array());
     }
+
+    public function setup_attempt_page($page) {
+        if ($page->pagetype == 'mod-quiz-attempt' || $page->pagetype == 'mod-quiz-summary') {
+            redirect(new moodle_url('/mod/quiz/accessrule/offlinemode/attempt.php', $page->url->params()));
+        }
+    }
 }
