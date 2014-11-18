@@ -35,10 +35,15 @@ require_once($CFG->dirroot . '/mod/quiz/accessrule/offlinemode/rule.php');
  * @copyright  2014 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quizaccess_offlinemode_test extends basic_testcase {
-    public function test_offlinemode_rule() {
+class quizaccess_offlinemode_rule_testcase extends basic_testcase {
+    public function test_is_compatible_behaviour() {
+        $this->assertTrue(quizaccess_offlinemode::is_compatible_behaviour('deferredfeedback'));
+        $this->assertFalse(quizaccess_offlinemode::is_compatible_behaviour('interactive'));
+    }
+
+    public function test_offlinemode_rule_creation() {
         $quiz = new stdClass();
-        $quiz->attempts = 3;
+        $quiz->preferredbehaviour = 'deferredfeedback';
         $cm = new stdClass();
         $cm->id = 0;
         $quizobj = new quiz($quiz, $cm, null);
@@ -48,5 +53,9 @@ class quizaccess_offlinemode_test extends basic_testcase {
         $quiz->offlinemode_enabled = true;
         $rule = quizaccess_offlinemode::make($quizobj, 0, false);
         $this->assertInstanceOf('quizaccess_offlinemode', $rule);
+
+        $quiz->preferredbehaviour = 'interactive';
+        $rule = quizaccess_offlinemode::make($quizobj, 0, false);
+        $this->assertNull($rule);
     }
 }

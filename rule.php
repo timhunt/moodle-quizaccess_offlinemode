@@ -40,7 +40,8 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public static function make(quiz $quizobj, $timenow, $canignoretimelimits) {
 
-        if (empty($quizobj->get_quiz()->offlinemode_enabled)) {
+        if (empty($quizobj->get_quiz()->offlinemode_enabled) ||
+                !self::is_compatible_behaviour($quizobj->get_quiz()->preferredbehaviour)) {
             return null;
         }
 
@@ -58,12 +59,24 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
         $mform->setAdvanced('offlinemode_enabled', !empty($config->defaultenabled_adv));
 
         foreach (question_engine::get_behaviour_options(null) as $behaviour => $notused) {
-            $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
-            if (!in_array('specificfeedback', $unusedoptions)) {
+            if (!self::is_compatible_behaviour($behaviour)) {
                 $mform->disabledIf('offlinemode_enabled', 'preferredbehaviour',
                         'eq', $behaviour);
             }
         }
+    }
+
+    /**
+     * Given the quiz "How questions behave" setting, can the offline mode work
+     * with that behaviour?
+     * @param string $behaviour the internal name (e.g. 'interactive') of an archetypal behaviour.
+     * @return boolean whether offline mode can be used.
+     */
+    public static function is_compatible_behaviour($behaviour) {
+        $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
+        // Sorry, double negative here. The heuristic is that:
+        // The behaviour is compatible if we don't need to show specific feedback during the attempt.
+        return in_array('specificfeedback', $unusedoptions);
     }
 
     public static function save_settings($quiz) {
