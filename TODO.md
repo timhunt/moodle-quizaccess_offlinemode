@@ -13,13 +13,14 @@
 10. DONE Behat tests of the forms.
 11. DONE Unit tests for the basic bit of the rule class.
 12. DONE Intercept attemp.php script (if setting && !DF) (setup attempt page? prevent_...?) and redirect to new script.
-13. Our own attempt.php script, that displays all the quetsions in the quiz, in different divs.
+13. DONE Our own attempt.php script, that displays all the quetsions in the quiz, in different divs.
 14. Create skeleton YUI module and init it.
 15. For testing (developer debug?) a button to toggle simulated network disconnection.
 16. JavaScript to switch pages, showing and hiding questions.
 17. ... then update the navigation appropriately.
 18. Behat tests for the navigation.
 19. ??? Adapt existing auto-save JS.
+20. Ajax should also send page number changes to update quiz_attempts.currentpage.
 20. ??? Client-side auto-save JS.
 20. ??? Ajax calls to save one question and get new HTML.
 21. ??? New style warning if ajax not working.
@@ -30,3 +31,4 @@
 26. When there are unsaved answers, a local download link.
 27. Behat tests for that download (if possible).
 28. Encryption of the download.
+29. Sequential navigation mode.

@@ -23,9 +23,182 @@
  */
 
 require_once(__DIR__ . '/../../../../config.php');
+require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 
-$PAGE->set_url('/mod/quiz/accessrule/offlinemode/attempt.php');
-$PAGE->set_context(context_system::instance());
-echo $OUTPUT->header();
-echo $OUTPUT->box(get_string('pluginname', 'quizaccess_offlinemode'));
-echo $OUTPUT->footer();
+// Get submitted parameters.
+$attemptid = required_param('attempt', PARAM_INT);
+$page = optional_param('page', null, PARAM_INT);
+
+// Create the attempt object.
+$attemptobj = quiz_attempt::create($attemptid);
+
+// Fix the page number if necessary.
+if ($page === null) {
+    $page = $attemptobj->get_attempt()->currentpage;
+}
+if ($attemptobj->get_navigation_method() == QUIZ_NAVMETHOD_SEQ && $page < $attemptobj->get_currentpage()) {
+    $page = $attemptobj->get_currentpage();
+}
+$page = $attemptobj->force_page_number_into_range($page);
+
+// Initialise $PAGE.
+$pageurl = $attemptobj->attempt_url(null, $page);
+$PAGE->set_url(quizaccess_offlinemode::ATTEMPT_URL, $pageurl->params());
+
+// Check login.
+require_login($attemptobj->get_course(), false, $attemptobj->get_cm());
+
+// Check that this attempt belongs to this user.
+if ($attemptobj->get_userid() != $USER->id) {
+    if ($attemptobj->has_capability('mod/quiz:viewreports')) {
+        redirect($attemptobj->review_url(null, $page));
+    } else {
+        throw new moodle_quiz_exception($attemptobj->get_quizobj(), 'notyourattempt');
+    }
+}
+
+// Check capabilities and block settings.
+if (!$attemptobj->is_preview_user()) {
+    $attemptobj->require_capability('mod/quiz:attempt');
+    if (empty($attemptobj->get_quiz()->showblocks)) {
+        $PAGE->blocks->show_only_fake_blocks();
+    }
+
+} else {
+    navigation_node::override_active_url($attemptobj->start_attempt_url());
+}
+
+// If the attempt is already closed, send them to the review page.
+if ($attemptobj->is_finished()) {
+    redirect($attemptobj->review_url(null, $page));
+} else if ($attemptobj->get_state() == quiz_attempt::OVERDUE) {
+    redirect($attemptobj->summary_url());
+}
+
+// Check the access rules.
+$accessmanager = $attemptobj->get_access_manager(time());
+$accessmanager->setup_attempt_page($PAGE);
+
+// Complete masquerading as the mod-quiz-attempt page. Must be done after setup_attempt_page.
+$PAGE->set_pagetype('mod-quiz-attempt');
+
+// get the renderer.
+$output = $PAGE->get_renderer('mod_quiz');
+$messages = $accessmanager->prevent_access();
+if (!$attemptobj->is_preview_user() && $messages) {
+    print_error('attempterror', 'quiz', $attemptobj->view_url(),
+    $output->access_messages($messages));
+}
+if ($accessmanager->is_preflight_check_required($attemptobj->get_attemptid())) {
+    redirect($attemptobj->start_attempt_url(null, $page));
+}
+
+// Set up auto-save if required.
+$autosaveperiod = get_config('quiz', 'autosaveperiod');
+if ($autosaveperiod) {
+    $PAGE->requires->yui_module('moodle-mod_quiz-autosave',
+            'M.mod_quiz.autosave.init', array($autosaveperiod));
+}
+
+// Log this page view.
+$params = array(
+        'objectid' => $attemptid,
+        'relateduserid' => $attemptobj->get_userid(),
+        'courseid' => $attemptobj->get_courseid(),
+        'context' => context_module::instance($attemptobj->get_cmid()),
+        'other' => array(
+                'quizid' => $attemptobj->get_quizid()
+        )
+);
+$event = \mod_quiz\event\attempt_viewed::create($params);
+$event->add_record_snapshot('quiz_attempts', $attemptobj->get_attempt());
+$event->trigger();
+
+// Initialise the JavaScript.
+$headtags = $attemptobj->get_html_head_contributions($page);
+$PAGE->requires->js_init_call('M.mod_quiz.init_attempt_form', null, false, quiz_get_js_module());
+
+// Arrange for the navigation to be displayed in the first region on the page.
+$navbc = $attemptobj->get_navigation_panel($output, 'quiz_attempt_nav_panel', $page);
+$regions = $PAGE->blocks->get_regions();
+$PAGE->blocks->add_fake_block($navbc, reset($regions));
+
+// Initialise $PAGE some more.
+$title = get_string('attempt', 'quiz', $attemptobj->get_attempt_number());
+$headtags = $attemptobj->get_html_head_contributions($page);
+$PAGE->set_title($attemptobj->get_quiz_name());
+$PAGE->set_heading($attemptobj->get_course()->fullname);
+
+// A few final things.
+if ($attemptobj->is_last_page($page)) {
+    $nextpage = -1;
+} else {
+    $nextpage = $page + 1;
+}
+
+// Display the page.
+
+// From mod_quiz_renderer::attempt_form.
+$form = '';
+
+// Start the form.
+$form .= html_writer::start_tag('form',
+        array('action' => $attemptobj->processattempt_url(), 'method' => 'post',
+        'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+        'id' => 'responseform'));
+$form .= html_writer::start_tag('div');
+
+// Print all the questions on every page.
+$numpages = $attemptobj->get_num_pages();
+for ($i = 0; $i < $numpages; $i++) {
+    if ($page == $i) {
+        $class = '';
+    } else {
+        $class = 'hidden';
+    }
+    $form .= html_writer::start_div($class, array('id' => 'quizaccess_offlinemode-attempt_page_' . $i));
+    foreach ($attemptobj->get_slots($i) as $slot) {
+        $form .= $attemptobj->render_question($slot, false,
+                $attemptobj->attempt_url($slot, $page));
+    }
+    $form .= html_writer::end_div('');
+}
+
+$form .= html_writer::start_tag('div', array('class' => 'submitbtns'));
+$form .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+        'value' => get_string('next')));
+$form .= html_writer::end_tag('div');
+
+// Some hidden fields to trach what is going on.
+$form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'attempt',
+        'value' => $attemptobj->get_attemptid()));
+$form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'thispage',
+        'value' => $page, 'id' => 'followingpage'));
+$form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'nextpage',
+        'value' => $nextpage));
+$form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'timeup',
+        'value' => '0', 'id' => 'timeup'));
+$form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey',
+        'value' => sesskey()));
+$form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'scrollpos',
+        'value' => '', 'id' => 'scrollpos'));
+
+// Add a hidden field with questionids. Do this at the end of the form, so
+// if you navigate before the form has finished loading, it does not wipe all
+// the student's answers.
+$form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'slots',
+        'value' => implode(',', $attemptobj->get_slots())));
+
+// Finish the form.
+$form .= html_writer::end_tag('div');
+$form .= html_writer::end_tag('form');
+
+$form .= $output->connection_warning();
+
+// From mod_quiz_renderer::attempt_page.
+$html = '';
+$html .= $output->header();
+$html .= $output->quiz_notices($messages);
+$html .= $form;
+$html .= $output->footer();
+echo $html;

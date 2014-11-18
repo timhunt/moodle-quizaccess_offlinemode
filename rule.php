@@ -38,6 +38,9 @@ require_once($CFG->dirroot . '/mod/quiz/accessrule/accessrulebase.php');
  */
 class quizaccess_offlinemode extends quiz_access_rule_base {
 
+    /** @var string the URL path to our replacement attempt script. */
+    const ATTEMPT_URL = '/mod/quiz/accessrule/offlinemode/attempt.php';
+
     public static function make(quiz $quizobj, $timenow, $canignoretimelimits) {
 
         if (empty($quizobj->get_quiz()->offlinemode_enabled) ||
@@ -107,7 +110,7 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
 
     public function setup_attempt_page($page) {
         if ($page->pagetype == 'mod-quiz-attempt' || $page->pagetype == 'mod-quiz-summary') {
-            redirect(new moodle_url('/mod/quiz/accessrule/offlinemode/attempt.php', $page->url->params()));
+            redirect(new moodle_url(self::ATTEMPT_URL, $page->url->params()));
         }
     }
 }
