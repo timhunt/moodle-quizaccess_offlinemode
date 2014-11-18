@@ -56,6 +56,14 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
                 'offlinemodeenabled', 'quizaccess_offlinemode');
         $mform->setDefault('offlinemode_enabled', !empty($config->defaultenabled));
         $mform->setAdvanced('offlinemode_enabled', !empty($config->defaultenabled_adv));
+
+        foreach (question_engine::get_behaviour_options(null) as $behaviour => $notused) {
+            $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
+            if (!in_array('specificfeedback', $unusedoptions)) {
+                $mform->disabledIf('offlinemode_enabled', 'preferredbehaviour',
+                        'eq', $behaviour);
+            }
+        }
     }
 
     public static function save_settings($quiz) {

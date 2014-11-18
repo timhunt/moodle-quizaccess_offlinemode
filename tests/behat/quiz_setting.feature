@@ -62,3 +62,10 @@ Feature: Offline mode quiz setting
     And I press "Save and display"
     And I navigate to "Edit settings" node in "Quiz administration"
     Then the field "Experimental offline attempt mode" matches value "No"
+
+  @javascript
+  Scenario: The experimental setting is disabled if you select an interactive behaviour.
+    When I turn editing mode on
+    And I add a "Quiz" to section "0"
+    And I set the field "How questions behave" to "Adaptive mode"
+    Then the "Experimental offline attempt mode" "field" should be disabled
