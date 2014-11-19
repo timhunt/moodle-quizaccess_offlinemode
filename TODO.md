@@ -14,7 +14,7 @@
 11. DONE Unit tests for the basic bit of the rule class.
 12. DONE Intercept attemp.php script (if setting && !DF) (setup attempt page? prevent_...?) and redirect to new script.
 13. DONE Our own attempt.php script, that displays all the quetsions in the quiz, in different divs.
-14. Create skeleton YUI module and init it.
+14. DONE Create skeleton YUI module and init it.
 15. For testing (developer debug?) a button to toggle simulated network disconnection.
 16. JavaScript to switch pages, showing and hiding questions.
 17. ... then update the navigation appropriately.

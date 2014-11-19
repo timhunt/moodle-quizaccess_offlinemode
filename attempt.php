@@ -93,12 +93,17 @@ if ($accessmanager->is_preflight_check_required($attemptobj->get_attemptid())) {
     redirect($attemptobj->start_attempt_url(null, $page));
 }
 
-// Set up auto-save if required.
+// Initialise the JavaScript.
+$PAGE->requires->js_init_call('M.mod_quiz.init_attempt_form', null, false, quiz_get_js_module());
+
 $autosaveperiod = get_config('quiz', 'autosaveperiod');
 if ($autosaveperiod) {
     $PAGE->requires->yui_module('moodle-mod_quiz-autosave',
             'M.mod_quiz.autosave.init', array($autosaveperiod));
 }
+
+$PAGE->requires->yui_module('moodle-quizaccess_offlinemode-navigation',
+        'M.quizaccess_offlinemode.navigation.init');
 
 // Log this page view.
 $params = array(
@@ -114,10 +119,6 @@ $event = \mod_quiz\event\attempt_viewed::create($params);
 $event->add_record_snapshot('quiz_attempts', $attemptobj->get_attempt());
 $event->trigger();
 
-// Initialise the JavaScript.
-$headtags = $attemptobj->get_html_head_contributions($page);
-$PAGE->requires->js_init_call('M.mod_quiz.init_attempt_form', null, false, quiz_get_js_module());
-
 // Arrange for the navigation to be displayed in the first region on the page.
 $navbc = $attemptobj->get_navigation_panel($output, 'quiz_attempt_nav_panel', $page);
 $regions = $PAGE->blocks->get_regions();
@@ -125,7 +126,6 @@ $PAGE->blocks->add_fake_block($navbc, reset($regions));
 
 // Initialise $PAGE some more.
 $title = get_string('attempt', 'quiz', $attemptobj->get_attempt_number());
-$headtags = $attemptobj->get_html_head_contributions($page);
 $PAGE->set_title($attemptobj->get_quiz_name());
 $PAGE->set_heading($attemptobj->get_course()->fullname);
 

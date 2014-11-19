@@ -1,0 +1,10 @@
+{
+    "name": "moodle-quizaccess_offlinemode-navigation",
+    "builds": {
+        "moodle-quizaccess_offlinemode-navigation": {
+            "jsfiles": [
+                "navigation.js"
+            ]
+        }
+    }
+}
