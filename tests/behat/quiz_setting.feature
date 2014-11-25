@@ -1,7 +1,7 @@
 @quizaccess @quizaccess_offlinemode
 Feature: Offline mode quiz setting
   In order to run quizzes with dodgy wifi
-  As an teacher
+  As a teacher
   I need to turn the offline quiz mode on and off.
 
   Background:

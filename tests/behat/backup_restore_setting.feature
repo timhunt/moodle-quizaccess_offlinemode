@@ -1,7 +1,7 @@
 @quizaccess @quizaccess_offlinemode
 Feature: Offline mode backup and restore of quiz settings
   In order to reuse quizzes using offline mode
-  As an teacher
+  As a teacher
   I need be able to backup courses with and whithout that setting.
 
   Background:
