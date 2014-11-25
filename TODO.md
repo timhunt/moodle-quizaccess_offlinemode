@@ -16,8 +16,8 @@
 13. DONE Our own attempt.php script, that displays all the quetsions in the quiz, in different divs.
 14. DONE Create skeleton YUI module and init it.
 15. For testing (developer debug?) a button to toggle simulated network disconnection.
-16. JavaScript to switch pages, showing and hiding questions.
-17. ... then update the navigation appropriately.
+16. DONE JavaScript to switch pages, showing and hiding questions.
+17. DONE ... then update the navigation appropriately.
 18. Behat tests for the navigation.
 19. ??? Adapt existing auto-save JS.
 20. Ajax should also send page number changes to update quiz_attempts.currentpage.

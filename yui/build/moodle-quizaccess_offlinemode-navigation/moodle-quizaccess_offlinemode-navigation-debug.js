@@ -41,7 +41,8 @@ M.quizaccess_offlinemode.navigation = {
     SELECTORS: {
         QUIZ_FORM:  '#responseform',
         NAV_BLOCK:  '#mod_quiz_navblock',
-        NAV_BUTTON: '.qnbutton'
+        NAV_BUTTON: '.qnbutton',
+        PAGE_DIV_ROOT: '#quizaccess_offlinemode-attempt_page_'
     },
 
     /**
@@ -54,20 +55,29 @@ M.quizaccess_offlinemode.navigation = {
     form: null,
 
     /**
+     * The page we are currently on.
+     *
+     * @property currentpage
+     * @type Number
+     */
+    currentpage: null,
+
+    /**
      * Initialise the navigation code.
      *
      * @method init
      * @param {Number} delay the delay, in seconds, between a change being detected, and
      * a save happening.
      */
-    init: function() {
+    init: function(currentpage) {
+        this.navigate_to_page(+currentpage);
         this.form = Y.one(this.SELECTORS.QUIZ_FORM);
         if (!this.form) {
             Y.log('Response form not found.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
             return;
         }
 
-        Y.delegate('click', this.nav_button_click, this.SELECTORS.NAV_BLOCK, this.SELECTORS.NAV_BUTTON);
+        Y.delegate('click', this.nav_button_click, this.SELECTORS.NAV_BLOCK, this.SELECTORS.NAV_BUTTON, this);
 
         Y.log('Initialised offline quiz mode.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
     },
@@ -79,8 +89,53 @@ M.quizaccess_offlinemode.navigation = {
      * @param {EventFacade} e
      */
     nav_button_click: function(e) {
-        // TODO. For now just prevent the quiz's own event handler running.
+        // Prevent the quiz's own event handler running.
         e.halt();
+
+        this.navigate_to_page(this.page_number_from_link(e.currentTarget));
+    },
+
+    /**
+     * Get the page number from a navigation link.
+     *
+     * @method page_number_from_link
+     * @param {Node} The <a> element of a navigation link.
+     * @return Number the page number.
+     */
+    page_number_from_link: function(anchor) {
+        var pageidmatch = anchor.get('href').match(/page=(\d+)/);
+        if (pageidmatch) {
+            return +pageidmatch[1];
+        } else {
+            Y.log('Could not find page number from navigaion link.', 'warn',
+                    'moodle-quizaccess_offlinemode-navigation');
+            return 0;
+        }
+    },
+
+    /**
+     * Change the display to show another page.
+     *
+     * @method nav_button_click
+     * @param {Number} pageno the page to navigate to.
+     */
+    navigate_to_page: function(pageno) {
+        if (pageno === this.currentpage) {
+            return;
+        }
+
+        if (this.currentpage !== null) {
+            Y.one(this.SELECTORS.PAGE_DIV_ROOT + this.currentpage).addClass('hidden');
+        }
+        Y.one(this.SELECTORS.PAGE_DIV_ROOT + pageno).removeClass('hidden');
+        Y.one(this.SELECTORS.NAV_BLOCK).all(this.SELECTORS.NAV_BUTTON).each(function (node) {
+                    if (this.page_number_from_link(node) === pageno) {
+                        node.addClass('thispage');
+                    } else {
+                        node.removeClass('thispage');
+                    }
+                }, this);
+        this.currentpage = pageno;
     }
 };
 

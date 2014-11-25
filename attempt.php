@@ -103,7 +103,7 @@ if ($autosaveperiod) {
 }
 
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-navigation',
-        'M.quizaccess_offlinemode.navigation.init');
+        'M.quizaccess_offlinemode.navigation.init', array($page));
 
 // Log this page view.
 $params = array(
@@ -120,7 +120,7 @@ $event->add_record_snapshot('quiz_attempts', $attemptobj->get_attempt());
 $event->trigger();
 
 // Arrange for the navigation to be displayed in the first region on the page.
-$navbc = $attemptobj->get_navigation_panel($output, 'quiz_attempt_nav_panel', $page);
+$navbc = $attemptobj->get_navigation_panel($output, 'quiz_attempt_nav_panel', -1);
 $regions = $PAGE->blocks->get_regions();
 $PAGE->blocks->add_fake_block($navbc, reset($regions));
 
@@ -151,12 +151,7 @@ $form .= html_writer::start_tag('div');
 // Print all the questions on every page.
 $numpages = $attemptobj->get_num_pages();
 for ($i = 0; $i < $numpages; $i++) {
-    if ($page == $i) {
-        $class = '';
-    } else {
-        $class = 'hidden';
-    }
-    $form .= html_writer::start_div($class, array('id' => 'quizaccess_offlinemode-attempt_page_' . $i));
+    $form .= html_writer::start_div('hidden', array('id' => 'quizaccess_offlinemode-attempt_page_' . $i));
     foreach ($attemptobj->get_slots($i) as $slot) {
         $form .= $attemptobj->render_question($slot, false,
                 $attemptobj->attempt_url($slot, $page));
