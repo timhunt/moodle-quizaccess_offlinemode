@@ -15,20 +15,22 @@
 12. DONE Intercept attemp.php script (if setting && !DF) (setup attempt page? prevent_...?) and redirect to new script.
 13. DONE Our own attempt.php script, that displays all the quetsions in the quiz, in different divs.
 14. DONE Create skeleton YUI module and init it.
-15. For testing (developer debug?) a button to toggle simulated network disconnection.
-16. DONE JavaScript to switch pages, showing and hiding questions.
-17. DONE ... then update the navigation appropriately.
-18. Behat tests for the navigation.
-19. ??? Adapt existing auto-save JS.
-20. Ajax should also send page number changes to update quiz_attempts.currentpage.
-20. ??? Client-side auto-save JS.
-20. ??? Ajax calls to save one question and get new HTML.
-21. ??? New style warning if ajax not working.
-22. Behat tests for the autosaving and warning.
-23. ??? Think about custom timing requirements.
-24. ??? What happens at the end? Summary page?
-25. Behat tests for final submit.
-26. When there are unsaved answers, a local download link.
-27. Behat tests for that download (if possible).
-28. Encryption of the download.
-29. Sequential navigation mode.
+15. DONE JavaScript to switch pages, showing and hiding questions.
+16. DONE ... then update the navigation appropriately.
+17. DONE Behat tests for the navigation.
+18. (MDL-48373) Better behat steps for creating questions and putting them in a quiz.
+19. (MDL-48374) Propose moving behat steps for reload detection into core.
+20. For testing (developer debug?) a button to toggle simulated network disconnection.
+21. ??? Adapt existing auto-save JS.
+22. Ajax should also send page number changes to update quiz_attempts.currentpage.
+23. ??? Client-side auto-save JS.
+24. ??? Ajax calls to save one question and get new HTML.
+25. ??? New style warning if ajax not working.
+26. Behat tests for the autosaving and warning.
+27. ??? Think about custom timing requirements.
+28. ??? What happens at the end? Summary page?
+29. Behat tests for final submit.
+30. When there are unsaved answers, a local download link.
+31. Behat tests for that download (if possible).
+32. Encryption of the download.
+33. Sequential navigation mode.
