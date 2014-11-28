@@ -51,7 +51,7 @@ Feature: Offline mode quiz setting
   @javascript
   Scenario: Start a quiz attempt and veryify that switching to page 2 works.
     When I press "Attempt quiz now"
-    And I mark the page to detect reloads
+    And I start watching to see if a new page loads
     And I click on "Question 2" "link" in the "Quiz navigation" "block"
     Then I should not see "Answer me A"
     And I should see "Answer me B"
@@ -61,4 +61,4 @@ Feature: Offline mode quiz setting
     And "#quiznavbutton2.thispage" "css_element" should exist
     And "#quiznavbutton3" "css_element" should exist
     And "#quiznavbutton3.thispage" "css_element" should not exist
-    And the page should not have reloaded since it was marked
+    And a new page should not have loaded since I started watching
