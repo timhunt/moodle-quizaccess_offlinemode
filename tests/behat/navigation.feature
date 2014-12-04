@@ -14,24 +14,21 @@ Feature: Offline mode quiz setting
     And the following "course enrolments" exist:
       | user    | course | role    |
       | student | C1     | student |
+    And the following "question categories" exist:
+      | contextlevel | reference | name           |
+      | Course       | C1        | Test questions |
+    And the following "questions" exist:
+      | questioncategory | qtype     | name       | questiontext    |
+      | Test questions   | truefalse | Question A | Answer me A |
+      | Test questions   | truefalse | Question B | Answer me B |
+      | Test questions   | truefalse | Question C | Answer me C |
     And the following "activities" exist:
       | activity   | name         | course | idnumber | questionsperpage | offlinemode_enabled |
       | quiz       | Quiz offline | C1     | quiz1    | 1                | 1                   |
-    And I log in as "admin"
-    And I follow "Course 1"
-    And I add a "True/False" question to the "Quiz offline" quiz with:
-      | Question name | Question A  |
-      | Question text | Answer me A |
-    And I add a "True/False" question to the "Quiz offline" quiz with:
-      | Question name | Question B  |
-      | Question text | Answer me B |
-    And I add a "True/False" question to the "Quiz offline" quiz with:
-      | Question name | Question C  |
-      | Question text | Answer me C |
-    And I press "Repaginate"
-    And I set the field "menuquestionsperpage" to "1"
-    And I press "Go"
-    And I log out
+    And quiz "Quiz offline" contains the following questions:
+      | Question A | 1 |
+      | Question B | 2 |
+      | Question C | 3 |
     And I log in as "student"
     And I follow "Course 1"
     And I follow "Quiz offline"
