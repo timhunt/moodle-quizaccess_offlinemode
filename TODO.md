@@ -19,20 +19,21 @@
 16. DONE ... then update the navigation appropriately.
 17. DONE Behat tests for the navigation.
 18. DONE (MDL-48373) Better Behat steps for creating questions.
-19. PR (MDL-48373) Better Behat steps for adding questions to a quiz.
+19. DONE (MDL-48410) Better Behat steps for adding questions to a quiz.
 20. INTEGRATED (MDL-48374) Move Behat steps for reload detection into core.
-21. Draw state/dataflow diagram, to help clarify what data needs to go where when.
-22. For testing (developer debug?) a button to toggle simulated network disconnection.
-23. ??? Adapt existing auto-save JS.
-24. Ajax should also send page number changes to update quiz_attempts.currentpage.
-25. ??? Client-side auto-save JS.
-26. ??? Ajax calls to save one question and get new HTML.
-27. ??? New style warning if ajax not working.
-28. Behat tests for the autosaving and warning.
-29. ??? Think about custom timing requirements.
-30. ??? What happens at the end? Summary page?
-31. Behat tests for final submit.
-32. When there are unsaved answers, a local download link.
-33. Behat tests for that download (if possible).
-34. Encryption of the download.
-35. Sequential navigation mode.
+21. DONE Draw state/dataflow diagram, to help clarify what data needs to go where when.
+22. Copy quiz autosave locally, so we can edit it.
+23. navigation.js should update the pagenumber in the URL.
+24. navigation.js should send page number changes to Moodle to update quiz_attempts.currentpage.
+25. When there are unsaved answers, provide a local download link.
+26. Behat tests for that download (if possible).
+27. Encryption of the download.
+28. For testing (developer debug?) a button to toggle simulated network disconnection.
+29. ??? Ajax calls to save one question and get new HTML.
+30. ??? New style warning if ajax not working.
+31. Behat tests for the autosaving and warning.
+32. ??? Client-side auto-save JS.
+33. ??? Ajax calls should try to synch the clock.
+34. ??? What happens at the end? Summary page?
+35. Behat tests for final submit.
+36. Sequential navigation mode.
