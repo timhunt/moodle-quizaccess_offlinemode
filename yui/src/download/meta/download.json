@@ -1,0 +1,11 @@
+{
+    "moodle-quizaccess_offlinemode-download": {
+        "requires": [
+            "base",
+            "node",
+            "event",
+            "node-event-delegate",
+            "io-form"
+        ]
+    }
+}

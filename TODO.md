@@ -25,7 +25,7 @@
 22. DONE Copy quiz autosave locally, so we can edit it.
 23. DONE navigation.js should update the pagenumber in the URL.
 24. navigation.js should send page number changes to Moodle to update quiz_attempts.currentpage.
-25. When there are unsaved answers, provide a local download link.
+25. DONE When there are unsaved answers, provide a local download link.
 26. Behat tests for that download (if possible).
 27. Encryption of the download.
 28. For testing (developer debug?) a button to toggle simulated network disconnection.
