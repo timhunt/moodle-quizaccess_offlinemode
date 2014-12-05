@@ -15,18 +15,35 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the quizaccess_offlinemode plugin.
+ * Form for uploading responses saved from the emergency download link.
  *
  * @package   quizaccess_offlinemode
  * @copyright 2014 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace quizaccess_offlinemode\form;
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014120500;
-$plugin->requires  = 2014041100;
-$plugin->cron      = 0;
-$plugin->component = 'quizaccess_offlinemode';
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = 'work-in-progress for Moodle 2.7+';
+use \moodleform;
+
+
+/**
+ * Form for uploading responses saved from the emergency download link.
+ *
+ * @copyright  2014 The Open University
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class upload_responses extends moodleform {
+
+    protected function definition() {
+        $mform = $this->_form;
+
+        $mform->addElement('filemanager', 'responses', get_string('responsefiles', 'quizaccess_offlinemode'),
+                null, array('subdirs' => 0));
+        $mform->addRule('responses', get_string('required'), 'required', null, 'client');
+        $mform->addHelpButton('responses', 'responsefiles', 'quizaccess_offlinemode');
+
+        $this->add_action_buttons(true, get_string('uploadresponses', 'quizaccess_offlinemode'));
+    }
+}

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the quizaccess_offlinemode plugin.
+ * Capability definitions for quizaccess_offlinemode.
  *
  * @package   quizaccess_offlinemode
  * @copyright 2014 The Open University
@@ -24,9 +24,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014120500;
-$plugin->requires  = 2014041100;
-$plugin->cron      = 0;
-$plugin->component = 'quizaccess_offlinemode';
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = 'work-in-progress for Moodle 2.7+';
+$capabilities = array(
+
+    // Ability upload responses that were saved using the emergency download link.
+    'quizaccess/offlinemode:uploadresponses' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_MODULE,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        )
+    ),
+);
