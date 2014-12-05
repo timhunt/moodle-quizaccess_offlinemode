@@ -108,6 +108,17 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
             array());
     }
 
+    public function description() {
+        if (!$this->quizobj->has_capability('quizaccess/offlinemode:uploadresponses')) {
+            return '';
+        }
+
+        return get_string('description', 'quizaccess_offlinemode',
+                html_writer::link(new moodle_url('/mod/quiz/accessrule/offlinemode/upload.php',
+                        array('id' => $this->quizobj->get_cmid())),
+                        get_string('descriptionlink', 'quizaccess_offlinemode')));
+    }
+
     public function setup_attempt_page($page) {
         if ($page->pagetype == 'mod-quiz-attempt' || $page->pagetype == 'mod-quiz-summary') {
             redirect(new moodle_url(self::ATTEMPT_URL, $page->url->params()));

@@ -33,7 +33,7 @@
 30. DONE Script to upload the download - show an upload form
 31. Handle the form submission and show the raw file contents.
 32. Get that script to process the responses.
-33. Add that script to the Quiz settings navigation.
+33. DONE Add a link to the upload script to the quiz infor page.
 34. For testing (developer debug?) a button to toggle simulated network disconnection.
 35. ??? Ajax calls to save one question and get new HTML.
 36. ??? New style warning if ajax not working.
