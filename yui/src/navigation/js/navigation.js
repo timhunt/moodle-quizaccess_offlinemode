@@ -105,8 +105,6 @@ M.quizaccess_offlinemode.navigation = {
         if (pageidmatch) {
             return +pageidmatch[1];
         } else {
-            Y.log('Could not find page number from navigaion link.', 'warn',
-                    'moodle-quizaccess_offlinemode-navigation');
             return 0;
         }
     },
