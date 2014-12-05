@@ -1,0 +1,14 @@
+{
+    "name": "moodle-quizaccess_offlinemode-lzstring",
+    "builds": {
+        "moodle-quizaccess_offlinemode-lzstring": {
+            "jsfiles": [
+                "lz-string.js",
+                "package.js"
+            ]
+        }
+    },
+    "shifter": {
+        "lint": false
+    }
+}

@@ -5,7 +5,8 @@
             "node",
             "event",
             "node-event-delegate",
-            "io-form"
+            "io-form",
+            "moodle-quizaccess_offlinemode-lzstring"
         ]
     }
 }

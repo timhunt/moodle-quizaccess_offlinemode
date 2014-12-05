@@ -103,20 +103,7 @@ M.quizaccess_offlinemode.download = {
             tinyMCE.triggerSave();
         }
 
-        this.link.set('href', 'data:text/plain;charset=US-ASCII;base64,' +
-                this.base64_encode_unicode(Y.IO.stringify(this.form)));
-    },
-
-    /**
-     * Base-64 encode a string, correctly handling unicode characters.
-     *
-     * @method base64_encode_unicode
-     * @param {String} the string to encode.
-     */
-    base64_encode_unicode: function (str) {
-        // This code thanks to https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
-        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
-            return String.fromCharCode('0x' + p1);
-        }));
+        this.link.set('href', 'data:application/octet-stream,' +
+                Y.LZString.compress(Y.IO.stringify(this.form)));
     }
 };

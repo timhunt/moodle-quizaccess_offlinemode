@@ -6,3 +6,8 @@ is unreliable.
 This is currently work-in progress.
 See [TODO.md](https://github.com/timhunt/moodle-quizaccess_offlinemode/blob/master/TODO.md)
 and [MDL-47688](https://tracker.moodle.org/browse/MDL-47688) for details.
+
+
+This plugin uses the following third-party libraries:
+
+* http://pieroxy.net/blog/pages/lz-string/index.html
