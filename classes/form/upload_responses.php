@@ -39,10 +39,10 @@ class upload_responses extends moodleform {
     protected function definition() {
         $mform = $this->_form;
 
-        $mform->addElement('filemanager', 'responses', get_string('responsefiles', 'quizaccess_offlinemode'),
-                null, array('subdirs' => 0));
-        $mform->addRule('responses', get_string('required'), 'required', null, 'client');
-        $mform->addHelpButton('responses', 'responsefiles', 'quizaccess_offlinemode');
+        $mform->addElement('filemanager', 'responsefiles', get_string('responsefiles', 'quizaccess_offlinemode'),
+                null, array('subdirs' => 0, 'return_types'=> FILE_INTERNAL));
+        $mform->addRule('responsefiles', get_string('required'), 'required', null, 'client');
+        $mform->addHelpButton('responsefiles', 'responsefiles', 'quizaccess_offlinemode');
 
         $this->add_action_buttons(true, get_string('uploadresponses', 'quizaccess_offlinemode'));
     }

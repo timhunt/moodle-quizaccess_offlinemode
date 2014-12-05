@@ -29,17 +29,18 @@
 26. DONE Compress the download.
 27. Encryption of the download.
 28. Admin settings for the encryption public/private key.
-29. Behat tests for that download (if possible).
+29. Behat tests for that download.
 30. DONE Script to upload the download - show an upload form
-31. Handle the form submission and show the raw file contents.
+31. DONE Handle the form submission and show the raw file contents.
 32. Get that script to process the responses.
 33. DONE Add a link to the upload script to the quiz infor page.
-34. For testing (developer debug?) a button to toggle simulated network disconnection.
-35. ??? Ajax calls to save one question and get new HTML.
-36. ??? New style warning if ajax not working.
-37. Behat tests for the autosaving and warning.
-38. ??? Client-side auto-save JS.
-39. ??? Ajax calls should try to synch the clock.
-40. ??? What happens at the end? Summary page?
-41. Behat tests for final submit.
-42. Sequential navigation mode.
+34. Behat tests for the upload.
+35. For testing (developer debug?) a button to toggle simulated network disconnection.
+36. ??? Ajax calls to save one question and get new HTML.
+37. ??? New style warning if ajax not working.
+38. Behat tests for the autosaving and warning.
+39. ??? Client-side auto-save JS.
+40. ??? Ajax calls should try to synch the clock.
+41. ??? What happens at the end? Summary page?
+42. Behat tests for final submit.
+43. Sequential navigation mode.

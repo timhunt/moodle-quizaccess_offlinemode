@@ -23,11 +23,13 @@
  */
 
 require_once(__DIR__ . '/../../../../config.php');
-require_once($CFG->libdir . '/formslib.php');
+require_once($CFG->dirroot . '/repository/lib.php');
+require_once($CFG->dirroot . '/mod/quiz/accessrule/offlinemode/lib/LZString.php');
 
 $cmid = optional_param('id', 0, PARAM_INT);
 list($course, $cm) = get_course_and_cm_from_cmid($cmid, 'quiz');
 $quiz = $DB->get_record('quiz', array('id' => $cm->instance), '*', MUST_EXIST);
+$quizurl = new moodle_url('/mod/quiz/view.php', array('id' => $cm->id));
 $context = context_module::instance($cm->id);
 
 $PAGE->set_url('/mod/quiz/accessrule/offlinemode/upload.php', array('id' => $cmid));
@@ -36,23 +38,64 @@ require_capability('quizaccess/offlinemode:uploadresponses', $context);
 
 $form = new \quizaccess_offlinemode\form\upload_responses($PAGE->url);
 if ($form->is_cancelled()) {
-    redirect(new moodle_url('/mod/quiz/view.php', array('id' => $cm->id)));
+    redirect($quizurl);
+
 } else if ($fromform = $form->get_data()) {
-    // TODO
+
+    // Process submission.
+    $title = get_string('uploadingresponsesfor', 'quizaccess_offlinemode',
+            format_string($quiz->name, true, array('context' => $context)));
+    $PAGE->navbar->add($title);
+    $PAGE->set_pagelayout('admin');
+    $PAGE->set_title($title);
+    $PAGE->set_heading($course->fullname);
+
+    $files = get_file_storage()->get_area_files(context_user::instance($USER->id)->id,
+            'user', 'draft', $fromform->responsefiles, 'id');
+    $filesprocessed = 0;
+
     echo $OUTPUT->header();
-    echo 'Form submitted. TODO.';
+    echo $OUTPUT->heading($title);
+
+    foreach ($files as $file) {
+        if ($file->get_filepath() !== '/') {
+            continue; // Should not happen due to form validation.
+        }
+        if ($file->is_external_file()) {
+            continue; // Should not happen due to form validation.
+        }
+
+        if ($file->is_directory()) {
+            continue; // Not interesting.
+        }
+
+        echo $OUTPUT->heading(get_string('processingfile', 'quizaccess_offlinemode', s($file->get_filename())), 3);
+
+        $rawdata = $file->get_content();
+        $rawdata = LZString::decompress($rawdata);
+
+        // TODO
+        echo html_writer::tag('textarea', s($rawdata), array('readonly' => 'readonly'));
+    }
+
+    echo $OUTPUT->confirm(get_string('processingcomplete', 'quizaccess_offlinemode', 3),
+            new single_button($PAGE->url, get_string('uploadmoreresponses', 'quizaccess_offlinemode'), 'get'),
+            new single_button($quizurl, get_string('backtothequiz', 'quizaccess_offlinemode'), 'get'));
     echo $OUTPUT->footer();
+
+} else {
+
+    // Show the form.
+    $title = get_string('uploadresponsesfor', 'quizaccess_offlinemode',
+            format_string($quiz->name, true, array('context' => $context)));
+    $PAGE->navbar->add($title);
+    $PAGE->set_pagelayout('admin');
+    $PAGE->set_title($title);
+    $PAGE->set_heading($course->fullname);
+
+    echo $OUTPUT->header();
+    echo $OUTPUT->heading($title);
+    $form->display();
+    echo $OUTPUT->footer();
+
 }
-
-// Initialise $PAGE some more.
-$title = get_string('uploadresponsesfor', 'quizaccess_offlinemode',
-        format_string($quiz->name, true, array('context' => $context)));
-$PAGE->navbar->add($title);
-$PAGE->set_pagelayout('admin');
-$PAGE->set_title($title);
-$PAGE->set_heading($course->fullname);
-
-echo $OUTPUT->header();
-echo $OUTPUT->heading($title);
-$form->display();
-echo $OUTPUT->footer();

@@ -105,14 +105,13 @@ if ($autosaveperiod) {
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-navigation',
         'M.quizaccess_offlinemode.navigation.init', array($page));
 
-
 if (!empty($USER->idnumber)) {
     $user = '-i' . $USER->idnumber;
 } else {
     $user = '-u' . $USER->id;
 }
 $emergencysavefilename = clean_filename(format_string($attemptobj->get_quiz_name()) .
-        $user . '-a' . $attemptid . '.txt');
+        $user . '-a' . $attemptid . '.attemptdata');
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-download',
         'M.quizaccess_offlinemode.download.init', array($emergencysavefilename));
 
