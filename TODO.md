@@ -22,7 +22,7 @@
 19. DONE (MDL-48410) Better Behat steps for adding questions to a quiz.
 20. INTEGRATED (MDL-48374) Move Behat steps for reload detection into core.
 21. DONE Draw state/dataflow diagram, to help clarify what data needs to go where when.
-22. Copy quiz autosave locally, so we can edit it.
+22. DONE Copy quiz autosave locally, so we can edit it.
 23. navigation.js should update the pagenumber in the URL.
 24. navigation.js should send page number changes to Moodle to update quiz_attempts.currentpage.
 25. When there are unsaved answers, provide a local download link.

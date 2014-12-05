@@ -98,8 +98,8 @@ $PAGE->requires->js_init_call('M.mod_quiz.init_attempt_form', null, false, quiz_
 
 $autosaveperiod = get_config('quiz', 'autosaveperiod');
 if ($autosaveperiod) {
-    $PAGE->requires->yui_module('moodle-mod_quiz-autosave',
-            'M.mod_quiz.autosave.init', array($autosaveperiod));
+    $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-autosave',
+            'M.quizaccess_offlinemode.autosave.init', array($autosaveperiod));
 }
 
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-navigation',
