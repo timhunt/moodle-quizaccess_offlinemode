@@ -135,6 +135,16 @@ M.quizaccess_offlinemode.navigation = {
                         node.removeClass('thispage');
                     }
                 }, this);
+        if (window.history.replaceState) {
+            var queryString = window.location.search;
+            if (queryString.match(/\bpage=\d+/)) {
+                queryString = queryString.replace(/\bpage=\d+/, 'page=' + pageno);
+            } else {
+                queryString += '&page=' + pageno;
+            }
+            window.history.replaceState(null, '', M.cfg.wwwroot + '/mod/quiz/accessrule/offlinemode/attempt.php' + queryString);
+        }
+
         this.currentpage = pageno;
     }
 };
