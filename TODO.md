@@ -32,7 +32,7 @@
 29. Behat tests for that download.
 30. DONE Script to upload the download - show an upload form
 31. DONE Handle the form submission and show the raw file contents.
-32. Get that script to process the responses.
+32. DONE Get that script to process the responses.
 33. DONE Add a link to the upload script to the quiz infor page.
 34. Behat tests for the upload.
 35. For testing (developer debug?) a button to toggle simulated network disconnection.

@@ -111,7 +111,7 @@ if (!empty($USER->idnumber)) {
     $user = '-u' . $USER->id;
 }
 $emergencysavefilename = clean_filename(format_string($attemptobj->get_quiz_name()) .
-        $user . '-a' . $attemptid . '.attemptdata');
+        $user . '-a' . $attemptid . '-d197001010000.attemptdata');
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-download',
         'M.quizaccess_offlinemode.download.init', array($emergencysavefilename));
 
@@ -161,7 +161,7 @@ $form .= html_writer::start_tag('div');
 // Print all the questions on every page.
 $numpages = $attemptobj->get_num_pages();
 for ($i = 0; $i < $numpages; $i++) {
-    $form .= html_writer::start_div('hidden', array('id' => 'quizaccess_offlinemode-attempt_page_' . $i));
+    $form .= html_writer::start_div('', array('id' => 'quizaccess_offlinemode-attempt_page-' . $i));
     foreach ($attemptobj->get_slots($i) as $slot) {
         $form .= $attemptobj->render_question($slot, false,
                 $attemptobj->attempt_url($slot, $page));

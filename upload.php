@@ -25,6 +25,7 @@
 require_once(__DIR__ . '/../../../../config.php');
 require_once($CFG->dirroot . '/repository/lib.php');
 require_once($CFG->dirroot . '/mod/quiz/accessrule/offlinemode/lib/LZString.php');
+require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 
 $cmid = optional_param('id', 0, PARAM_INT);
 list($course, $cm) = get_course_and_cm_from_cmid($cmid, 'quiz');
@@ -72,10 +73,42 @@ if ($form->is_cancelled()) {
         echo $OUTPUT->heading(get_string('processingfile', 'quizaccess_offlinemode', s($file->get_filename())), 3);
 
         $rawdata = $file->get_content();
-        $rawdata = LZString::decompress($rawdata);
+        $rawdata = LZString::decompressFromBase64($rawdata);
 
-        // TODO
         echo html_writer::tag('textarea', s($rawdata), array('readonly' => 'readonly'));
+
+        $originalpost = null;
+        try {
+            $postdata = array();
+            parse_str($rawdata, $postdata);
+            if (!isset($postdata['attempt'])) {
+                throw new coding_exception('The uploaded data did not include an attempt id.');
+            }
+
+            echo html_writer::tag('textarea', s(print_r($postdata, true)), array('readonly' => 'readonly'));
+
+            $attemptobj = quiz_attempt::create($postdata['attempt']);
+            if ($attemptobj->get_cmid() != $cmid) {
+                throw new coding_exception('The uploaded data does not belong to this quiz.');
+            }
+
+            $originalpost = $_POST;
+            $_POST = $postdata;
+            $attemptobj->process_submitted_actions(time());
+            $_POST = $originalpost;
+            $originalpost = null;
+            echo $OUTPUT->notification('Data processed successfully', 'notifysuccess');
+
+        } catch (Exception $e) {
+            if ($originalpost !== null) {
+                $_POST = $originalpost;
+            }
+            echo $OUTPUT->box_start();
+            echo $OUTPUT->heading('The upload failed', 4);
+            echo $OUTPUT->notification($e->getMessage());
+            echo format_backtrace($e->getTrace());
+            echo $OUTPUT->box_end();
+        }
     }
 
     echo $OUTPUT->confirm(get_string('processingcomplete', 'quizaccess_offlinemode', 3),

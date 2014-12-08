@@ -105,8 +105,26 @@ M.quizaccess_offlinemode.download = {
             tinyMCE.triggerSave();
         }
 
+        this.link.set('download', this.link.get('download').replace(
+                /-d\d+\.attemptdata/, '-d' + this.get_current_datestamp() + '.attemptdata'));
+
         this.link.set('href', 'data:application/octet-stream,' +
-                Y.LZString.compress(Y.IO.stringify(this.form)));
+                Y.LZString.compressToBase64(Y.IO.stringify(this.form)));
+    },
+
+    /**
+     * Get the current date/time in a format suitable for using in filenames.
+     *
+     * @method get_current_datestamp
+     * @return String like '197001010000'.
+     */
+    get_current_datestamp: function() {
+        var now = new Date();
+        function pad(number) {
+            return number < 10 ? '0' + number : number;
+        }
+        return '' + now.getUTCFullYear() + pad(now.getUTCMonth() + 1) +
+                pad(now.getUTCDate()) + pad(now.getUTCHours()) + pad(now.getUTCMinutes());
     }
 };
 

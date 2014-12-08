@@ -42,7 +42,8 @@ M.quizaccess_offlinemode.navigation = {
         QUIZ_FORM:  '#responseform',
         NAV_BLOCK:  '#mod_quiz_navblock',
         NAV_BUTTON: '.qnbutton',
-        PAGE_DIV_ROOT: '#quizaccess_offlinemode-attempt_page_'
+        PAGE_DIV_ROOT: '#quizaccess_offlinemode-attempt_page-',
+        ALL_PAGE_DIVS: 'div[id|=quizaccess_offlinemode-attempt_page]'
     },
 
     /**
@@ -70,11 +71,13 @@ M.quizaccess_offlinemode.navigation = {
      * a save happening.
      */
     init: function(currentpage) {
-        this.navigate_to_page(+currentpage);
         this.form = Y.one(this.SELECTORS.QUIZ_FORM);
         if (!this.form) {
             return;
         }
+
+        Y.all(this.SELECTORS.ALL_PAGE_DIVS).addClass('hidden');
+        this.navigate_to_page(+currentpage);
 
         Y.delegate('click', this.nav_button_click, this.SELECTORS.NAV_BLOCK, this.SELECTORS.NAV_BUTTON, this);
 
