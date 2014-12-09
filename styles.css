@@ -1,3 +1,8 @@
 #page-mod-quiz-accessrule-offlinemode-upload #region-main textarea {
     width: 100%;
 }
+#page-admin-setting-modsettingsquizcatofflinemode #region-main textarea {
+    width: 100%;
+    font-family: monospace;
+    font-size: 80%;
+}

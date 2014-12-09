@@ -29,4 +29,12 @@ if ($ADMIN->fulltree) {
             get_string('offlinemodeenabled', 'quizaccess_offlinemode'),
             get_string('offlinemodeenabled_desc', 'quizaccess_offlinemode'),
             array('value' => 0, 'adv' => false)));
+
+    $settings->add(new admin_setting_configtextarea('quizaccess_offlinemode/privatekey',
+            get_string('privatekey', 'quizaccess_offlinemode'),
+            get_string('privatekey_desc', 'quizaccess_offlinemode'), '', PARAM_RAW, 60, 14));
+
+    $settings->add(new admin_setting_configtextarea('quizaccess_offlinemode/publickey',
+            get_string('publickey', 'quizaccess_offlinemode'),
+            get_string('publickey_desc', 'quizaccess_offlinemode'), '', PARAM_RAW, 60, 5));
 }
