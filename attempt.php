@@ -113,7 +113,8 @@ if (!empty($USER->idnumber)) {
 $emergencysavefilename = clean_filename(format_string($attemptobj->get_quiz_name()) .
         $user . '-a' . $attemptid . '-d197001010000.attemptdata');
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-download',
-        'M.quizaccess_offlinemode.download.init', array($emergencysavefilename));
+        'M.quizaccess_offlinemode.download.init',
+        array($emergencysavefilename, get_config('quizaccess_offlinemode', 'publickey')));
 
 // Log this page view.
 $params = array(

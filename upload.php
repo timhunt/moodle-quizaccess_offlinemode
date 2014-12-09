@@ -55,6 +55,12 @@ if ($form->is_cancelled()) {
             'user', 'draft', $fromform->responsefiles, 'id');
     $filesprocessed = 0;
 
+    $key = null;
+    $privatekey = get_config('quizaccess_offlinemode', 'privatekey');
+    if ($privatekey) {
+        $key = openssl_get_privatekey($privatekey);
+    }
+
     echo $OUTPUT->header();
     echo $OUTPUT->heading($title);
 
@@ -79,6 +85,14 @@ if ($form->is_cancelled()) {
 
         $originalpost = null;
         try {
+            if ($key) {
+                $decrypted = '';
+                if (!openssl_private_decrypt($rawdata, $decrypted, $key)) {
+                    throw new coding_exception('Decryption failed');
+                }
+                $rawdata = LZString::decompress($decrypted);
+            }
+
             $postdata = array();
             parse_str($rawdata, $postdata);
             if (!isset($postdata['attempt'])) {
@@ -110,6 +124,7 @@ if ($form->is_cancelled()) {
             echo $OUTPUT->box_end();
         }
     }
+    openssl_pkey_free($key);
 
     echo $OUTPUT->confirm(get_string('processingcomplete', 'quizaccess_offlinemode', 3),
             new single_button($PAGE->url, get_string('uploadmoreresponses', 'quizaccess_offlinemode'), 'get'),

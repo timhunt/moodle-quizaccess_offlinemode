@@ -53,6 +53,15 @@ M.quizaccess_offlinemode.download = {
     filename: null,
 
     /**
+     * The pulic key to be used to encrypt the responses before download.
+     *
+     * @property publicKey
+     * @type String
+     * @default null
+     */
+    publicKey: null,
+
+    /**
      * A Node reference to the form we are monitoring.
      *
      * @property form
@@ -75,8 +84,9 @@ M.quizaccess_offlinemode.download = {
      *
      * @method init
      */
-    init: function(filename) {
+    init: function(filename, publicKey) {
         this.filename = filename;
+        this.publicKey = publicKey;
 
         this.form = Y.one(this.SELECTORS.QUIZ_FORM);
         if (!this.form) {
@@ -92,22 +102,30 @@ M.quizaccess_offlinemode.download = {
 
         this.link = navblock.appendChild('<a download="' + filename +
                 '" href="#">Emergency response export</a>');
-        this.link.on('click', this.download_clicked, this);
+        this.link.on('click', this.downloadClicked, this);
     },
 
     /**
      * Handle the link click, and put the data in the URL so that it gets saved.
      *
-     * @method download_clicked
+     * @method downloadClicked
      */
-    download_clicked: function() {
+    downloadClicked: function() {
         if (typeof tinyMCE !== 'undefined') {
             tinyMCE.triggerSave();
         }
 
         this.link.set('download', this.link.get('download').replace(
-                /-d\d+\.attemptdata/, '-d' + this.get_current_datestamp() + '.attemptdata'));
+                /-d\d+\.attemptdata/, '-d' + this.getCurrentDatestamp() + '.attemptdata'));
 
+        var data = Y.IO.stringify(this.form);
+        if (this.publicKey) {
+            data = Y.LZString.compress(data);
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(this.publicKey);
+            data = encrypt.encrypt($('#input').val());
+        }
+        data = Y.LZString.compressToBase64(data);
         this.link.set('href', 'data:application/octet-stream,' +
                 Y.LZString.compressToBase64(Y.IO.stringify(this.form)));
     },
@@ -115,10 +133,10 @@ M.quizaccess_offlinemode.download = {
     /**
      * Get the current date/time in a format suitable for using in filenames.
      *
-     * @method get_current_datestamp
+     * @method getCurrentDatestamp
      * @return String like '197001010000'.
      */
-    get_current_datestamp: function() {
+    getCurrentDatestamp: function() {
         var now = new Date();
         function pad(number) {
             return number < 10 ? '0' + number : number;
@@ -136,6 +154,7 @@ M.quizaccess_offlinemode.download = {
         "event",
         "node-event-delegate",
         "io-form",
-        "moodle-quizaccess_offlinemode-lzstring"
+        "moodle-quizaccess_offlinemode-lzstring",
+        "moodle-quizaccess_offlinemode-jsencrypt"
     ]
 });
