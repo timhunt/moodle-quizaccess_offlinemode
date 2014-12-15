@@ -55,10 +55,10 @@ if ($form->is_cancelled()) {
             'user', 'draft', $fromform->responsefiles, 'id');
     $filesprocessed = 0;
 
-    $key = null;
-    $privatekey = get_config('quizaccess_offlinemode', 'privatekey');
-    if ($privatekey) {
-        $key = openssl_get_privatekey($privatekey);
+    $privatekey = null;
+    $privatekeystring = get_config('quizaccess_offlinemode', 'privatekey');
+    if ($privatekeystring) {
+        $privatekey = openssl_get_privatekey($privatekeystring);
     }
 
     echo $OUTPUT->header();
@@ -80,37 +80,63 @@ if ($form->is_cancelled()) {
 
         $originalpost = null;
         try {
-            $rawdata = json_decode($file->get_content());
-            echo html_writer::tag('textarea', s(print_r($rawdata, true)), array('readonly' => 'readonly'));
+            $data = json_decode($file->get_content());
 
-            if (!$rawdata) {
-                if (function_exists('')) {
+            if (!$data) {
+                if (function_exists('json_last_error_msg')) {
                     throw new coding_exception(json_last_error_msg());
                 } else {
                     throw new coding_exception('JSON error: ' . json_last_error());
                 }
             }
-            if (!isset($rawdata->responses)) {
+            if (!isset($data->responses)) {
                 throw new coding_exception('This file does not appear to contain responses.');
             }
 
-            if (isset($rawdata->envelope)) {
-                if (!$key) {
+            if (isset($data->iv) || isset($data->key)) {
+                if (!$privatekey) {
                     throw new coding_exception('Got apparently encrypted responses, but there is no decryption key.');
                 }
-                $responses = '';
-                $ok = openssl_open(base64_decode($rawdata->responses), $responses,
-                        base64_decode($rawdata->envelope), $key);
-                if (!$ok) {
-                    throw new coding_exception(openssl_error_string());
+
+                $encryptedaeskey = base64_decode($data->key);
+                if (!$encryptedaeskey) {
+                    throw new coding_exception('Encrypted AES key not properly base-64 encoded.');
+                }
+                $encryptediv = base64_decode($data->iv);
+                if (!$encryptediv) {
+                    throw new coding_exception('Encrypted initial value not properly base-64 encoded.');
+                }
+
+                $aeskeystring = '';
+                if (!openssl_private_decrypt($encryptedaeskey, $aeskeystring, $privatekey)) {
+                    throw new coding_exception('Could not decrypt the AES key. ' . openssl_error_string());
+                }
+
+                $ivstring = '';
+                if (!openssl_private_decrypt($encryptediv, $ivstring, $privatekey)) {
+                    throw new coding_exception('Could not decrypt the AES key. ' . openssl_error_string());
+                }
+
+                $aeskey = base64_decode($aeskeystring);
+                if (!$aeskey) {
+                    throw new coding_exception('AES key not properly base-64 encoded.');
+                }
+                $iv = base64_decode($ivstring);
+                if (!$iv) {
+                    throw new coding_exception('Initial value not properly base-64 encoded.');
+                }
+
+                $responses = openssl_decrypt($data->responses, 'AES-256-CBC', $aeskey, 0, $iv);
+                if (!$responses) {
+                    throw new coding_exception('Could not decrypt the responses. ' . openssl_error_string());
                 }
 
             } else {
-                $responses = $rawdata->responses;
+                $responses = $data->responses;
             }
 
             $postdata = array();
-            parse_str($rawdata, $postdata);
+            parse_str($responses, $postdata);
             if (!isset($postdata['attempt'])) {
                 throw new coding_exception('The uploaded data did not include an attempt id.');
             }
@@ -140,7 +166,7 @@ if ($form->is_cancelled()) {
             echo $OUTPUT->box_end();
         }
     }
-    openssl_pkey_free($key);
+    openssl_pkey_free($privatekey);
 
     echo $OUTPUT->confirm(get_string('processingcomplete', 'quizaccess_offlinemode', 3),
             new single_button($PAGE->url, get_string('uploadmoreresponses', 'quizaccess_offlinemode'), 'get'),

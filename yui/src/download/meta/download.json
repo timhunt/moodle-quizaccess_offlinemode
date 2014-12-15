@@ -6,7 +6,8 @@
             "event",
             "node-event-delegate",
             "io-form",
-            "moodle-quizaccess_offlinemode-jsencrypt"
+            "moodle-quizaccess_offlinemode-jsencrypt",
+            "moodle-quizaccess_offlinemode-sjcl"
         ]
     }
 }

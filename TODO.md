@@ -36,7 +36,7 @@
 33. DONE Add a link to the upload script to the quiz infor page.
 34. DONE AES instead of RC4??
 35. DONE Simple(!) test script to round-trip encryption in JS -> decryption in PHP.
-36. Transfer working crypto from cryptotest to the real code.
+36. DONE Transfer working crypto from cryptotest to the real code.
 37. Behat tests for the upload.
 38. For testing (developer debug?) a button to toggle simulated network disconnection.
 39. ??? Ajax calls to save one question and get new HTML.

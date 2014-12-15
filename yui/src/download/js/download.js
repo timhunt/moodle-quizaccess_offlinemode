@@ -86,6 +86,9 @@ M.quizaccess_offlinemode.download = {
         this.filename = filename;
         this.publicKey = publicKey;
 
+        Y.Crypto.sjcl.random.startCollectors();
+        Y.Crypto.sjcl.beware["CBC mode is dangerous because it doesn't protect message integrity."]();
+
         this.form = Y.one(this.SELECTORS.QUIZ_FORM);
         if (!this.form) {
             Y.log('No response form found. Why did you try to set up download?', 'debug', 'moodle-quizaccess_offlinemode-download');
@@ -119,25 +122,9 @@ M.quizaccess_offlinemode.download = {
         var data = {responses: Y.IO.stringify(this.form)};
 
         if (this.publicKey) {
-            data.rawresponses = data.responses; // TODO
-
-            var encrypt = new Y.Crypto.JSEncrypt();
-            encrypt.setPublicKey(this.publicKey);
-
-            var rng = new Y.Crypto.SecureRandom();
-            var rc4KeyBytes = [];
-            rc4KeyBytes.length = 96;
-            rng.nextBytes(rc4KeyBytes);
-
-            var rc4KeyString = '';
-            for (var i = 0; i < 96; i++) {
-                rc4KeyString += String.fromCharCode(rc4KeyBytes[i]);
-            }
-
-            data.responses = btoa(Y.Crypto.rc4(rc4KeyString, data.responses));
-            data.envelope = encrypt.encrypt(rc4KeyString);
-            data.plainkey = btoa(rc4KeyString); // TODO
+            data = this.encryptResponses(data);
         }
+
         this.link.set('href', 'data:application/octet-stream,' + Y.JSON.stringify(data));
     },
 
@@ -154,5 +141,28 @@ M.quizaccess_offlinemode.download = {
         }
         return '' + now.getUTCFullYear() + pad(now.getUTCMonth() + 1) +
                 pad(now.getUTCDate()) + pad(now.getUTCHours()) + pad(now.getUTCMinutes());
+    },
+
+    /**
+     * Encrypt the responses using our encryption protocol.
+     *
+     * @method getCurrentDatestamp
+     * @return Object with three fields, the AES -ncrypted responses, and the
+     *      RSA-encrypted AES key and initial values..
+     */
+    encryptResponses: function(data) {
+
+        var aeskey = Y.Crypto.sjcl.random.randomWords(8);
+        var rp = {};
+        var encrypted = Y.Crypto.sjcl.encrypt(aeskey, data.responses, { ks: 256, mode: 'cbc' }, rp);
+
+        var jsEncrypt = new Y.Crypto.JSEncrypt();
+        jsEncrypt.setPublicKey(this.publicKey);
+
+        return {
+            "responses": Y.JSON.parse(encrypted).ct,
+            "key":       jsEncrypt.encrypt(Y.Crypto.sjcl.codec.base64.fromBits(aeskey)),
+            "iv":        jsEncrypt.encrypt(Y.Crypto.sjcl.codec.base64.fromBits(rp.iv))
+        };
     }
 };

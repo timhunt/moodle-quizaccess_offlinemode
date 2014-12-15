@@ -32,7 +32,7 @@ require_capability('moodle/site:config', $context);
 
 // The test data we will use.
 $message = "This is a rather longer test message, because, if the message was short, " .
-        "there would not be any problme, we could just encrypt it with RSA. However, " .
+        "there would not be any problem, we could just encrypt it with RSA. However, " .
         "the real data we have to encrypt are all the responses to a quiz, including " .
         "essay questions, which could be rather long.";
 
