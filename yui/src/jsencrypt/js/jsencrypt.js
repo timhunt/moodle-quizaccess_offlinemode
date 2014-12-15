@@ -4315,5 +4315,7 @@ JSEncrypt.prototype.getPublicKeyB64 = function () {
 };
 
 exports.JSEncrypt = JSEncrypt;
+exports.SecureRandom = SecureRandom; // Added for quizaccess_offlinemode.
 })(JSEncryptExports);
 var JSEncrypt = JSEncryptExports.JSEncrypt;
+var SecureRandom = JSEncryptExports.SecureRandom; // Added for quizaccess_offlinemode.

@@ -78,19 +78,35 @@ if ($form->is_cancelled()) {
 
         echo $OUTPUT->heading(get_string('processingfile', 'quizaccess_offlinemode', s($file->get_filename())), 3);
 
-        $rawdata = $file->get_content();
-        $rawdata = LZString::decompressFromBase64($rawdata);
-
-        echo html_writer::tag('textarea', s($rawdata), array('readonly' => 'readonly'));
-
         $originalpost = null;
         try {
-            if ($key) {
-                $decrypted = '';
-                if (!openssl_private_decrypt($rawdata, $decrypted, $key)) {
-                    throw new coding_exception('Decryption failed');
+            $rawdata = json_decode($file->get_content());
+            echo html_writer::tag('textarea', s(print_r($rawdata, true)), array('readonly' => 'readonly'));
+
+            if (!$rawdata) {
+                if (function_exists('')) {
+                    throw new coding_exception(json_last_error_msg());
+                } else {
+                    throw new coding_exception('JSON error: ' . json_last_error());
                 }
-                $rawdata = LZString::decompress($decrypted);
+            }
+            if (!isset($rawdata->responses)) {
+                throw new coding_exception('This file does not appear to contain responses.');
+            }
+
+            if (isset($rawdata->envelope)) {
+                if (!$key) {
+                    throw new coding_exception('Got apparently encrypted responses, but there is no decryption key.');
+                }
+                $responses = '';
+                $ok = openssl_open(base64_decode($rawdata->responses), $responses,
+                        base64_decode($rawdata->envelope), $key);
+                if (!$ok) {
+                    throw new coding_exception(openssl_error_string());
+                }
+
+            } else {
+                $responses = $rawdata->responses;
             }
 
             $postdata = array();

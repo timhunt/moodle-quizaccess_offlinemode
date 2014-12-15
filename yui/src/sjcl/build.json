@@ -1,0 +1,34 @@
+{
+    "name": "moodle-quizaccess_offlinemode-sjcl",
+    "builds": {
+        "moodle-quizaccess_offlinemode-sjcl": {
+            "jsfiles": [
+                "sjcl.js",
+                "aes.js",
+                "bitArray.js",
+                "codecString.js",
+                "codecHex.js",
+                "codecBase32.js",
+                "codecBase64.js",
+                "codecBytes.js",
+                "sha256.js",
+                "sha512.js",
+                "sha1.js",
+                "ccm.js",
+                "cbc.js",
+                "gcm.js",
+                "hmac.js",
+                "pbkdf2.js",
+                "random.js",
+                "convenience.js",
+                "bn.js",
+                "ecc.js",
+                "srp.js",
+                "package.js"
+            ]
+        }
+    },
+    "shifter": {
+        "lint": false
+    }
+}

@@ -116,16 +116,29 @@ M.quizaccess_offlinemode.download = {
         this.link.set('download', this.link.get('download').replace(
                 /-d\d+\.attemptdata/, '-d' + this.getCurrentDatestamp() + '.attemptdata'));
 
-        var data = Y.IO.stringify(this.form);
+        var data = {responses: Y.IO.stringify(this.form)};
+
         if (this.publicKey) {
-            data = Y.LZString.compress(data);
-            var encrypt = new JSEncrypt();
+            data.rawresponses = data.responses; // TODO
+
+            var encrypt = new Y.Crypto.JSEncrypt();
             encrypt.setPublicKey(this.publicKey);
-            data = encrypt.encrypt($('#input').val());
+
+            var rng = new Y.Crypto.SecureRandom();
+            var rc4KeyBytes = [];
+            rc4KeyBytes.length = 96;
+            rng.nextBytes(rc4KeyBytes);
+
+            var rc4KeyString = '';
+            for (var i = 0; i < 96; i++) {
+                rc4KeyString += String.fromCharCode(rc4KeyBytes[i]);
+            }
+
+            data.responses = btoa(Y.Crypto.rc4(rc4KeyString, data.responses));
+            data.envelope = encrypt.encrypt(rc4KeyString);
+            data.plainkey = btoa(rc4KeyString); // TODO
         }
-        data = Y.LZString.compressToBase64(data);
-        this.link.set('href', 'data:application/octet-stream,' +
-                Y.LZString.compressToBase64(Y.IO.stringify(this.form)));
+        this.link.set('href', 'data:application/octet-stream,' + Y.JSON.stringify(data));
     },
 
     /**
