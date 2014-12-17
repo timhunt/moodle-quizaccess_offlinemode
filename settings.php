@@ -28,7 +28,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox_with_advanced('quizaccess_offlinemode/defaultenabled',
             get_string('offlinemodeenabled', 'quizaccess_offlinemode'),
             get_string('offlinemodeenabled_desc', 'quizaccess_offlinemode'),
-            array('value' => 0, 'adv' => false)));
+            array('value' => 0, 'adv' => true)));
 
     $settings->add(new admin_setting_configtextarea('quizaccess_offlinemode/privatekey',
             get_string('privatekey', 'quizaccess_offlinemode'),
