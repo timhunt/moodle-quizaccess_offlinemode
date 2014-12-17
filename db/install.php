@@ -25,14 +25,22 @@
 defined('MOODLE_INTERNAL') || die();
 
 function xmldb_quizaccess_offlinemode_install() {
+    global $OUTPUT;
     // If OpenSSL is available, generate a public/private key pair.
     if (function_exists('openssl_pkey_new')) {
-        $key = openssl_pkey_new(array('digest_alg' => 'sha512', 'private_key_bits' => 1024,
+        $privatekey = openssl_pkey_new(array('digest_alg' => 'sha512', 'private_key_bits' => 1024,
                 'private_key_type' => OPENSSL_KEYTYPE_RSA));
-        openssl_pkey_export($key, $privatekey);
-        $publickey = openssl_pkey_get_details($key);
-        openssl_pkey_free($key);
-        set_config('privatekey', $privatekey, 'quizaccess_offlinemode');
-        set_config('publickey', $publickey['key'], 'quizaccess_offlinemode');
+        if ($privatekey) {
+            openssl_pkey_export($privatekey, $privatekeystring);
+            $publickeydata = openssl_pkey_get_details($privatekey);
+            openssl_pkey_free($privatekey);
+            set_config('privatekey', $privatekeystring, 'quizaccess_offlinemode');
+            set_config('publickey', $publickeydata['key'], 'quizaccess_offlinemode');
+        } else {
+            echo $OUTPUT->notification('Failed to generate an public/private key pair.');
+            while ($message = openssl_error_string()) {
+                echo $OUTPUT->notification($message);
+            }
+        }
     }
 }
