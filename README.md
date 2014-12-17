@@ -10,5 +10,5 @@ and [MDL-47688](https://tracker.moodle.org/browse/MDL-47688) for details.
 
 This plugin uses the following third-party libraries:
 
-* http://pieroxy.net/blog/pages/lz-string/index.html
-* https://github.com/nullpunkt/lz-string-php
+* The Stanford Javascript Crypto Library from https://github.com/bitwiseshiftleft/sjcl
+* JSEncrypt https://github.com/travist/jsencrypt

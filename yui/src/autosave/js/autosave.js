@@ -104,7 +104,7 @@ M.quizaccess_offlinemode.autosave = {
      * @default M.cfg.wwwroot + '/mod/quiz/autosave.ajax.php'
      * @private
      */
-    AUTOSAVE_HANDLER: M.cfg.wwwroot + '/mod/quiz/autosave.ajax.php',
+    AUTOSAVE_HANDLER: M.cfg.wwwroot + '/mod/quiz/accessrule/offlinemode/autosave.ajax.php',
 
     /**
      * The delay (in milliseconds) between a change being made, and it being auto-saved.
