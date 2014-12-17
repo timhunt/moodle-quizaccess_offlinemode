@@ -153,14 +153,16 @@ if ($form->is_cancelled()) {
             $attemptobj->process_submitted_actions(time());
             $_POST = $originalpost;
             $originalpost = null;
-            echo $OUTPUT->notification('Data processed successfully', 'notifysuccess');
+            echo $OUTPUT->notification(get_string('dataprocessedsuccessfully', 'quizaccess_offlinemode',
+                    html_writer::link($attemptobj->review_url(), get_string('reviewthisattempt', 'quizaccess_offlinemode'))),
+                    'notifysuccess');
 
         } catch (Exception $e) {
             if ($originalpost !== null) {
                 $_POST = $originalpost;
             }
             echo $OUTPUT->box_start();
-            echo $OUTPUT->heading('The upload failed', 4);
+            echo $OUTPUT->heading(get_string('uploadfailed', 'quizaccess_offlinemode'), 4);
             echo $OUTPUT->notification($e->getMessage());
             echo format_backtrace($e->getTrace());
             echo $OUTPUT->box_end();
@@ -189,5 +191,4 @@ if ($form->is_cancelled()) {
     echo $OUTPUT->heading($title);
     $form->display();
     echo $OUTPUT->footer();
-
 }

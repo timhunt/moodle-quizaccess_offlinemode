@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['backtothequiz'] = 'Back to the quiz';
+$string['dataprocessedsuccessfully'] = 'Data processed successfully ({$a}).';
 $string['description'] = 'This quiz uses offline mode. Adminstrators can {$a}';
 $string['descriptionlink'] = 'upload exported responses';
 $string['downloadlink'] = 'Emergency response export';
@@ -41,6 +42,8 @@ $string['publickey'] = 'Encryption public key';
 $string['publickey_desc'] = 'This must correspond to the private key. You can generate it from the private key using <code>openssl rsa -pubout -in rsa_1024_priv.pem -out rsa_1024_pub.pem</code> then past the contents of rsa_1024_pub.pem here.';
 $string['responsefiles'] = 'Response files';
 $string['responsefiles_help'] = 'You can upload one or more response files downloaded using the \'Emergency response export\' link during a quiz attempt.';
+$string['reviewthisattempt'] = 'Review this attempt';
+$string['uploadfailed'] = 'The upload failed';
 $string['uploadingresponsesfor'] = 'Uploading responses for {$a}';
 $string['uploadmoreresponses'] = 'Upload more responses';
 $string['uploadresponses'] = 'Upload responses';

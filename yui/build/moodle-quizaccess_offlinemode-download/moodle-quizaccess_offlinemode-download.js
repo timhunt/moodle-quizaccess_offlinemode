@@ -101,8 +101,8 @@ M.quizaccess_offlinemode.download = {
             return;
         }
 
-        this.link = navblock.appendChild('<a download="' + filename +
-                '" href="#">Emergency response export</a>');
+        this.link = navblock.appendChild('<a download="' + filename + '" href="#">' +
+                M.util.get_string('downloadlink', 'quizaccess_offlinemode') + '</a>');
         this.link.on('click', this.downloadClicked, this);
     },
 
