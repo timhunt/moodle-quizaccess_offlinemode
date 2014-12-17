@@ -34,7 +34,9 @@ require_capability('moodle/site:config', $context);
 $message = "This is a rather longer test message, because, if the message was short, " .
         "there would not be any problem, we could just encrypt it with RSA. However, " .
         "the real data we have to encrypt are all the responses to a quiz, including " .
-        "essay questions, which could be rather long.";
+        "essay questions, which could be rather long. It will also get tricky if we " .
+        "go to a café, or even further afield to 日本 or ราชอาณาจักรไทย. If all that works, " .
+        "then we are really in the 💰.";
 
 $CFG->additionalhtmlhead .= '
 <style type="text/css">

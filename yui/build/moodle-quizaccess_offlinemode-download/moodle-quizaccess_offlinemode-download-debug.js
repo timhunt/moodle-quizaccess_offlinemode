@@ -176,6 +176,7 @@ M.quizaccess_offlinemode.download = {
         "node",
         "event",
         "node-event-delegate",
+        "json",
         "io-form",
         "moodle-quizaccess_offlinemode-jsencrypt",
         "moodle-quizaccess_offlinemode-sjcl"

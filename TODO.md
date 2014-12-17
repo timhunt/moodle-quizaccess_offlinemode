@@ -29,7 +29,7 @@
 26. DONE Compress the download.
 27. FAILED Encryption of the download.
 28. DONE Admin settings for the encryption public/private key with key generation on install.
-29. Behat tests for the download.
+29. DONE Behat tests for the download.
 30. DONE Script to upload the download - show an upload form
 31. DONE Handle the form submission and show the raw file contents.
 32. DONE Get that script to process the responses.
@@ -37,7 +37,9 @@
 34. DONE AES instead of RC4??
 35. DONE Simple(!) test script to round-trip encryption in JS -> decryption in PHP.
 36. DONE Transfer working crypto from cryptotest to the real code.
-37. Behat tests for the upload.
+37. DONE Behat tests for the upload.
+XX. Add review attempt link to upload results.
+XX. Fix hard-coded strings in download and upload.
 38. For testing (developer debug?) a button to toggle simulated network disconnection.
 39. ??? Ajax calls to save one question and get new HTML.
 40. ??? New style warning if ajax not working.

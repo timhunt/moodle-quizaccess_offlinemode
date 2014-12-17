@@ -166,7 +166,9 @@ if ($form->is_cancelled()) {
             echo $OUTPUT->box_end();
         }
     }
-    openssl_pkey_free($privatekey);
+    if ($privatekey) {
+        openssl_pkey_free($privatekey);
+    }
 
     echo $OUTPUT->confirm(get_string('processingcomplete', 'quizaccess_offlinemode', 3),
             new single_button($PAGE->url, get_string('uploadmoreresponses', 'quizaccess_offlinemode'), 'get'),

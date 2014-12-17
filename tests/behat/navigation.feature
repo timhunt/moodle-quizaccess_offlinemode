@@ -1,5 +1,5 @@
 @quizaccess @quizaccess_offlinemode
-Feature: Offline mode quiz setting
+Feature: Offline mode navigation without page reloads
   In order to attempt quizzes with dodgy wifi
   As a student
   I need to be able to navigate between pages of the quiz without a page reload.
