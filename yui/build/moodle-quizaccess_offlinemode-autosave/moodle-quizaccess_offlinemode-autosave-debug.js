@@ -291,11 +291,33 @@ M.quizaccess_offlinemode.autosave = {
         name = name || '#' + e.target.getAttribute('id');
         Y.log('Detected a value change in element ' + name + '.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
         this.start_save_timer_if_necessary();
+        this.mark_question_changed_if_necessary(name);
     },
 
     editor_changed: function(editor) {
         Y.log('Detected a value change in editor ' + editor.id + '.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
         this.start_save_timer_if_necessary();
+        this.mark_question_changed_if_necessary(editor.id);
+    },
+
+    mark_question_changed_if_necessary: function(elementname) {
+        var slot = this.get_slot_from_id(elementname);
+        if (slot) {
+            this.mark_question_changed(slot);
+        }
+    },
+
+    get_slot_from_id: function(elementname) {
+        var matches = elementname.match(/^q\d+:(\d+)_.*$/);
+        if (matches) {
+            return matches[1];
+        }
+        return undefined;
+    },
+
+    mark_question_changed: function(slot) {
+        Y.log('Detected a change in slot ' + slot + '.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
+        Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html('Answer changed'));
     },
 
     start_save_timer_if_necessary: function() {

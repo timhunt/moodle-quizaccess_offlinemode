@@ -286,10 +286,31 @@ M.quizaccess_offlinemode.autosave = {
         // Fallback to the ID when the name is not present (in the case of content editable).
         name = name || '#' + e.target.getAttribute('id');
         this.start_save_timer_if_necessary();
+        this.mark_question_changed_if_necessary(name);
     },
 
     editor_changed: function(editor) {
         this.start_save_timer_if_necessary();
+        this.mark_question_changed_if_necessary(editor.id);
+    },
+
+    mark_question_changed_if_necessary: function(elementname) {
+        var slot = this.get_slot_from_id(elementname);
+        if (slot) {
+            this.mark_question_changed(slot);
+        }
+    },
+
+    get_slot_from_id: function(elementname) {
+        var matches = elementname.match(/^q\d+:(\d+)_.*$/);
+        if (matches) {
+            return matches[1];
+        }
+        return undefined;
+    },
+
+    mark_question_changed: function(slot) {
+        Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html('Answer changed'));
     },
 
     start_save_timer_if_necessary: function() {
