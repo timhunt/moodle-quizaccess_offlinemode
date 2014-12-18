@@ -51,6 +51,7 @@ if ($attemptobj->get_userid() != $USER->id) {
 if (!$attemptobj->is_preview_user()) {
     $attemptobj->require_capability('mod/quiz:attempt');
 }
+$options = $attemptobj->get_display_options(false);
 
 // If the attempt is already closed, send them to the review page.
 if ($attemptobj->is_finished()) {
@@ -60,4 +61,11 @@ if ($attemptobj->is_finished()) {
 
 $attemptobj->process_auto_save($timenow);
 $transaction->allow_commit();
-echo 'OK';
+
+// Get the question states, and put them in a response.
+$result = array('result' => 'OK', 'questionstates' => array());
+foreach ($attemptobj->get_slots() as $slot) {
+    $result['questionstates'][$slot] = $attemptobj->get_question_status(
+            $slot, $options->correctness);
+}
+echo json_encode($result);

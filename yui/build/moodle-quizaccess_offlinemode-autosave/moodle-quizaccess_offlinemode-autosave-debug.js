@@ -303,21 +303,28 @@ M.quizaccess_offlinemode.autosave = {
     mark_question_changed_if_necessary: function(elementname) {
         var slot = this.get_slot_from_id(elementname);
         if (slot) {
-            this.mark_question_changed(slot);
+            this.set_question_state(slot, 'Answer changed');
         }
     },
 
     get_slot_from_id: function(elementname) {
-        var matches = elementname.match(/^q\d+:(\d+)_.*$/);
+        var matches = elementname.match(/^#?q\d+:(\d+)_.*$/);
         if (matches) {
             return matches[1];
         }
         return undefined;
     },
 
-    mark_question_changed: function(slot) {
-        Y.log('Detected a change in slot ' + slot + '.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
-        Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html('Answer changed'));
+    set_question_state: function(slot, newstate) {
+        Y.log('State of question ' + slot + ' changed to ' + newstate + '.',
+                'debug', 'moodle-quizaccess_offlinemode-autosave');
+        Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html(newstate));
+    },
+
+    update_question_states: function(questionstates) {
+        Y.Object.each(questionstates, function(state, slot) {
+            this.set_question_state(slot, state);
+        }, this);
     },
 
     start_save_timer_if_necessary: function() {
@@ -369,15 +376,23 @@ M.quizaccess_offlinemode.autosave = {
     },
 
     save_done: function(transactionid, response) {
-        if (response.responseText !== 'OK') {
-            // Because IIS is useless, Moodle can't send proper HTTP response
-            // codes, so we have to detect failures manually.
+        var result;
+        try {
+            result = Y.JSON.parse(response.responseText);
+        } catch (e) {
+            this.save_failed(transactionid, response);
+            return;
+        }
+
+        if (result.result !== 'OK') {
             this.save_failed(transactionid, response);
             return;
         }
 
         Y.log('Save completed.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
         this.save_transaction = null;
+
+        this.update_question_states(result.questionstates);
 
         if (this.dirty) {
             Y.log('Dirty after save.', 'debug', 'moodle-quizaccess_offlinemode-autosave');

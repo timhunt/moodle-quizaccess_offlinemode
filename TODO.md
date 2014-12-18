@@ -42,14 +42,18 @@
 40. DONE Add review attempt link to upload results.
 41. DONE Fix hard-coded strings in download and upload.
 42. DONE Autosave should update Q state to 'Answer changed' when it is.
-43. Autosave should get real Q state back from PHP, and update Q states.
-44. Behat tests for the autosaving of states.
-45. Route all connections through a connection manager to monitor network sate.
-46. Use network state to display a warning, and only show download link when there are problems.
-47. For testing (developer debug?) a button to toggle simulated network disconnection.
-48. Behat tests for the warning.
-49. ??? Client-side auto-save JS.
+43. DONE Autosave should get real Q state back from PHP, and update Q states.
+44. Autosave should be enough to reassure formchangechecker.
+45. Behat tests for the autosaving of states.
+46. Render the summary page into the HTML.
+47. Make navigating to & from the summary page work.
+48. Update the summary page when we update question states.
+49. Behat tests for the summary page.
+49. Route all connections through a connection manager to monitor network sate.
+47. Use network state to display a warning, and only show download link when there are problems.
+48. For testing (developer debug?) a button to toggle simulated network disconnection.
+49. Behat tests for the warning.
+50. ??? Client-side auto-save JS.
 50. ??? Ajax calls should try to synch the clock.
-51. ??? What happens at the end? Summary page?
 52. Behat tests for final submit.
 53. Sequential navigation mode.
