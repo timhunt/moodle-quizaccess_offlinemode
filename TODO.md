@@ -43,17 +43,19 @@
 41. DONE Fix hard-coded strings in download and upload.
 42. DONE Autosave should update Q state to 'Answer changed' when it is.
 43. DONE Autosave should get real Q state back from PHP, and update Q states.
-44. Autosave should be enough to reassure formchangechecker.
-45. Behat tests for the autosaving of states.
-46. Render the summary page into the HTML.
-47. Make navigating to & from the summary page work.
-48. Update the summary page when we update question states.
-49. Behat tests for the summary page.
-49. Route all connections through a connection manager to monitor network sate.
-47. Use network state to display a warning, and only show download link when there are problems.
-48. For testing (developer debug?) a button to toggle simulated network disconnection.
-49. Behat tests for the warning.
-50. ??? Client-side auto-save JS.
-50. ??? Ajax calls should try to synch the clock.
-52. Behat tests for final submit.
-53. Sequential navigation mode.
+44. PEER-REV MDL-48653 Should have dismiss alert steps to match accept alert Behat steps.
+45. DONE Autosave should be enough to reassure formchangechecker.
+46. DONE Behat tests for the autosaving of states.
+47. Render the summary page into the HTML.
+48. Make navigating to & from the summary page work.
+49. Update the summary page when we update question states.
+50. Behat tests for the summary page.
+51. Route all connections through a connection manager to monitor network sate.
+52. Use network state to display a warning, and only show download link when there are problems.
+53. For testing (developer debug?) a button to toggle simulated network disconnection.
+54. Behat tests for the warning.
+55. Whether final submit is allowed should be linked to the state of the network connection.
+56. Behat tests for final submit.
+57. ??? Client-side auto-save JS.
+58. ??? Ajax calls should try to synch the clock.
+59. Sequential navigation mode.

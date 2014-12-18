@@ -198,6 +198,12 @@ M.quizaccess_offlinemode.autosave = {
             return;
         }
 
+        M.core_question_engine.init_form(Y, this.SELECTORS.QUIZ_FORM);
+        Y.on('submit', M.mod_quiz.timer.stop, this.SELECTORS.QUIZ_FORM);
+        // I don't know why it is window.onbeforeunload, not Y.on(...). I copied
+        // this from formchangechecker and am not brave enough to change it.
+        window.onbeforeunload = Y.bind(this.warn_if_unsaved_data, this);
+
         this.delay = delay * 1000;
 
         this.form.delegate('valuechange', this.value_changed, this.SELECTORS.VALUE_CHANGE_ELEMENTS, this);
@@ -434,8 +440,34 @@ M.quizaccess_offlinemode.autosave = {
         if (this.save_transaction) {
             this.save_transaction.abort();
         }
+    },
+
+    /**
+     * A beforeunload handler, to warn if the user tries to quit with unsaved data.
+     *
+     * @param {EventFacade} e The triggering event
+     */
+    warn_if_unsaved_data: function(e) {
+        if (!this.dirty) {
+            return;
+        }
+
+        // Show a warning.
+        e.returnValue = M.util.get_string('changesmadereallygoaway', 'moodle');
+        return e.returnValue;
     }
 };
 
 
-}, '@VERSION@', {"requires": ["base", "node", "event", "event-valuechange", "node-event-delegate", "io-form"]});
+}, '@VERSION@', {
+    "requires": [
+        "base",
+        "node",
+        "event",
+        "event-valuechange",
+        "node-event-delegate",
+        "io-form",
+        "core_question_engine",
+        "mod_quiz"
+    ]
+});

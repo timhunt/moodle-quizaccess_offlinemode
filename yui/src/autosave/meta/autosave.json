@@ -6,7 +6,9 @@
             "event",
             "event-valuechange",
             "node-event-delegate",
-            "io-form"
+            "io-form",
+            "core_question_engine",
+            "mod_quiz"
         ]
     }
 }

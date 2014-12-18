@@ -40,6 +40,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
   @javascript
   Scenario: Download the responses so far, then re-upload them.
     When I follow the emergency download link
+    And I click on "Home" "link" confirming the dialogue
     And I log out
     And I log in as "admin"
     And I follow "Course 1"

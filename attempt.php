@@ -94,7 +94,7 @@ if ($accessmanager->is_preflight_check_required($attemptobj->get_attemptid())) {
 }
 
 // Initialise the JavaScript.
-$PAGE->requires->js_init_call('M.mod_quiz.init_attempt_form', null, false, quiz_get_js_module());
+$PAGE->requires->js_module(quiz_get_js_module());
 
 $autosaveperiod = get_config('quiz', 'autosaveperiod');
 if ($autosaveperiod) {
