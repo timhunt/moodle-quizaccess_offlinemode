@@ -24,7 +24,6 @@
 
 require_once(__DIR__ . '/../../../../config.php');
 require_once($CFG->dirroot . '/repository/lib.php');
-require_once($CFG->dirroot . '/mod/quiz/accessrule/offlinemode/lib/LZString.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 
 $cmid = optional_param('id', 0, PARAM_INT);
