@@ -12,15 +12,13 @@ Feature: Quiz offline mode admin setting
 
   @javascript
   Scenario: Offline mode defaults to disabled.
-    # Add a quiz to a course without the condition, and verify that they can start it as normal.
     When I follow "Course 1"
     And I turn editing mode on
     And I add a "Quiz" to section "0"
     Then the field "Experimental offline attempt mode" matches value "No"
 
   @javascript
-  Scenario: Set the default so that offline mode to enabled (the default).
-    # Add a quiz to a course without the condition, and verify that they can start it as normal.
+  Scenario: The default can be changed so that offline mode is enabled by default.
     When I navigate to "Quiz offline attempt mode" node in "Site administration > Plugins > Activity modules > Quiz"
     And I set the field "Experimental offline attempt mode" to "1"
     And I press "Save changes"

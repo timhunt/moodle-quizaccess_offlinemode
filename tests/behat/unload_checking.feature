@@ -1,8 +1,8 @@
 @quizaccess @quizaccess_offlinemode
-Feature: Offline mode navigation without page reloads
-  In order to attempt quizzes with dodgy wifi
+Feature: Offline mode warning if you try to leave with unsaved respones.
+  In order that I don't lose my work
   As a student
-  I need to be able to navigate between pages of the quiz without a page reload.
+  I should be warned if I try to leave quiz while there are unsaved responses.
 
   Background:
     Given the following "courses" exist:
