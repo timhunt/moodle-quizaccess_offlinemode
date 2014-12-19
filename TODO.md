@@ -37,7 +37,7 @@
 35. DONE AES instead of RC4.
 36. DONE Simple(!) test script to round-trip encryption in JS -> decryption in PHP.
 37. DONE Transfer working crypto from cryptotest to the real code.
-38. PEER-REV MDL-48639 fix Behat upload code.
+38. INT-REV MDL-48639 fix Behat upload code.
 39. DONE Behat tests for the upload.
 40. DONE Add review attempt link to upload results.
 41. DONE Fix hard-coded strings in download and upload.
@@ -46,16 +46,21 @@
 44. PEER-REV MDL-48653 Should have dismiss alert steps to match accept alert Behat steps.
 45. DONE Autosave should be enough to reassure formchangechecker.
 46. DONE Behat tests for the autosaving of states.
-47. Render the summary page into the HTML.
-48. Make navigating to & from the summary page work.
-49. Update the summary page when we update question states.
-50. Behat tests for the summary page.
-51. Route all connections through a connection manager to monitor network sate.
-52. Use network state to display a warning, and only show download link when there are problems.
-53. For testing (developer debug?) a button to toggle simulated network disconnection.
-54. Behat tests for the warning.
-55. Whether final submit is allowed should be linked to the state of the network connection.
-56. Behat tests for final submit.
-57. ??? Client-side auto-save JS.
-58. ??? Ajax calls should try to synch the clock.
-59. Sequential navigation mode.
+47. DONE Render the summary page into the HTML.
+48. DONE Make navigating to & from the summary page work.
+49. INT-REV MDL-48666 It's not possible to intentify the rows in the quiz summary table from JS.
+50. Update the summary page when we update question states.
+51. Behat tests for the summary page.
+52. Make next page button work.
+53. Route all connections through a connection manager to monitor network sate.
+54. Use network state to display a warning, and only show download link when there are problems.
+55. For testing (developer debug?) a button to toggle simulated network disconnection.
+56. Behat tests for the warning.
+57. Whether final submit is allowed should be linked to the state of the network connection.
+58. Behat tests for final submit.
+59. ??? Client-side auto-save JS.
+60. ??? Ajax calls should try to synch the clock.
+61. Sequential navigation mode.
+62. Logging.
+63. Flagging need to update summary.
+64. Should flagging Ajax go through the same ajax managers as everything else?

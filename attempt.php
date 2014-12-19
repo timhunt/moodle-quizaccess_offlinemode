@@ -196,6 +196,15 @@ $form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sc
 $form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'slots',
         'value' => implode(',', $attemptobj->get_slots())));
 
+// Summary page. Code from mod_quiz_renderer::summary_page.
+$summary = '';
+$summary .= html_writer::start_div('', array('id' => 'quizaccess_offlinemode-attempt_page--1'));
+$summary .= $output->heading(format_string($attemptobj->get_quiz_name()));
+$summary .= $output->heading(get_string('summaryofattempt', 'quiz'), 3);
+$summary .= $output->summary_table($attemptobj, $attemptobj->get_display_options(false));
+$summary .= $output->summary_page_controls($attemptobj);
+$summary .= html_writer::end_div('');
+
 // Finish the form.
 $form .= html_writer::end_tag('div');
 $form .= html_writer::end_tag('form');
@@ -207,5 +216,6 @@ $html = '';
 $html .= $output->header();
 $html .= $output->quiz_notices($messages);
 $html .= $form;
+$html .= $summary;
 $html .= $output->footer();
 echo $html;

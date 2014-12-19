@@ -42,6 +42,7 @@ M.quizaccess_offlinemode.navigation = {
         QUIZ_FORM:  '#responseform',
         NAV_BLOCK:  '#mod_quiz_navblock',
         NAV_BUTTON: '.qnbutton',
+        FINISH_LINK: '.endtestlink',
         PAGE_DIV_ROOT: '#quizaccess_offlinemode-attempt_page-',
         ALL_PAGE_DIVS: 'div[id|=quizaccess_offlinemode-attempt_page]'
     },
@@ -82,6 +83,10 @@ M.quizaccess_offlinemode.navigation = {
 
         Y.delegate('click', this.nav_button_click, this.SELECTORS.NAV_BLOCK, this.SELECTORS.NAV_BUTTON, this);
 
+        // We need to remove the standard 'Finish attempt...' click hander before we add our own.
+        Y.one(this.SELECTORS.FINISH_LINK).detach('click');
+        Y.one(this.SELECTORS.FINISH_LINK).on('click', this.finish_attempt_click, this);
+
         Y.log('Initialised offline quiz mode.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
     },
 
@@ -96,6 +101,19 @@ M.quizaccess_offlinemode.navigation = {
         e.halt();
 
         this.navigate_to_page(this.page_number_from_link(e.currentTarget));
+    },
+
+    /**
+     * Event handler for when the 'Finish attempt...' link is clicked.
+     *
+     * @method finish_attempt_click
+     * @param {EventFacade} e
+     */
+    finish_attempt_click: function(e) {
+        // Prevent the quiz's own event handler running.
+        e.halt(true);
+
+        this.navigate_to_page(-1);
     },
 
     /**
@@ -127,6 +145,11 @@ M.quizaccess_offlinemode.navigation = {
 
         if (this.currentpage !== null) {
             Y.one(this.SELECTORS.PAGE_DIV_ROOT + this.currentpage).addClass('hidden');
+        }
+        if (pageno === -1) {
+            Y.one(this.SELECTORS.QUIZ_FORM).addClass('hidden');
+        } else {
+            Y.one(this.SELECTORS.QUIZ_FORM).removeClass('hidden');
         }
         Y.one(this.SELECTORS.PAGE_DIV_ROOT + pageno).removeClass('hidden');
         Y.one(this.SELECTORS.NAV_BLOCK).all(this.SELECTORS.NAV_BUTTON).each(function (node) {
