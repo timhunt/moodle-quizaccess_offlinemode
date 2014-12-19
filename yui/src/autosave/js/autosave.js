@@ -323,6 +323,7 @@ M.quizaccess_offlinemode.autosave = {
         Y.log('State of question ' + slot + ' changed to ' + newstate + '.',
                 'debug', 'moodle-quizaccess_offlinemode-autosave');
         Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html(newstate));
+        Y.one('.quizsummary' + slot + ' .c1').setHTML(Y.Escape.html(newstate));
     },
 
     update_question_states: function(questionstates) {

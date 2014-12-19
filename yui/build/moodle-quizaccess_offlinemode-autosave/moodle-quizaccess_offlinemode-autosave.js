@@ -317,6 +317,7 @@ M.quizaccess_offlinemode.autosave = {
 
     set_question_state: function(slot, newstate) {
         Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html(newstate));
+        Y.one('.quizsummary' + slot + ' .c1').setHTML(Y.Escape.html(newstate));
     },
 
     update_question_states: function(questionstates) {

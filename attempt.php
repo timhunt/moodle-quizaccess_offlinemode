@@ -39,7 +39,6 @@ if ($page === null) {
 if ($attemptobj->get_navigation_method() == QUIZ_NAVMETHOD_SEQ && $page < $attemptobj->get_currentpage()) {
     $page = $attemptobj->get_currentpage();
 }
-$page = $attemptobj->force_page_number_into_range($page);
 
 // Initialise $PAGE.
 $pageurl = $attemptobj->attempt_url(null, $page);

@@ -159,8 +159,8 @@ M.quizaccess_offlinemode.navigation = {
                 }, this);
         if (window.history.replaceState) {
             var queryString = window.location.search;
-            if (queryString.match(/\bpage=\d+/)) {
-                queryString = queryString.replace(/\bpage=\d+/, 'page=' + pageno);
+            if (queryString.match(/\bpage=-?\d+/)) {
+                queryString = queryString.replace(/\bpage=-?\d+/, 'page=' + pageno);
             } else {
                 queryString += '&page=' + pageno;
             }
