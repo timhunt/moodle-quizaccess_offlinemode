@@ -51,17 +51,18 @@
 49. INT-REV MDL-48666 It's not possible to intentify the rows in the quiz summary table from JS.
 50. DONE Update the summary page when we update question states.
 51. DONE Make the question number links in the summary table work.
-52. Make Next & Return to attempts buttons work.
-53. Behat tests for the summary page.
-54. Route all connections through a connection manager to monitor network sate.
-55. Use network state to display a warning, and only show download link when there are problems.
-56. For testing (developer debug?) a button to toggle simulated network disconnection.
-57. Behat tests for the warning.
-58. Whether final submit is allowed should be linked to the state of the network connection.
-59. Behat tests for final submit.
-50. ??? Client-side auto-save JS.
-61. ??? Ajax calls should try to synch the clock.
-62. Sequential navigation mode.
-63. Logging.
-64. Flagging need to update summary.
-65. Should flagging Ajax go through the same ajax managers as everything else?
+52. DONE Make Next & Return to attempts buttons work.
+53. Scroll sensibly when navigating between pages.
+54. Behat tests for the summary page.
+55. Route all connections through a connection manager to monitor network sate.
+56. Use network state to display a warning, and only show download link when there are problems.
+57. For testing (developer debug?) a button to toggle simulated network disconnection.
+58. Behat tests for the warning.
+59. Whether final submit is allowed should be linked to the state of the network connection.
+60. Behat tests for final submit.
+61. ??? Client-side auto-save JS.
+62. ??? Ajax calls should try to synch the clock.
+63. Sequential navigation mode.
+64. Logging.
+65. Flagging need to update summary.
+66. Should flagging Ajax go through the same ajax managers as everything else?

@@ -39,14 +39,19 @@ M.quizaccess_offlinemode.navigation = {
      * @static
      */
     SELECTORS: {
-        QUIZ_FORM:  '#responseform',
-        NAV_BLOCK:  '#mod_quiz_navblock',
-        NAV_BUTTON: '.qnbutton',
-        SUMMARY_TABLE: '.quizsummaryofattempt',
-        SUMMARY_TABLE_LINK: 'tr > td.c0 > a',
-        FINISH_LINK: '.endtestlink',
-        PAGE_DIV_ROOT: '#quizaccess_offlinemode-attempt_page-',
-        ALL_PAGE_DIVS: 'div[id|=quizaccess_offlinemode-attempt_page]'
+        QUIZ_FORM:            '#responseform',
+        NAV_BLOCK:            '#mod_quiz_navblock',
+        NAV_BUTTON:           '.qnbutton',
+        FINISH_LINK:          '.endtestlink',
+        NEXT_BUTTON:          'input[name=next]',
+        SUMMARY_TABLE:        '.quizsummaryofattempt',
+        SUMMARY_TABLE_LINK:   'tr > td.c0 > a',
+        SUMMARY_PAGE_BUTTON:  '#quizaccess_offlinemode-attempt_page--1 .submitbtns input[type=submit]',
+        PAGE_DIV_ROOT:        '#quizaccess_offlinemode-attempt_page-',
+        ALL_PAGE_DIVS:        'div[id|=quizaccess_offlinemode-attempt_page]',
+        THIS_PAGE_INPUT:      'input#followingpage',
+        NEXT_PAGE_INPUT:      'input[name=nextpage]',
+        FINISH_ATTEMPT_INPUT: 'input[name=finishattempt]'
     },
 
     /**
@@ -67,6 +72,14 @@ M.quizaccess_offlinemode.navigation = {
     currentpage: null,
 
     /**
+     * The number of the last page.
+     *
+     * @property lastpage
+     * @type Number
+     */
+    lastpage: null,
+
+    /**
      * Initialise the navigation code.
      *
      * @method init
@@ -79,6 +92,17 @@ M.quizaccess_offlinemode.navigation = {
             return;
         }
 
+        Y.all(this.SELECTORS.ALL_PAGE_DIVS).each(function(element) {
+                    var pageno;
+                    var matches = element.get('id').match(/quizaccess_offlinemode-attempt_page-(\d+)/);
+                    if (matches) {
+                        pageno = +matches[1];
+                        if (pageno > this.lastpage) {
+                            this.lastpage = pageno;
+                        }
+                    }
+                }, this);
+
         Y.all(this.SELECTORS.ALL_PAGE_DIVS).addClass('hidden');
         this.navigate_to_page(+currentpage);
 
@@ -88,6 +112,9 @@ M.quizaccess_offlinemode.navigation = {
         // We need to remove the standard 'Finish attempt...' click hander before we add our own.
         Y.one(this.SELECTORS.FINISH_LINK).detach('click');
         Y.one(this.SELECTORS.FINISH_LINK).on('click', this.finish_attempt_click, this);
+
+        Y.one(this.SELECTORS.NEXT_BUTTON).on('click', this.next_button_click, this);
+        Y.one(this.SELECTORS.SUMMARY_PAGE_BUTTON).on('click', this.summary_button_click, this);
 
     },
 
@@ -111,10 +138,38 @@ M.quizaccess_offlinemode.navigation = {
      * @param {EventFacade} e
      */
     finish_attempt_click: function(e) {
-        // Prevent the quiz's own event handler running.
         e.halt(true);
-
         this.navigate_to_page(-1);
+    },
+
+    /**
+     * Event handler for when the next page button is clicked.
+     *
+     * @method next_button_click
+     * @param {EventFacade} e
+     */
+    next_button_click: function(e) {
+        e.halt();
+        this.navigate_to_page(+Y.one(this.SELECTORS.NEXT_PAGE_INPUT).get('value'));
+    },
+
+    /**
+     * Event handler for when a button on the summary page is clicked.
+     *
+     * @method summary_button_click
+     * @param {EventFacade} e
+     */
+    summary_button_click: function(e) {
+
+        if (e.currentTarget.siblings(this.SELECTORS.FINISH_ATTEMPT_INPUT).empty()) {
+            // Return to attempt button pressed.
+            e.halt();
+            this.navigate_to_page(+Y.one(this.SELECTORS.THIS_PAGE_INPUT).get('value'));
+
+        } else {
+            // TODO submit button clicked.
+            return;
+        }
     },
 
     /**
@@ -144,6 +199,7 @@ M.quizaccess_offlinemode.navigation = {
             return;
         }
 
+        // Show or hide the right content.
         if (this.currentpage !== null) {
             Y.one(this.SELECTORS.PAGE_DIV_ROOT + this.currentpage).addClass('hidden');
         }
@@ -153,6 +209,8 @@ M.quizaccess_offlinemode.navigation = {
             Y.one(this.SELECTORS.QUIZ_FORM).removeClass('hidden');
         }
         Y.one(this.SELECTORS.PAGE_DIV_ROOT + pageno).removeClass('hidden');
+
+        // Update the navigation.
         Y.one(this.SELECTORS.NAV_BLOCK).all(this.SELECTORS.NAV_BUTTON).each(function (node) {
                     if (this.page_number_from_link(node) === pageno) {
                         node.addClass('thispage');
@@ -160,6 +218,18 @@ M.quizaccess_offlinemode.navigation = {
                         node.removeClass('thispage');
                     }
                 }, this);
+
+        // Update the hidden form fields.
+        if (pageno >= 0) {
+            Y.one(this.SELECTORS.THIS_PAGE_INPUT).set('value', pageno);
+            if (pageno < this.lastpage) {
+                Y.one(this.SELECTORS.NEXT_PAGE_INPUT).set('value', pageno + 1);
+            } else {
+                Y.one(this.SELECTORS.NEXT_PAGE_INPUT).set('value', -1);
+            }
+        }
+
+        // Update the URL.
         if (window.history.replaceState) {
             var queryString = window.location.search;
             if (queryString.match(/\bpage=-?\d+/)) {
