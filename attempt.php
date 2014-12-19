@@ -81,7 +81,7 @@ $accessmanager->setup_attempt_page($PAGE);
 // Complete masquerading as the mod-quiz-attempt page. Must be done after setup_attempt_page.
 $PAGE->set_pagetype('mod-quiz-attempt');
 
-// get the renderer.
+// Get the renderer.
 $output = $PAGE->get_renderer('mod_quiz');
 $messages = $accessmanager->prevent_access();
 if (!$attemptobj->is_preview_user() && $messages) {

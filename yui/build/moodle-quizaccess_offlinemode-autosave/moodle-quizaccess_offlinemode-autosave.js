@@ -419,7 +419,7 @@ M.quizaccess_offlinemode.autosave = {
 
     is_time_nearly_over: function() {
         return M.mod_quiz.timer && M.mod_quiz.timer.endtime &&
-                (new Date().getTime() + 2*this.delay) > M.mod_quiz.timer.endtime;
+                (new Date().getTime() + 2 * this.delay) > M.mod_quiz.timer.endtime;
     },
 
     stop_autosaving: function() {

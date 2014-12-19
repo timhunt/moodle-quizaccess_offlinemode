@@ -80,6 +80,14 @@ M.quizaccess_offlinemode.navigation = {
     lastpage: null,
 
     /**
+     * Our best guess at the size of any floating top bar.
+     *
+     * @property extraspaceattop
+     * @type Number
+     */
+    extraspaceattop: 0,
+
+    /**
      * Initialise the navigation code.
      *
      * @method init
@@ -117,6 +125,11 @@ M.quizaccess_offlinemode.navigation = {
         Y.one(this.SELECTORS.NEXT_BUTTON).on('click', this.next_button_click, this);
         Y.one(this.SELECTORS.SUMMARY_PAGE_BUTTON).on('click', this.summary_button_click, this);
 
+        var topbar = Y.one('.navbar-fixed-top');
+        if (topbar) {
+            this.extraspaceattop = topbar.get('offsetHeight');
+        }
+
         Y.log('Initialised offline quiz mode.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
     },
 
@@ -131,6 +144,7 @@ M.quizaccess_offlinemode.navigation = {
         e.halt();
 
         this.navigate_to_page(this.page_number_from_link(e.currentTarget));
+        this.scroll_to_fragment_from_link(e.currentTarget);
     },
 
     /**
@@ -167,6 +181,7 @@ M.quizaccess_offlinemode.navigation = {
             // Return to attempt button pressed.
             e.halt();
             this.navigate_to_page(+Y.one(this.SELECTORS.THIS_PAGE_INPUT).get('value'));
+            this.scroll_to_fragment_from_link(e.currentTarget);
 
         } else {
             // TODO submit button clicked.
@@ -187,6 +202,33 @@ M.quizaccess_offlinemode.navigation = {
             return +pageidmatch[1];
         } else {
             return 0;
+        }
+    },
+
+    scroll_to_fragment_from_link: function(anchor) {
+        var fragmentidmatch = anchor.get('href').match(/#(?:q\d+)?$/);
+        if (!fragmentidmatch) {
+            return;
+        }
+
+        // Update the URL.
+        if (window.history.replaceState) {
+            var url = window.location.href;
+            if (url.match(/#[^#]*$/)) {
+                url = url.replace(/#[^#]*$/, fragmentidmatch[0]);
+            } else {
+                url += fragmentidmatch[0];
+            }
+            window.history.replaceState(null, '', url);
+        }
+
+        if (fragmentidmatch[0] === '#') {
+            window.scrollTo(0, 0);
+        }
+
+        var target = Y.one(fragmentidmatch[0]);
+        if (target) {
+            window.scrollTo(0, target.getY() - this.extraspaceattop);
         }
     },
 
@@ -243,6 +285,8 @@ M.quizaccess_offlinemode.navigation = {
         }
 
         this.currentpage = pageno;
+
+        window.scrollTo(0, 0);
     }
 };
 

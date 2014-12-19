@@ -52,9 +52,9 @@
 50. DONE Update the summary page when we update question states.
 51. DONE Make the question number links in the summary table work.
 52. DONE Make Next & Return to attempts buttons work.
-53. Scroll sensibly when navigating between pages.
-54. Behat tests for the summary page.
-55. DONE Fix flag JS.
+53. DONE Scroll sensibly when navigating between pages.
+54. DONE Fix flag JS.
+55. Behat tests for the summary page.
 56. Route all connections through a connection manager to monitor network sate.
 57. Use network state to display a warning, and only show download link when there are problems.
 58. For testing (developer debug?) a button to toggle simulated network disconnection.
