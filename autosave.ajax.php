@@ -59,7 +59,14 @@ if ($attemptobj->is_finished()) {
             'attemptalreadyclosed', null, $attemptobj->review_url());
 }
 
+// Process the responses.
 $attemptobj->process_auto_save($timenow);
+
+// Update current page number.
+if ($thispage >= 0 && $attemptobj->get_currentpage() != $thispage) {
+    $DB->set_field('quiz_attempts', 'currentpage', $thispage, array('id' => $attemptid));
+}
+
 $transaction->allow_commit();
 
 // Get the question states, and put them in a response.

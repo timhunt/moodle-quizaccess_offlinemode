@@ -24,7 +24,7 @@
 22. DONE Draw state/dataflow diagram, to help clarify what data needs to go where when.
 23. DONE Copy quiz autosave locally, so we can edit it.
 24. DONE navigation.js should update the pagenumber in the URL.
-25. navigation.js should send page number changes to Moodle to update quiz_attempts.currentpage.
+25. DONE navigation.js should send page number changes to Moodle to update quiz_attempts.currentpage.
 26. DONE When there are unsaved answers, provide a local download link.
 27. DONE Compress the download.
 28. FAILED Encryption of the download.
@@ -54,15 +54,16 @@
 52. DONE Make Next & Return to attempts buttons work.
 53. Scroll sensibly when navigating between pages.
 54. Behat tests for the summary page.
-55. Route all connections through a connection manager to monitor network sate.
-56. Use network state to display a warning, and only show download link when there are problems.
-57. For testing (developer debug?) a button to toggle simulated network disconnection.
-58. Behat tests for the warning.
-59. Whether final submit is allowed should be linked to the state of the network connection.
-60. Behat tests for final submit.
-61. ??? Client-side auto-save JS.
-62. ??? Ajax calls should try to synch the clock.
-63. Sequential navigation mode.
-64. Logging.
-65. Flagging need to update summary.
-66. Should flagging Ajax go through the same ajax managers as everything else?
+55. Fix flag JS.
+56. Route all connections through a connection manager to monitor network sate.
+57. Use network state to display a warning, and only show download link when there are problems.
+58. For testing (developer debug?) a button to toggle simulated network disconnection.
+59. Behat tests for the warning.
+60. Whether final submit is allowed should be linked to the state of the network connection.
+61. Behat tests for final submit.
+62. ??? Client-side auto-save JS.
+63. ??? Ajax calls should try to synch the clock.
+64. Sequential navigation mode.
+65. Logging.
+66. Flagging need to update summary.
+67. Should flagging Ajax go through the same ajax managers as everything else?
