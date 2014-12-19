@@ -54,7 +54,7 @@
 52. DONE Make Next & Return to attempts buttons work.
 53. Scroll sensibly when navigating between pages.
 54. Behat tests for the summary page.
-55. Fix flag JS.
+55. DONE Fix flag JS.
 56. Route all connections through a connection manager to monitor network sate.
 57. Use network state to display a warning, and only show download link when there are problems.
 58. For testing (developer debug?) a button to toggle simulated network disconnection.
