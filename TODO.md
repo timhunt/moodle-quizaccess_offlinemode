@@ -43,14 +43,14 @@
 41. DONE Fix hard-coded strings in download and upload.
 42. DONE Autosave should update Q state to 'Answer changed' when it is.
 43. DONE Autosave should get real Q state back from PHP, and update Q states.
-44. PEER-REV MDL-48653 Should have dismiss alert steps to match accept alert Behat steps.
+44. INT-REV MDL-48653 Should have dismiss alert steps to match accept alert Behat steps.
 45. DONE Autosave should be enough to reassure formchangechecker.
 46. DONE Behat tests for the autosaving of states.
 47. DONE Render the summary page into the HTML.
 48. DONE Make navigating to & from the summary page work.
 49. INT-REV MDL-48666 It's not possible to intentify the rows in the quiz summary table from JS.
 50. DONE Update the summary page when we update question states.
-51. Make the question number links in the summary table work.
+51. DONE Make the question number links in the summary table work.
 52. Make Next & Return to attempts buttons work.
 53. Behat tests for the summary page.
 54. Route all connections through a connection manager to monitor network sate.

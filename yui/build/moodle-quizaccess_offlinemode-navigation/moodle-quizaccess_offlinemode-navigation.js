@@ -42,6 +42,8 @@ M.quizaccess_offlinemode.navigation = {
         QUIZ_FORM:  '#responseform',
         NAV_BLOCK:  '#mod_quiz_navblock',
         NAV_BUTTON: '.qnbutton',
+        SUMMARY_TABLE: '.quizsummaryofattempt',
+        SUMMARY_TABLE_LINK: 'tr > td.c0 > a',
         FINISH_LINK: '.endtestlink',
         PAGE_DIV_ROOT: '#quizaccess_offlinemode-attempt_page-',
         ALL_PAGE_DIVS: 'div[id|=quizaccess_offlinemode-attempt_page]'
@@ -81,6 +83,7 @@ M.quizaccess_offlinemode.navigation = {
         this.navigate_to_page(+currentpage);
 
         Y.delegate('click', this.nav_button_click, this.SELECTORS.NAV_BLOCK, this.SELECTORS.NAV_BUTTON, this);
+        Y.delegate('click', this.nav_button_click, this.SELECTORS.SUMMARY_TABLE, this.SELECTORS.SUMMARY_TABLE_LINK, this);
 
         // We need to remove the standard 'Finish attempt...' click hander before we add our own.
         Y.one(this.SELECTORS.FINISH_LINK).detach('click');
