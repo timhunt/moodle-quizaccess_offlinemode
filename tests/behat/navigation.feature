@@ -59,3 +59,5 @@ Feature: Offline mode navigation without page reloads
     And "#quiznavbutton3" "css_element" should exist
     And "#quiznavbutton3.thispage" "css_element" should not exist
     And a new page should not have loaded since I started watching
+    # Now successfully navigate away, or the following test will fail.
+    And I click on "Home" "link" confirming the dialogue
