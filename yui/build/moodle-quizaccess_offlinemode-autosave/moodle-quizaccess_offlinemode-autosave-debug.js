@@ -309,7 +309,8 @@ M.quizaccess_offlinemode.autosave = {
     mark_question_changed_if_necessary: function(elementname) {
         var slot = this.get_slot_from_id(elementname);
         if (slot) {
-            this.set_question_state(slot, 'Answer changed');
+            this.set_question_state_string(slot, M.util.get_string('answerchanged', 'quizaccess_offlinemode'));
+            this.set_question_state_class(slot, 'answersaved');
         }
     },
 
@@ -321,16 +322,30 @@ M.quizaccess_offlinemode.autosave = {
         return undefined;
     },
 
-    set_question_state: function(slot, newstate) {
+    set_question_state_string: function(slot, newstate) {
         Y.log('State of question ' + slot + ' changed to ' + newstate + '.',
                 'debug', 'moodle-quizaccess_offlinemode-autosave');
         Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html(newstate));
         Y.one('.quizsummary' + slot + ' .c1').setHTML(Y.Escape.html(newstate));
     },
 
-    update_question_states: function(questionstates) {
-        Y.Object.each(questionstates, function(state, slot) {
-            this.set_question_state(slot, state);
+    update_question_state_strings: function(statestrings) {
+        Y.Object.each(statestrings, function(state, slot) {
+            this.set_question_state_string(slot, state);
+        }, this);
+    },
+
+    set_question_state_class: function(slot, newstate) {
+        Y.log('State of question ' + slot + ' changed to ' + newstate + '.',
+                'debug', 'moodle-quizaccess_offlinemode-autosave');
+        var navButton = Y.one('#quiznavbutton' + slot);
+        navButton.set('className', navButton.get('className').replace(
+                /^qnbutton \w+\b/, 'qnbutton ' + newstate));
+    },
+
+    update_question_state_classes: function(stateclasses) {
+        Y.Object.each(stateclasses, function(state, slot) {
+            this.set_question_state_class(slot, state);
         }, this);
     },
 
@@ -399,7 +414,8 @@ M.quizaccess_offlinemode.autosave = {
         Y.log('Save completed.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
         this.save_transaction = null;
 
-        this.update_question_states(result.questionstates);
+        this.update_question_state_classes(result.questionstates);
+        this.update_question_state_strings(result.questionstatestrs);
 
         if (this.dirty) {
             Y.log('Dirty after save.', 'debug', 'moodle-quizaccess_offlinemode-autosave');

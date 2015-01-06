@@ -114,6 +114,7 @@ $emergencysavefilename = clean_filename(format_string($attemptobj->get_quiz_name
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-download',
         'M.quizaccess_offlinemode.download.init',
         array($emergencysavefilename, get_config('quizaccess_offlinemode', 'publickey')));
+$PAGE->requires->string_for_js('answerchanged', 'quizaccess_offlinemode');
 $PAGE->requires->string_for_js('downloadlink', 'quizaccess_offlinemode');
 
 // Log this page view.

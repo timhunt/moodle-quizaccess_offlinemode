@@ -70,9 +70,11 @@ if ($thispage >= 0 && $attemptobj->get_currentpage() != $thispage) {
 $transaction->allow_commit();
 
 // Get the question states, and put them in a response.
-$result = array('result' => 'OK', 'questionstates' => array());
+$result = array('result' => 'OK', 'questionstates' => array(), 'questionstatestrs' => array());
 foreach ($attemptobj->get_slots() as $slot) {
-    $result['questionstates'][$slot] = $attemptobj->get_question_status(
+    $result['questionstates'][$slot] = $attemptobj->get_question_state_class(
+            $slot, $options->correctness);
+    $result['questionstatestrs'][$slot] = $attemptobj->get_question_status(
             $slot, $options->correctness);
 }
 echo json_encode($result);

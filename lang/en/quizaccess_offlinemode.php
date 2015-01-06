@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['answerchanged'] = 'Answer changed';
 $string['backtothequiz'] = 'Back to the quiz';
 $string['dataprocessedsuccessfully'] = 'Data processed successfully ({$a}).';
 $string['description'] = 'This quiz uses fault-tolerant mode. Adminstrators can {$a}';
