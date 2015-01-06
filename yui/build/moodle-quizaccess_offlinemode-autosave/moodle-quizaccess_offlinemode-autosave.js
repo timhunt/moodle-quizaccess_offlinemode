@@ -319,6 +319,7 @@ M.quizaccess_offlinemode.autosave = {
     set_question_state_string: function(slot, newstate) {
         Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html(newstate));
         Y.one('.quizsummary' + slot + ' .c1').setHTML(Y.Escape.html(newstate));
+        Y.one('#quiznavbutton' + slot).set('title', Y.Escape.html(newstate));
     },
 
     update_question_state_strings: function(statestrings) {
@@ -330,7 +331,7 @@ M.quizaccess_offlinemode.autosave = {
     set_question_state_class: function(slot, newstate) {
         var navButton = Y.one('#quiznavbutton' + slot);
         navButton.set('className', navButton.get('className').replace(
-                /^qnbutton \w+\b/, 'qnbutton ' + newstate));
+                /^qnbutton \w+\b/, 'qnbutton ' + Y.Escape.html(newstate)));
     },
 
     update_question_state_classes: function(stateclasses) {
