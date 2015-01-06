@@ -55,7 +55,7 @@
 53. DONE Scroll sensibly when navigating between pages.
 54. DONE Fix flag JS.
 55. Behat tests for the summary page.
-56. Rename, at least in the UI, to fault-tolerant mode.
+56. DONE Rename, in the UI and comments, to fault-tolerant mode.
 57. Update the navigation panel with question state changes.
 58. On the upload screen, add a 'Submit attempts after processing the upload' option.
 59. If the Moodle session is lost, some way to reestablish it without reloading.

@@ -1,5 +1,5 @@
 @quizaccess @quizaccess_offlinemode
-Feature: Offline mode warning if you try to leave with unsaved respones.
+Feature: Fault-tolerant mode warns if you try to leave with unsaved respones.
   In order that I don't lose my work
   As a student
   I should be warned if I try to leave quiz while there are unsaved responses.
@@ -21,13 +21,13 @@ Feature: Offline mode warning if you try to leave with unsaved respones.
       | questioncategory | qtype     | name       | questiontext    |
       | Test questions   | truefalse | Question A | Answer me A |
     And the following "activities" exist:
-      | activity   | name         | course | idnumber | questionsperpage | offlinemode_enabled |
-      | quiz       | Quiz offline | C1     | quiz1    | 1                | 1                   |
-    And quiz "Quiz offline" contains the following questions:
+      | activity   | name                | course | idnumber | questionsperpage | offlinemode_enabled |
+      | quiz       | Quiz fault-tolerant | C1     | quiz1    | 1                | 1                   |
+    And quiz "Quiz fault-tolerant" contains the following questions:
       | Question A | 1 |
     And I log in as "student"
     And I follow "Course 1"
-    And I follow "Quiz offline"
+    And I follow "Quiz fault-tolerant"
     And I press "Attempt quiz now"
 
   @javascript

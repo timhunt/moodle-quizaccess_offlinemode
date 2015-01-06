@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 
 
 /**
- * Provides the information to restore the offlinemode quiz access plugin.
+ * Provides the information to restore the fault-tolerant mode quiz access plugin.
  *
  * If this plugin is required, a single
  * <quizaccess_offlinemode><enabled>1</enabled></quizaccess_offlinemode> tag

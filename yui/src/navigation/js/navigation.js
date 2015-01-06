@@ -15,7 +15,7 @@
 
 
 /**
- * Offline mode for quiz attempts.
+ * fault-tolerant mode for quiz attempts.
  *
  * @module moodle-quizaccess_offlinemode-navigation
  */
@@ -128,7 +128,7 @@ M.quizaccess_offlinemode.navigation = {
             this.extraspaceattop = topbar.get('offsetHeight');
         }
 
-        Y.log('Initialised offline quiz mode.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
+        Y.log('Initialised fault-tolerant quiz mode.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
     },
 
     /**

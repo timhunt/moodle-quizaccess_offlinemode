@@ -26,14 +26,14 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['backtothequiz'] = 'Back to the quiz';
 $string['dataprocessedsuccessfully'] = 'Data processed successfully ({$a}).';
-$string['description'] = 'This quiz uses offline mode. Adminstrators can {$a}';
+$string['description'] = 'This quiz uses fault-tolerant mode. Adminstrators can {$a}';
 $string['descriptionlink'] = 'upload exported responses';
 $string['downloadlink'] = 'Emergency response export';
-$string['offlinemodeenabled'] = 'Experimental offline attempt mode';
-$string['offlinemodeenabled_desc'] = 'Whether the offline attempt mode should be enabled by default for new quizzes, and also whether it should be an advanced settings (behind \'Show more ...\') on the quiz settings form.';
+$string['offlinemodeenabled'] = 'Experimental fault-tolerant mode';
+$string['offlinemodeenabled_desc'] = 'Whether the fault-tolerant mode should be enabled by default for new quizzes, and also whether it should be an advanced settings (behind \'Show more ...\') on the quiz settings form.';
 $string['offlinemodeenabled_help'] = 'The goal of this experimental option is to let students attempt a quiz even if the network connection is not reliable. For example on a train going through tunnels, or just with bad wi-fi. The students can move between pages of the quiz even if the server is not avaialble, and all their answers are stored locally, and sent to the server when possible.';
 $string['offlinemode:uploadresponses'] = 'Upload responses';
-$string['pluginname'] = 'Quiz offline attempt mode';
+$string['pluginname'] = 'Quiz fault-tolerant mode';
 $string['privatekey'] = 'Encryption private key';
 $string['privatekey_desc'] = 'You can use public-key cryptography to protect the downloaded responses. To do that, you need to supply a private/public key pair. You can generate a private key using <code>openssl genrsa -out rsa_1024_priv.pem 1024</code> at the command-line (if you have OpenSSL installed from https://www.openssl.org/). Then paste the content of the rsa_1024_priv.pem file into this box.';
 $string['processingcomplete'] = 'Processing complete';

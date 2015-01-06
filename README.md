@@ -1,7 +1,7 @@
-# Experimental offline mode for the quiz
+# Experimental fault-tolerant mode for the quiz
 
-Well, not strictly offline, but designed to work even if the network connection
-is unreliable.
+This code is designed to allow, as far as possible, a student to continue working
+on a quiz attempt even if the network connection goes down.
 
 This is currently work-in progress.
 See [TODO.md](https://github.com/timhunt/moodle-quizaccess_offlinemode/blob/master/TODO.md)

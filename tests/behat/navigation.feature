@@ -1,5 +1,5 @@
 @quizaccess @quizaccess_offlinemode
-Feature: Offline mode navigation without page reloads
+Feature: Fault-tolerant mode navigation without page reloads
   In order to attempt quizzes with dodgy wifi
   As a student
   I need to be able to navigate between pages of the quiz without a page reload.
@@ -23,15 +23,15 @@ Feature: Offline mode navigation without page reloads
       | Test questions   | truefalse | Question B | Answer me B |
       | Test questions   | truefalse | Question C | Answer me C |
     And the following "activities" exist:
-      | activity   | name         | course | idnumber | questionsperpage | offlinemode_enabled |
-      | quiz       | Quiz offline | C1     | quiz1    | 1                | 1                   |
-    And quiz "Quiz offline" contains the following questions:
+      | activity   | name                | course | idnumber | questionsperpage | offlinemode_enabled |
+      | quiz       | Quiz fault-tolerant | C1     | quiz1    | 1                | 1                   |
+    And quiz "Quiz fault-tolerant" contains the following questions:
       | Question A | 1 |
       | Question B | 2 |
       | Question C | 3 |
     And I log in as "student"
     And I follow "Course 1"
-    And I follow "Quiz offline"
+    And I follow "Quiz fault-tolerant"
 
   @javascript
   Scenario: Start a quiz attempt, and verify we see only page 1.

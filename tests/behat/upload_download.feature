@@ -23,15 +23,15 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
       | Test questions   | truefalse | Question B | Answer me B |
       | Test questions   | truefalse | Question C | Answer me C |
     And the following "activities" exist:
-      | activity   | name         | course | idnumber | questionsperpage | offlinemode_enabled |
-      | quiz       | Quiz offline | C1     | quiz1    | 1                | 1                   |
-    And quiz "Quiz offline" contains the following questions:
+      | activity   | name                | course | idnumber | questionsperpage | offlinemode_enabled |
+      | quiz       | Quiz fault-tolerant | C1     | quiz1    | 1                | 1                   |
+    And quiz "Quiz fault-tolerant" contains the following questions:
       | Question A | 1 |
       | Question B | 1 |
       | Question C | 1 |
     And I log in as "student"
     And I follow "Course 1"
-    And I follow "Quiz offline"
+    And I follow "Quiz fault-tolerant"
     And I press "Attempt quiz now"
     And I click on "True" "radio" in the "#q1" "css_element"
     And I click on "False" "radio" in the "#q2" "css_element"
@@ -44,7 +44,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I log out
     And I log in as "admin"
     And I follow "Course 1"
-    And I follow "Quiz offline"
+    And I follow "Quiz fault-tolerant"
     And I follow "upload exported responses"
     And I upload the saved responses file to "Response files" filemanager
     And I press "Upload responses"

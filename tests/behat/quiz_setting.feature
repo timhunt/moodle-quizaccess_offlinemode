@@ -1,8 +1,8 @@
 @quizaccess @quizaccess_offlinemode
-Feature: Offline mode quiz setting
+Feature: Fault-tolerant mode quiz setting
   In order to run quizzes with dodgy wifi
   As a teacher
-  I need to turn the offline quiz mode on and off.
+  I need to turn the fault-tolerant quiz mode on and off.
 
   Background:
     Given the following "courses" exist:
@@ -21,21 +21,21 @@ Feature: Offline mode quiz setting
   Scenario: Create a quiz with the setting on.
     When I turn editing mode on
     And I add a "Quiz" to section "0" and I fill the form with:
-      | Name                              | Quiz with offline mode |
-      | Experimental offline attempt mode | Yes                    |
-    And I follow "Quiz with offline mode"
+      | Name                             | Quiz with fault-tolerant mode |
+      | Experimental fault-tolerant mode | Yes                           |
+    And I follow "Quiz with fault-tolerant mode"
     And I navigate to "Edit settings" node in "Quiz administration"
-    Then the field "Experimental offline attempt mode" matches value "Yes"
+    Then the field "Experimental fault-tolerant mode" matches value "Yes"
 
   @javascript
   Scenario: Create a quiz with the setting off.
     When I turn editing mode on
     And I add a "Quiz" to section "0" and I fill the form with:
-      | Name                              | Quiz without offline mode |
-      | Experimental offline attempt mode | No                        |
-    And I follow "Quiz without offline mode"
+      | Name                             | Quiz without fault-tolerant mode |
+      | Experimental fault-tolerant mode | No                               |
+    And I follow "Quiz without fault-tolerant mode"
     And I navigate to "Edit settings" node in "Quiz administration"
-    Then the field "Experimental offline attempt mode" matches value "No"
+    Then the field "Experimental fault-tolerant mode" matches value "No"
 
   @javascript
   Scenario: Change the setting for a quiz from off to on.
@@ -45,10 +45,10 @@ Feature: Offline mode quiz setting
     When I follow "Course 1"
     And I follow "Quiz 1"
     And I navigate to "Edit settings" node in "Quiz administration"
-    And I set the field "Experimental offline attempt mode" to "Yes"
+    And I set the field "Experimental fault-tolerant mode" to "Yes"
     And I press "Save and display"
     And I navigate to "Edit settings" node in "Quiz administration"
-    Then the field "Experimental offline attempt mode" matches value "Yes"
+    Then the field "Experimental fault-tolerant mode" matches value "Yes"
 
   @javascript
   Scenario: Change the setting for a quiz from on to off.
@@ -58,14 +58,14 @@ Feature: Offline mode quiz setting
     When I follow "Course 1"
     And I follow "Quiz 1"
     And I navigate to "Edit settings" node in "Quiz administration"
-    And I set the field "Experimental offline attempt mode" to "No"
+    And I set the field "Experimental fault-tolerant mode" to "No"
     And I press "Save and display"
     And I navigate to "Edit settings" node in "Quiz administration"
-    Then the field "Experimental offline attempt mode" matches value "No"
+    Then the field "Experimental fault-tolerant mode" matches value "No"
 
   @javascript
   Scenario: The experimental setting is disabled if you select an interactive behaviour.
     When I turn editing mode on
     And I add a "Quiz" to section "0"
     And I set the field "How questions behave" to "Adaptive mode"
-    Then the "Experimental offline attempt mode" "field" should be disabled
+    Then the "Experimental fault-tolerant mode" "field" should be disabled

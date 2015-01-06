@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Offline quiz mode, replacement attempt.php page.
+ * Fault-tolerant quiz mode, replacement attempt.php page.
  *
  * @package   quizaccess_offlinemode
  * @copyright 2014 The Open University

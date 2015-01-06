@@ -70,10 +70,10 @@ class quizaccess_offlinemode extends quiz_access_rule_base {
     }
 
     /**
-     * Given the quiz "How questions behave" setting, can the offline mode work
+     * Given the quiz "How questions behave" setting, can the fault-tolerant mode work
      * with that behaviour?
      * @param string $behaviour the internal name (e.g. 'interactive') of an archetypal behaviour.
-     * @return boolean whether offline mode can be used.
+     * @return boolean whether fault-tolerant mode can be used.
      */
     public static function is_compatible_behaviour($behaviour) {
         $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
