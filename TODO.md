@@ -37,33 +37,38 @@
 35. DONE AES instead of RC4.
 36. DONE Simple(!) test script to round-trip encryption in JS -> decryption in PHP.
 37. DONE Transfer working crypto from cryptotest to the real code.
-38. INT-REV MDL-48639 fix Behat upload code.
+38. INTEGRATED MDL-48639 fix Behat upload code.
 39. DONE Behat tests for the upload.
 40. DONE Add review attempt link to upload results.
 41. DONE Fix hard-coded strings in download and upload.
 42. DONE Autosave should update Q state to 'Answer changed' when it is.
 43. DONE Autosave should get real Q state back from PHP, and update Q states.
-44. INT-REV MDL-48653 Should have dismiss alert steps to match accept alert Behat steps.
+44. INTEGRATED MDL-48653 Should have dismiss alert steps to match accept alert Behat steps.
 45. DONE Autosave should be enough to reassure formchangechecker.
 46. DONE Behat tests for the autosaving of states.
 47. DONE Render the summary page into the HTML.
 48. DONE Make navigating to & from the summary page work.
-49. INT-REV MDL-48666 It's not possible to intentify the rows in the quiz summary table from JS.
+49. INTEGRATED MDL-48666 It's not possible to intentify the rows in the quiz summary table from JS.
 50. DONE Update the summary page when we update question states.
 51. DONE Make the question number links in the summary table work.
 52. DONE Make Next & Return to attempts buttons work.
 53. DONE Scroll sensibly when navigating between pages.
 54. DONE Fix flag JS.
 55. Behat tests for the summary page.
-56. Route all connections through a connection manager to monitor network sate.
-57. Use network state to display a warning, and only show download link when there are problems.
-58. For testing (developer debug?) a button to toggle simulated network disconnection.
-59. Behat tests for the warning.
-60. Whether final submit is allowed should be linked to the state of the network connection.
-61. Behat tests for final submit.
-62. ??? Client-side auto-save JS.
-63. ??? Ajax calls should try to synch the clock.
-64. Sequential navigation mode.
-65. Logging.
-66. Flagging need to update summary.
-67. Should flagging Ajax go through the same ajax managers as everything else?
+56. Rename, at least in the UI, to fault-tolerant mode.
+57. Update the navigation panel with question state changes.
+58. On the upload screen, add a 'Submit attempts after processing the upload' option.
+59. If the Moodle session is lost, some way to reestablish it without reloading.
+60. Route all connections through a connection manager to monitor network sate.
+61. Use network state to display a warning, and only show download link when there are problems.
+62. The warning should make it clear what to do, including use of the download.
+63. For testing (developer debug?) a button to toggle simulated network disconnection.
+64. Behat tests for the warning.
+65. Whether final submit is allowed should be linked to the state of the network connection.
+66. Behat tests for final submit.
+67. ??? Client-side auto-save JS.
+68. ??? Ajax calls should try to synch the clock.
+69. Sequential navigation mode.
+70. Logging.
+71. Flagging need to update the summary.
+72. Should flagging Ajax go through the same ajax managers as everything else?
