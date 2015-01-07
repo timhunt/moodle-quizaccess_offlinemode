@@ -44,6 +44,9 @@ M.quizaccess_offlinemode.navigation = {
         NEXT_BUTTON:          'input[name=next]',
         SUMMARY_TABLE:        '.quizsummaryofattempt',
         SUMMARY_TABLE_LINK:   'tr > td.c0 > a',
+        SUMMARY_ROW:          '.quizsummaryofattempt tr.quizsummary', // Must have slot appended.
+        SUMMARY_LINK_IN_ROW:  ' > td.c0 > a',
+        FLAG_ICON_IN_ROW:     ' .questionflag',
         SUMMARY_PAGE_BUTTON:  '#quizaccess_offlinemode-attempt_page--1 .submitbtns input[type=submit]',
         PAGE_DIV_ROOT:        '#quizaccess_offlinemode-attempt_page-',
         ALL_PAGE_DIVS:        'div[id|=quizaccess_offlinemode-attempt_page]',
@@ -126,6 +129,10 @@ M.quizaccess_offlinemode.navigation = {
         var topbar = Y.one('.navbar-fixed-top');
         if (topbar) {
             this.extraspaceattop = topbar.get('offsetHeight');
+        }
+
+        if (M.core_question_flags) {
+            M.core_question_flags.add_listener(Y.bind(this.update_flag_on_summary_page, this));
         }
 
         Y.log('Initialised fault-tolerant quiz mode.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
@@ -285,5 +292,18 @@ M.quizaccess_offlinemode.navigation = {
         this.currentpage = pageno;
 
         window.scrollTo(0, 0);
+    },
+
+    update_flag_on_summary_page: function(notused, slot, newstate) {
+        if (newstate === '1') {
+            var icon = Y.Node.create('<img class="questionflag icon-post" />').setAttrs({
+                'src':   M.util.image_url('i/flagged', 'core'),
+                'title': M.util.get_string('flagged', 'question')
+            });
+            Y.one(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.SUMMARY_LINK_IN_ROW)
+                    .append(icon);
+        } else {
+            Y.all(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.FLAG_ICON_IN_ROW).remove();
+        }
     }
 };

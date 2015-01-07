@@ -93,7 +93,12 @@ M.quizaccess_offlinemode.autosave = {
         CHANGE_ELEMENTS:       'input, select',
         HIDDEN_INPUTS:         'input[type=hidden]',
         CONNECTION_ERROR:      '#connection-error',
-        CONNECTION_OK:         '#connection-ok'
+        CONNECTION_OK:         '#connection-ok',
+        NAV_BUTTON:            '#quiznavbutton',                       // Must have slot appended.
+        QUESTION_CONTAINER:    '#q',                                   // Must have slot appended.
+        STATE_HOLDER:          ' .state',
+        SUMMARY_ROW:           '.quizsummaryofattempt tr.quizsummary', // Must have slot appended.
+        STATE_COLUMN:          ' .c1'
     },
 
     /**
@@ -323,9 +328,11 @@ M.quizaccess_offlinemode.autosave = {
     set_question_state_string: function(slot, newstate) {
         Y.log('State of question ' + slot + ' changed to ' + newstate + '.',
                 'debug', 'moodle-quizaccess_offlinemode-autosave');
-        Y.one('#q' + slot + ' .state').setHTML(Y.Escape.html(newstate));
-        Y.one('.quizsummary' + slot + ' .c1').setHTML(Y.Escape.html(newstate));
-        Y.one('#quiznavbutton' + slot).set('title', Y.Escape.html(newstate));
+        Y.one(this.SELECTORS.QUESTION_CONTAINER + slot + this.SELECTORS.STATE_HOLDER)
+                .setHTML(Y.Escape.html(newstate));
+        Y.one(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.STATE_COLUMN)
+                .setHTML(Y.Escape.html(newstate));
+        Y.one(this.SELECTORS.NAV_BUTTON + slot).set('title', Y.Escape.html(newstate));
     },
 
     update_question_state_strings: function(statestrings) {
@@ -337,7 +344,7 @@ M.quizaccess_offlinemode.autosave = {
     set_question_state_class: function(slot, newstate) {
         Y.log('State of question ' + slot + ' changed to ' + newstate + '.',
                 'debug', 'moodle-quizaccess_offlinemode-autosave');
-        var navButton = Y.one('#quiznavbutton' + slot);
+        var navButton = Y.one(this.SELECTORS.NAV_BUTTON + slot);
         navButton.set('className', navButton.get('className').replace(
                 /^qnbutton \w+\b/, 'qnbutton ' + Y.Escape.html(newstate)));
     },
