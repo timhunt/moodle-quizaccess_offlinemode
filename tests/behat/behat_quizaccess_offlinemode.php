@@ -74,6 +74,9 @@ class behat_quizaccess_offlinemode extends behat_question_base {
 
     /**
      * Upload the responses previously saved above, to a given filepicker.
+     *
+     * @param string $fieldlabel the lable of the file manager to upload to.
+     *
      * @Given /^I upload the saved responses file to "([^"]*)" filemanager$/
      */
     public function i_upload_the_saved_responses_file_to_filemanager($fieldlabel) {
@@ -85,5 +88,16 @@ class behat_quizaccess_offlinemode extends behat_question_base {
 
         $uploadcontext = behat_context_helper::get('behat_repository_upload');
         $uploadcontext->i_upload_file_to_filemanager($this->downloadedfile, $fieldlabel);
+    }
+
+    /**
+     * Set the quiz's Auto-save period configuration setting to this many seconds.
+     *
+     * @param int $time time in seconds.
+     *
+     * @Given /^the quiz auto-save period is set to "([^"]*)"$/
+     */
+    public function the_quiz_auto_save_period_is_set_to($time) {
+        set_config('autosaveperiod', $time, 'quiz');
     }
 }
