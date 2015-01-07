@@ -30,6 +30,7 @@ $string['dataprocessedsuccessfully'] = 'Data processed successfully ({$a}).';
 $string['description'] = 'This quiz uses fault-tolerant mode. Adminstrators can {$a}';
 $string['descriptionlink'] = 'upload exported responses';
 $string['downloadlink'] = 'Emergency response export';
+$string['finishattemptsafterupload'] = 'Submit and finish each attempt after processing the upload';
 $string['offlinemodeenabled'] = 'Experimental fault-tolerant mode';
 $string['offlinemodeenabled_desc'] = 'Whether the fault-tolerant mode should be enabled by default for new quizzes, and also whether it should be an advanced settings (behind \'Show more ...\') on the quiz settings form.';
 $string['offlinemodeenabled_help'] = 'The goal of this experimental option is to let students attempt a quiz even if the network connection is not reliable. For example on a train going through tunnels, or just with bad wi-fi. The students can move between pages of the quiz even if the server is not avaialble, and all their answers are stored locally, and sent to the server when possible.';

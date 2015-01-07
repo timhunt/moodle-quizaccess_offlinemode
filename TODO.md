@@ -57,7 +57,7 @@
 55. DONE Rename, in the UI and comments, to fault-tolerant mode.
 56. DONE Update the navigation panel with question state changes.
 57. Behat tests for the summary page & nav panel button statuses.
-58. On the upload screen, add a 'Submit attempts after processing the upload' option.
+58. DONE On the upload screen, add a 'Submit attempts after processing the upload' option.
 59. If the Moodle session is lost, some way to reestablish it without reloading.
 60. Route all connections through a connection manager to monitor network sate.
 61. Use network state to display a warning, and only show download link when there are problems.

@@ -44,6 +44,9 @@ class upload_responses extends moodleform {
         $mform->addRule('responsefiles', get_string('required'), 'required', null, 'client');
         $mform->addHelpButton('responsefiles', 'responsefiles', 'quizaccess_offlinemode');
 
+        $mform->addElement('selectyesno', 'finishattempts',
+                get_string('finishattemptsafterupload', 'quizaccess_offlinemode'));
+
         $this->add_action_buttons(true, get_string('uploadresponses', 'quizaccess_offlinemode'));
     }
 }

@@ -142,16 +142,25 @@ if ($form->is_cancelled()) {
 
             echo html_writer::tag('textarea', s(print_r($postdata, true)), array('readonly' => 'readonly'));
 
+            // Load the attempt.
             $attemptobj = quiz_attempt::create($postdata['attempt']);
             if ($attemptobj->get_cmid() != $cmid) {
                 throw new coding_exception('The uploaded data does not belong to this quiz.');
             }
 
+            // Process the uploaded data. (We have to do weird fakery with $_POST.)
+            $timenow = time();
             $originalpost = $_POST;
             $_POST = $postdata;
-            $attemptobj->process_submitted_actions(time());
+            if ($fromform->finishattempts) {
+                $attemptobj->process_finish($timenow, true);
+            } else {
+                $attemptobj->process_submitted_actions($timenow);
+            }
             $_POST = $originalpost;
             $originalpost = null;
+
+            // Display a success message.
             echo $OUTPUT->notification(get_string('dataprocessedsuccessfully', 'quizaccess_offlinemode',
                     html_writer::link($attemptobj->review_url(), get_string('reviewthisattempt', 'quizaccess_offlinemode'))),
                     'notifysuccess');

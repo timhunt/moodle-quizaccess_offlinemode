@@ -38,7 +38,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I click on "True" "radio" in the "#q3" "css_element"
 
   @javascript
-  Scenario: Download the responses so far, then re-upload them.
+  Scenario: Download the responses so far, then re-upload them without finishing the attempt.
     When I follow the emergency download link
     And I click on "Home" "link" confirming the dialogue
     And I log out
@@ -51,6 +51,29 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     Then I should see "Processing file"
     And I should see "Data processed successfully"
     And I follow "Review this attempt"
+    And I should see "In progress" in the "State" "table_row"
+    And I should not see "Completed on" in the ".quizreviewsummary" "css_element"
     And the state of "Answer me A" question is shown as "Answer saved"
     And the state of "Answer me B" question is shown as "Answer saved"
     And the state of "Answer me C" question is shown as "Answer saved"
+
+  @javascript
+  Scenario: Download the responses so far, then re-upload them finishing the attempt.
+    When I follow the emergency download link
+    And I click on "Home" "link" confirming the dialogue
+    And I log out
+    And I log in as "admin"
+    And I follow "Course 1"
+    And I follow "Quiz fault-tolerant"
+    And I follow "upload exported responses"
+    And I upload the saved responses file to "Response files" filemanager
+    And I set the field "Submit and finish each attempt after processing the upload" to "Yes"
+    And I press "Upload responses"
+    Then I should see "Processing file"
+    And I should see "Data processed successfully"
+    And I follow "Review this attempt"
+    And I should see "Finished" in the "State" "table_row"
+    And I should see "Completed on" in the ".quizreviewsummary" "css_element"
+    And the state of "Answer me A" question is shown as "Correct"
+    And the state of "Answer me B" question is shown as "Incorrect"
+    And the state of "Answer me C" question is shown as "Correct"
