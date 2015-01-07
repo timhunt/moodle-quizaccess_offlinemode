@@ -39,6 +39,7 @@ Feature: Fault-tolerant mode navigation without page reloads
     Then I should see "Answer me A"
     And I should not see "Answer me B"
     And I should not see "Answer me C"
+    And I should not see "Summary of attempt"
     And "#quiznavbutton1.thispage" "css_element" should exist
     And "#quiznavbutton2" "css_element" should exist
     And "#quiznavbutton2.thispage" "css_element" should not exist
@@ -46,18 +47,55 @@ Feature: Fault-tolerant mode navigation without page reloads
     And "#quiznavbutton3.thispage" "css_element" should not exist
 
   @javascript
-  Scenario: Start a quiz attempt and veryify that switching to page 2 works.
+  Scenario: Start a quiz attempt and verify that switching to page 2 works.
     When I press "Attempt quiz now"
     And I start watching to see if a new page loads
     And I click on "Question 2" "link" in the "Quiz navigation" "block"
     Then I should not see "Answer me A"
     And I should see "Answer me B"
     And I should not see "Answer me C"
+    And I should not see "Summary of attempt"
     And "#quiznavbutton1" "css_element" should exist
     And "#quiznavbutton1.thispage" "css_element" should not exist
     And "#quiznavbutton2.thispage" "css_element" should exist
     And "#quiznavbutton3" "css_element" should exist
     And "#quiznavbutton3.thispage" "css_element" should not exist
+    And a new page should not have loaded since I started watching
+    # Now successfully navigate away, or the following test will fail.
+    And I click on "Home" "link" confirming the dialogue
+
+  @javascript
+  Scenario: Start a quiz attempt and verify that switching to the summary works.
+    When I press "Attempt quiz now"
+    And I start watching to see if a new page loads
+    And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"
+    Then I should not see "Answer me A"
+    And I should not see "Answer me B"
+    And I should not see "Answer me C"
+    And I should see "Summary of attempt"
+    And "#quiznavbutton1" "css_element" should exist
+    And "#quiznavbutton1.thispage" "css_element" should not exist
+    And "#quiznavbutton2" "css_element" should exist
+    And "#quiznavbutton2.thispage" "css_element" should not exist
+    And "#quiznavbutton3" "css_element" should exist
+    And "#quiznavbutton3.thispage" "css_element" should not exist
+    And a new page should not have loaded since I started watching
+
+  @javascript
+  Scenario: Start a quiz attempt and verify that switching from the summary works.
+    When I press "Attempt quiz now"
+    And I start watching to see if a new page loads
+    And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"
+    And I click on "3" "link" in the "quizsummaryofattempt" "table"
+    Then I should not see "Answer me A"
+    And I should not see "Answer me B"
+    And I should see "Answer me C"
+    And I should not see "Summary of attempt"
+    And "#quiznavbutton1" "css_element" should exist
+    And "#quiznavbutton1.thispage" "css_element" should not exist
+    And "#quiznavbutton2" "css_element" should exist
+    And "#quiznavbutton2.thispage" "css_element" should not exist
+    And "#quiznavbutton3.thispage" "css_element" should exist
     And a new page should not have loaded since I started watching
     # Now successfully navigate away, or the following test will fail.
     And I click on "Home" "link" confirming the dialogue
