@@ -300,8 +300,18 @@ M.quizaccess_offlinemode.navigation = {
         } else {
             Y.all(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.FLAG_ICON_IN_ROW).remove();
         }
-    },
+    }
 };
 
 
-}, '@VERSION@', {"requires": ["base", "node", "event", "event-valuechange", "node-event-delegate", "io-form"]});
+}, '@VERSION@', {
+    "requires": [
+        "base",
+        "node",
+        "event",
+        "event-valuechange",
+        "node-event-delegate",
+        "io-form",
+        "moodle-core-notification-confirm"
+    ]
+});

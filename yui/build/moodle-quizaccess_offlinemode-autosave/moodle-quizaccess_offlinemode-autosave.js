@@ -216,12 +216,10 @@ M.quizaccess_offlinemode.autosave = {
         this.form.delegate('valuechange', this.value_changed, this.SELECTORS.VALUE_CHANGE_ELEMENTS, this);
         this.form.delegate('change',      this.value_changed, this.SELECTORS.CHANGE_ELEMENTS,       this);
 
-        this.form.on('submit', this.submit_and_finish, this);
-        // Hack alert! The submit & finish button has a confirm dialogue, and when
-        // that is confirmed, it calls the form's submit method. We don't want that,
-        // so replace that form's submit function with our method.
-        Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).ancestor(this.SELECTORS.FORM)
-                .submit = Y.bind(this.submit_and_finish, this);
+        // We need to remove the standard 'Finish attempt...' click hander before we add our own.
+        var submitAndFinishButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).previous(this.SELECTORS.SUBMIT_BUTTON);
+        submitAndFinishButton.detach('click');
+        submitAndFinishButton.on('click', this.submit_and_finish_clicked, this);
 
         this.init_tinymce(this.TINYMCE_DETECTION_REPEATS);
 
@@ -477,20 +475,45 @@ M.quizaccess_offlinemode.autosave = {
     },
 
     /**
-     * Handle the submit and finish button being pressed.
+     * Handle a click on the submit and finish button. That is, show a confirm dialogue.
+     *
+     * @param {EventFacade} e The triggering event, if there is one.
+     */
+    submit_and_finish_clicked: function(e) {
+        e.halt(true);
+
+        var confirmationDialogue = new M.core.confirm({
+            id: 'submit-confirmation',
+            width: '300px',
+            center: true,
+            modal: true,
+            visible: false,
+            draggable: false,
+            title: M.util.get_string('confirmation', 'admin'),
+            noLabel: M.util.get_string('cancel', 'moodle'),
+            yesLabel: M.util.get_string('submitallandfinish', 'quiz'),
+            question: M.util.get_string('confirmclose', 'quiz')
+        });
+
+        // The dialogue was submitted with a positive value indication.
+        confirmationDialogue.on('complete-yes', this.submit_and_finish, this);
+        confirmationDialogue.render().show();
+    },
+
+    /**
+     * Handle the submit and finish button in the confirm dialogue being pressed.
      *
      * @param {EventFacade} e The triggering event, if there is one.
      */
     submit_and_finish: function(e) {
-        if (e) {
-            e.halt();
-        }
+        e.halt();
         this.stop_autosaving();
 
-        submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).previous(this.SELECTORS.SUBMIT_BUTTON);
-        var spinner = M.util.add_spinner(submitButton.ancestor(this.SELECTORS.CONTROLS_CONTAINER));
-        submitButton.ancestor(this.SELECTORS.BUTTON_CONTAINER).hide();
+        var submitButton = Y.one('input[name=finishattempt]').previous('input[type=submit]');
+        var spinner = M.util.add_spinner(Y, submitButton.ancestor('.controls'));
         spinner.show();
+        submitButton.ancestor('.controls').append(M.util.get_string('submitting', 'quizaccess_offlinemode'));
+        submitButton.ancestor('.singlebutton').hide();
         this.form.append('<input name="finishattempt" value="1">');
 
         if (typeof tinyMCE !== 'undefined') {
@@ -522,7 +545,8 @@ M.quizaccess_offlinemode.autosave = {
         }
 
         this.save_transaction = null;
-        window.location.replace(response.reviewurl);
+        this.dirty = false;
+        window.location.replace(result.reviewurl);
     },
 
     submit_failed: function() {

@@ -300,5 +300,5 @@ M.quizaccess_offlinemode.navigation = {
         } else {
             Y.all(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.FLAG_ICON_IN_ROW).remove();
         }
-    },
+    }
 };

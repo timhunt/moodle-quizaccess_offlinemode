@@ -45,6 +45,7 @@ $string['publickey_desc'] = 'This must correspond to the private key. You can ge
 $string['responsefiles'] = 'Response files';
 $string['responsefiles_help'] = 'You can upload one or more response files downloaded using the \'Emergency response export\' link during a quiz attempt.';
 $string['reviewthisattempt'] = 'Review this attempt';
+$string['submitting'] = 'Submitting ...';
 $string['uploadfailed'] = 'The upload failed';
 $string['uploadingresponsesfor'] = 'Uploading responses for {$a}';
 $string['uploadmoreresponses'] = 'Upload more responses';

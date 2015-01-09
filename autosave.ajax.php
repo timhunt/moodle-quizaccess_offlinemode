@@ -63,7 +63,7 @@ if ($attemptobj->is_finished()) {
 if ($finishattempt) {
     // Submit and finish. TODO all the using timing stuff.
     $attemptobj->process_finish($timenow, true);
-    $result = array('result' => 'OK', 'reviewurl' => $attemptobj->review_url());
+    $result = array('result' => 'OK', 'reviewurl' => $attemptobj->review_url()->out(false));
 
 } else {
     // Process the responses.

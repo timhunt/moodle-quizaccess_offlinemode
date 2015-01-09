@@ -58,18 +58,14 @@
 56. DONE Update the navigation panel with question state changes.
 57. DONE Behat tests for the summary page & nav panel button statuses.
 58. DONE On the upload screen, add a 'Submit attempts after processing the upload' option.
-59. If the Moodle session is lost, some way to reestablish it without reloading.
-60. Route all connections through a connection manager to monitor network sate.
-61. Use network state to display a warning, and only show download link when there are problems.
-62. The warning should make it clear what to do, including use of the download.
-63. For testing (developer debug?) a button to toggle simulated network disconnection.
-64. Behat tests for the warning.
-65. Final submit should first send the data, and only redirect if successful.
-66. Behat tests for final submit.
-67. ??? Client-side auto-save JS.
-68. ??? Ajax calls should try to synch the clock.
-69. All the usual complexity around the end of time.
-70. Sequential navigation mode.
-71. DONE Logging.
-72. DONE Flagging need to update the summary.
-73. NO Should flagging Ajax go through the same ajax managers as everything else?
+59. DONE Logging.
+60. DONE Flagging need to update the summary.
+61. DONE Final submit should first send the data, and only redirect if successful.
+62. DONE Behat tests for final submit.
+63. If final submit fails, show appropriate help, including the download link.
+64. Improved warning about the current state of the network connection.
+65. For testing (developer debug?) a button to toggle simulated network disconnection.
+66. Sequential navigation mode.
+67. If the Moodle session is lost, some way to re-establish it without reloading.
+68. ??? Client-side auto-save JS.
+69. Think about all the usual complexity around the end of time.
