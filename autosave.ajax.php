@@ -17,9 +17,9 @@
 /**
  * Thisscript processes ajax auto-save requests during the quiz.
  *
- * @package    mod_quiz
- * @copyright  2013 The Open University
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   quizaccess_offlinemode
+ * @copyright 2013 The Open University
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 define('AJAX_SCRIPT', true);
@@ -35,6 +35,7 @@ require_sesskey();
 // Get submitted parameters.
 $attemptid = required_param('attempt',  PARAM_INT);
 $thispage  = optional_param('thispage', 0, PARAM_INT);
+$finishattempt = optional_param('finishattempt', false, PARAM_BOOL);
 
 $transaction = $DB->start_delegated_transaction();
 $attemptobj = quiz_attempt::create($attemptid);
@@ -59,22 +60,30 @@ if ($attemptobj->is_finished()) {
             'attemptalreadyclosed', null, $attemptobj->review_url());
 }
 
-// Process the responses.
-$attemptobj->process_auto_save($timenow);
+if ($finishattempt) {
+    // Submit and finish. TODO all the using timing stuff.
+    $attemptobj->process_finish($timenow, true);
+    $result = array('result' => 'OK', 'reviewurl' => $attemptobj->review_url());
 
-// Update current page number.
-if ($thispage >= 0 && $attemptobj->get_currentpage() != $thispage) {
-    $DB->set_field('quiz_attempts', 'currentpage', $thispage, array('id' => $attemptid));
+} else {
+    // Process the responses.
+    $attemptobj->process_auto_save($timenow);
+
+    // Update current page number.
+    if ($thispage >= 0 && $attemptobj->get_currentpage() != $thispage) {
+        $DB->set_field('quiz_attempts', 'currentpage', $thispage, array('id' => $attemptid));
+    }
+
+    // Get the question states, and put them in a response.
+    $result = array('result' => 'OK', 'questionstates' => array(), 'questionstatestrs' => array());
+    foreach ($attemptobj->get_slots() as $slot) {
+        $result['questionstates'][$slot] = $attemptobj->get_question_state_class(
+                $slot, $options->correctness);
+        $result['questionstatestrs'][$slot] = $attemptobj->get_question_status(
+                $slot, $options->correctness);
+    }
 }
 
 $transaction->allow_commit();
 
-// Get the question states, and put them in a response.
-$result = array('result' => 'OK', 'questionstates' => array(), 'questionstatestrs' => array());
-foreach ($attemptobj->get_slots() as $slot) {
-    $result['questionstates'][$slot] = $attemptobj->get_question_state_class(
-            $slot, $options->correctness);
-    $result['questionstatestrs'][$slot] = $attemptobj->get_question_status(
-            $slot, $options->correctness);
-}
 echo json_encode($result);

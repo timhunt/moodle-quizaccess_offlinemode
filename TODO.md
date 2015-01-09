@@ -64,11 +64,12 @@
 62. The warning should make it clear what to do, including use of the download.
 63. For testing (developer debug?) a button to toggle simulated network disconnection.
 64. Behat tests for the warning.
-65. Whether final submit is allowed should be linked to the state of the network connection.
+65. Final submit should first send the data, and only redirect if successful.
 66. Behat tests for final submit.
 67. ??? Client-side auto-save JS.
 68. ??? Ajax calls should try to synch the clock.
-69. Sequential navigation mode.
-70. Logging.
-71. DONE Flagging need to update the summary.
-72. Should flagging Ajax go through the same ajax managers as everything else?
+69. All the usual complexity around the end of time.
+70. Sequential navigation mode.
+71. Logging.
+72. DONE Flagging need to update the summary.
+73. NO Should flagging Ajax go through the same ajax managers as everything else?

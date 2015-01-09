@@ -183,16 +183,11 @@ M.quizaccess_offlinemode.navigation = {
      * @param {EventFacade} e
      */
     summary_button_click: function(e) {
-
         if (e.currentTarget.siblings(this.SELECTORS.FINISH_ATTEMPT_INPUT).empty()) {
-            // Return to attempt button pressed.
+            // Return to attempt button pressed. (Submit and finished is handled in the autosave module.)
             e.halt();
             this.navigate_to_page(+Y.one(this.SELECTORS.THIS_PAGE_INPUT).get('value'));
             this.scroll_to_fragment_from_link(e.currentTarget);
-
-        } else {
-            // TODO submit button clicked.
-            return;
         }
     },
 
@@ -307,7 +302,7 @@ M.quizaccess_offlinemode.navigation = {
         } else {
             Y.all(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.FLAG_ICON_IN_ROW).remove();
         }
-    }
+    },
 };
 
 

@@ -98,7 +98,10 @@ M.quizaccess_offlinemode.autosave = {
         QUESTION_CONTAINER:    '#q',                                   // Must have slot appended.
         STATE_HOLDER:          ' .state',
         SUMMARY_ROW:           '.quizsummaryofattempt tr.quizsummary', // Must have slot appended.
-        STATE_COLUMN:          ' .c1'
+        STATE_COLUMN:          ' .c1',
+        FINISH_ATTEMPT_INPUT:  'input[name=finishattempt]',
+        SUBMIT_BUTTON:         'input[type=submit]',
+        FORM:                  'form'
     },
 
     /**
@@ -211,7 +214,13 @@ M.quizaccess_offlinemode.autosave = {
 
         this.form.delegate('valuechange', this.value_changed, this.SELECTORS.VALUE_CHANGE_ELEMENTS, this);
         this.form.delegate('change',      this.value_changed, this.SELECTORS.CHANGE_ELEMENTS,       this);
-        this.form.on('submit', this.stop_autosaving, this);
+
+        this.form.on('submit', this.submit_and_finish, this);
+        // Hack alert! The submit & finish button has a confirm dialogue, and when
+        // that is confirmed, it calls the form's submit method. We don't want that,
+        // so replace that form's submit function with our method.
+        Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).ancestor(this.SELECTORS.FORM)
+                .submit = Y.bind(this.submit_and_finish, this);
 
         this.init_tinymce(this.TINYMCE_DETECTION_REPEATS);
 
@@ -478,5 +487,70 @@ M.quizaccess_offlinemode.autosave = {
         // Show a warning.
         e.returnValue = M.util.get_string('changesmadereallygoaway', 'moodle');
         return e.returnValue;
+    },
+
+    /**
+     * Handle the submit and finish button being pressed.
+     *
+     * @param {EventFacade} e The triggering event, if there is one.
+     */
+    submit_and_finish: function(e) {
+        if (e) {
+            e.halt();
+        }
+        this.stop_autosaving();
+
+        submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).previous(this.SELECTORS.SUBMIT_BUTTON);
+        var spinner = M.util.add_spinner(submitButton.ancestor(this.SELECTORS.CONTROLS_CONTAINER));
+        submitButton.ancestor(this.SELECTORS.BUTTON_CONTAINER).hide();
+        spinner.show();
+        this.form.append('<input name="finishattempt" value="1">');
+
+        Y.log('Trying to submit.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
+        if (typeof tinyMCE !== 'undefined') {
+            tinyMCE.triggerSave();
+        }
+        this.save_transaction = Y.io(this.AUTOSAVE_HANDLER, {
+            method:  'POST',
+            form:    {id: this.form},
+            on:      {
+                success: this.submit_done,
+                failure: this.submit_failed
+            },
+            context: this
+        });
+    },
+
+    submit_done: function(transactionid, response) {
+        var result;
+        try {
+            result = Y.JSON.parse(response.responseText);
+        } catch (e) {
+            this.submit_done(transactionid, response);
+            return;
+        }
+
+        if (result.result !== 'OK') {
+            this.submit_done(transactionid, response);
+            return;
+        }
+
+        Y.log('Submit completed, redirecting.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
+        this.save_transaction = null;
+        window.location.replace(response.reviewurl);
+    },
+
+    submit_failed: function() {
+        Y.log('Submit failed.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
+        this.save_transaction = null;
+
+        // Re-display the submit button.
+        this.form.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).remove();
+        submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).sibling(this.SELECTORS.SUBMIT_BUTTON);
+        var spinner = M.util.add_spinner(submitButton.ancestor(this.SELECTORS.CONTROLS_CONTAINER));
+        submitButton.ancestor(this.SELECTORS.BUTTON_CONTAINER).show();
+        spinner.hide();
+
+        // TODO show a warning about the failure and what to do.
     }
 };
