@@ -82,6 +82,24 @@ if ($finishattempt) {
         $result['questionstatestrs'][$slot] = $attemptobj->get_question_status(
                 $slot, $options->correctness);
     }
+
+    // Normally, during a quiz attempt, every time the student goes to a new page,
+    // we log that they are continuing their attempt. We can't do that with
+    // fault-tolerent mode, since everything happens on the client-side, so
+    // instead we will log every auto-save, to give some indication that the
+    // student is actively attempting the quiz.
+    $params = array(
+            'objectid' => $attemptid,
+            'relateduserid' => $attemptobj->get_userid(),
+            'courseid' => $attemptobj->get_courseid(),
+            'context' => context_module::instance($attemptobj->get_cmid()),
+            'other' => array(
+                    'quizid' => $attemptobj->get_quizid()
+            )
+    );
+    $event = \mod_quiz\event\attempt_viewed::create($params);
+    $event->add_record_snapshot('quiz_attempts', $attemptobj->get_attempt());
+    $event->trigger();
 }
 
 $transaction->allow_commit();

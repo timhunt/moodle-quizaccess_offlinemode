@@ -70,6 +70,6 @@
 68. ??? Ajax calls should try to synch the clock.
 69. All the usual complexity around the end of time.
 70. Sequential navigation mode.
-71. Logging.
+71. DONE Logging.
 72. DONE Flagging need to update the summary.
 73. NO Should flagging Ajax go through the same ajax managers as everything else?
