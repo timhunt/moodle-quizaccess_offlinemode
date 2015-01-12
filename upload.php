@@ -148,10 +148,13 @@ if ($form->is_cancelled()) {
                 throw new coding_exception('The uploaded data does not belong to this quiz.');
             }
 
-            // Process the uploaded data. (We have to do weird fakery with $_POST.)
+            // Process the uploaded data. (We have to do weird fakery with $_POST && $_REQUEST.)
             $timenow = time();
+            $postdata['sesskey'] = sesskey();
             $originalpost = $_POST;
             $_POST = $postdata;
+            $originalrequest = $_REQUEST;
+            $_REQUEST = $postdata;
             if ($fromform->finishattempts) {
                 $attemptobj->process_finish($timenow, true);
             } else {
@@ -159,6 +162,8 @@ if ($form->is_cancelled()) {
             }
             $_POST = $originalpost;
             $originalpost = null;
+            $_REQUEST = $originalrequest;
+            $originalrequest = null;
 
             // Display a success message.
             echo $OUTPUT->notification(get_string('dataprocessedsuccessfully', 'quizaccess_offlinemode',
@@ -168,6 +173,11 @@ if ($form->is_cancelled()) {
         } catch (Exception $e) {
             if ($originalpost !== null) {
                 $_POST = $originalpost;
+                $originalpost = null;
+            }
+            if ($originalrequest !== null) {
+                $_REQUEST = $originalrequest;
+                $originalrequest = null;
             }
             echo $OUTPUT->box_start();
             echo $OUTPUT->heading(get_string('uploadfailed', 'quizaccess_offlinemode'), 4);

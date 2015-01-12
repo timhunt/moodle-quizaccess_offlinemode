@@ -63,11 +63,10 @@
 61. DONE Final submit should first send the data, and only redirect if successful.
 62. DONE Behat tests for final submit.
 63. DONE If final submit fails, show appropriate help, including the download link.
-64. Responses from HTML editors not saved properly on upload.
+64. DONE Responses from HTML editors not saved properly on upload.
 65. DONE Correctly track unsaved changes state through faile saves.
 66. Improved warning about the current state of the network connection.
-67. For testing (developer debug?) a button to toggle simulated network disconnection.
-68. Sequential navigation mode.
-69. If the Moodle session is lost, some way to re-establish it without reloading.
-70. ??? Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
-71. Think about all the usual complexity around the end of time.
+67. Sequential navigation mode.
+68. If the Moodle session is lost, some way to re-establish it without reloading.
+69. ??? Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
+70. Think about all the usual complexity around the end of time.

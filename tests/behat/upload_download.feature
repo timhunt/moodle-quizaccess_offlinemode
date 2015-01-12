@@ -18,10 +18,12 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
       | contextlevel | reference | name           |
       | Course       | C1        | Test questions |
     And the following "questions" exist:
-      | questioncategory | qtype     | name       | questiontext    |
-      | Test questions   | truefalse | Question A | Answer me A |
-      | Test questions   | truefalse | Question B | Answer me B |
-      | Test questions   | truefalse | Question C | Answer me C |
+      | questioncategory | qtype     | name       | questiontext |
+      | Test questions   | truefalse | Question A | Answer me A  |
+      | Test questions   | truefalse | Question B | Answer me B  |
+    And the following "questions" exist:
+      | questioncategory | qtype     | name       | questiontext | template         |
+      | Test questions   | essay     | Question C | Answer me C  | editorfilepicker |
     And the following "activities" exist:
       | activity   | name                | course | idnumber | questionsperpage | offlinemode_enabled |
       | quiz       | Quiz fault-tolerant | C1     | quiz1    | 1                | 1                   |
@@ -35,7 +37,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I press "Attempt quiz now"
     And I click on "True" "radio" in the "#q1" "css_element"
     And I click on "False" "radio" in the "#q2" "css_element"
-    And I click on "True" "radio" in the "#q3" "css_element"
+    And I set the field with xpath "//*[@class='editor_atto_content']" to "Answer to the third question"
 
   @javascript
   Scenario: Download the responses so far, then re-upload them without finishing the attempt.
@@ -53,6 +55,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I follow "Review this attempt"
     And I should see "In progress" in the "State" "table_row"
     And I should not see "Completed on" in the "quizreviewsummary" "table"
+    And I should see "Answer to the third question"
     And the state of "Answer me A" question is shown as "Answer saved"
     And the state of "Answer me B" question is shown as "Answer saved"
     And the state of "Answer me C" question is shown as "Answer saved"
@@ -74,6 +77,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I follow "Review this attempt"
     And I should see "Finished" in the "State" "table_row"
     And I should see "Completed on" in the "quizreviewsummary" "table"
+    And I should see "Answer to the third question"
     And the state of "Answer me A" question is shown as "Correct"
     And the state of "Answer me B" question is shown as "Incorrect"
-    And the state of "Answer me C" question is shown as "Correct"
+    And the state of "Answer me C" question is shown as "Complete"

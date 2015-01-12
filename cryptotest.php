@@ -118,7 +118,7 @@ Y.use('node', 'json', 'moodle-quizaccess_offlinemode-jsencrypt',
     Y.one('div.result').append('<h3>Encrypted IV</h3><textarea>' + data.iv + '</textarea>');
 
     Y.one('div.result').append('<h2>Decryption of the data passed back to PHP</h2>' +
-            '<iframe src="' + M.cfg.wwwroot + 
+            '<iframe src="' + M.cfg.wwwroot +
             '/mod/quiz/accessrule/offlinemode/cryptotest.php?json=' +
             encodeURIComponent(Y.JSON.stringify(data)) + '"></iframe>');
 
