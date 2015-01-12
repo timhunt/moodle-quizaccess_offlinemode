@@ -450,6 +450,7 @@ M.quizaccess_offlinemode.autosave = {
         this.save_transaction = null;
 
         // We want to retry soon.
+        this.dirty = true;
         this.start_save_timer();
 
         this.savefailures = Math.max(1, this.savefailures + 1);
@@ -478,7 +479,7 @@ M.quizaccess_offlinemode.autosave = {
      * @param {EventFacade} e The triggering event
      */
     warn_if_unsaved_data: function(e) {
-        if (!this.dirty) {
+        if (!this.dirty && !this.save_transaction) {
             return;
         }
 

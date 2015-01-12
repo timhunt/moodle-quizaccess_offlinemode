@@ -64,7 +64,7 @@
 62. DONE Behat tests for final submit.
 63. DONE If final submit fails, show appropriate help, including the download link.
 64. Responses from HTML editors not saved properly on upload.
-65. Test pressing F5 after changing a resonse. Does it reliably trigger an unsaved data warning?
+65. DONE Correctly track unsaved changes state through faile saves.
 66. Improved warning about the current state of the network connection.
 67. For testing (developer debug?) a button to toggle simulated network disconnection.
 68. Sequential navigation mode.
