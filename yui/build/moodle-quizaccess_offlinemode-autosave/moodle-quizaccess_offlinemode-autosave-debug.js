@@ -525,10 +525,11 @@ M.quizaccess_offlinemode.autosave = {
         this.stop_autosaving();
 
         var submitButton = Y.one('input[name=finishattempt]').previous('input[type=submit]');
-        var spinner = M.util.add_spinner(Y, submitButton.ancestor('.controls'));
-        spinner.show();
-        submitButton.ancestor('.controls').append(M.util.get_string('submitting', 'quizaccess_offlinemode'));
+        this.get_submit_progress(submitButton.ancestor('.controls')).show();
         submitButton.ancestor('.singlebutton').hide();
+        var failureMessage = this.get_submit_failed_message(submitButton.ancestor('.controls'));
+        failureMessage.header.hide();
+        failureMessage.message.hide();
         this.form.append('<input name="finishattempt" value="1">');
 
         Y.log('Trying to submit.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
@@ -551,12 +552,12 @@ M.quizaccess_offlinemode.autosave = {
         try {
             result = Y.JSON.parse(response.responseText);
         } catch (e) {
-            this.submit_done(transactionid, response);
+            this.submit_failed(transactionid, response);
             return;
         }
 
         if (result.result !== 'OK') {
-            this.submit_done(transactionid, response);
+            this.submit_failed(transactionid, response);
             return;
         }
 
@@ -572,12 +573,50 @@ M.quizaccess_offlinemode.autosave = {
 
         // Re-display the submit button.
         this.form.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).remove();
-        submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).sibling(this.SELECTORS.SUBMIT_BUTTON);
-        var spinner = M.util.add_spinner(submitButton.ancestor(this.SELECTORS.CONTROLS_CONTAINER));
-        submitButton.ancestor(this.SELECTORS.BUTTON_CONTAINER).show();
-        spinner.hide();
+        var submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).previous('input[type=submit]');
+        var submitProgress = this.get_submit_progress(submitButton.ancestor('.controls'));
+        submitButton.ancestor('.singlebutton').show();
+        submitProgress.hide();
 
-        // TODO show a warning about the failure and what to do.
+        // And show the failure message.
+        var failureMessage =this.get_submit_failed_message(submitButton.ancestor('.controls'));
+        failureMessage.header.show();
+        failureMessage.message.show();
+    },
+
+    get_submit_progress: function(controlsDiv) {
+        var submitProgress = controlsDiv.one('.submit-progress');
+        if (submitProgress) {
+            // Already created. Return it.
+            return submitProgress;
+        }
+
+        // Needs to be created.
+        submitProgress = controlsDiv.appendChild('<div class="submit-progress">');
+        M.util.add_spinner(Y, submitProgress).show();
+        submitProgress.append(M.util.get_string('submitting', 'quizaccess_offlinemode'));
+        return submitProgress;
+    },
+
+    get_submit_failed_message: function(controlsDiv) {
+        var failedHeader = controlsDiv.one('.submit-failed-header');
+        if (failedHeader) {
+            // Already created. Return it.
+            return {header: failedHeader, message: controlsDiv.one('.submit-failed-message')};
+        }
+
+        // Needs to be created.
+        controlsDiv.insert('<div class="submit-failed-header">', 0);
+        failedHeader = controlsDiv.one('.submit-failed-header');
+        failedHeader.append('<h4>' + M.util.get_string('submitfailed', 'quizaccess_offlinemode') + '</h4>');
+        failedHeader.append('<p>' + M.util.get_string('submitfailedmessage', 'quizaccess_offlinemode') + '</p>');
+
+        var downloadLink = '<a href="#" class="response-download-link">' +
+                M.util.get_string('downloadlink', 'quizaccess_offlinemode') + '</a>';
+        var failedMessage = controlsDiv.appendChild('<div class="submit-failed-message">');
+        failedMessage.append('<p>' + M.util.get_string('submitfaileddownloadmessage', 'quizaccess_offlinemode', downloadLink) + '</p>');
+
+        return {header: failedHeader, message: failedMessage};
     }
 };
 

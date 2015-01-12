@@ -101,9 +101,9 @@ M.quizaccess_offlinemode.download = {
             return;
         }
 
-        this.link = navblock.appendChild('<a download="' + filename + '" href="#">' +
+        navblock.appendChild('<a class="response-download-link" download="' + filename + '" href="#">' +
                 M.util.get_string('downloadlink', 'quizaccess_offlinemode') + '</a>');
-        this.link.on('click', this.downloadClicked, this);
+        Y.delegate('click', this.downloadClicked, 'body', '.response-download-link', this);
     },
 
     /**
@@ -111,12 +111,14 @@ M.quizaccess_offlinemode.download = {
      *
      * @method downloadClicked
      */
-    downloadClicked: function() {
+    downloadClicked: function(e) {
+        var link = e.currentTarget;
+
         if (typeof tinyMCE !== 'undefined') {
             tinyMCE.triggerSave();
         }
 
-        this.link.set('download', this.link.get('download').replace(
+        link.set('download', this.filename.replace(
                 /-d\d+\.attemptdata/, '-d' + this.getCurrentDatestamp() + '.attemptdata'));
 
         var data = {responses: Y.IO.stringify(this.form)};
@@ -125,7 +127,7 @@ M.quizaccess_offlinemode.download = {
             data = this.encryptResponses(data);
         }
 
-        this.link.set('href', 'data:application/octet-stream,' + Y.JSON.stringify(data));
+        link.set('href', 'data:application/octet-stream,' + Y.JSON.stringify(data));
     },
 
     /**

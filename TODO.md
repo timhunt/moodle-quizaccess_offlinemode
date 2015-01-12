@@ -62,10 +62,12 @@
 60. DONE Flagging need to update the summary.
 61. DONE Final submit should first send the data, and only redirect if successful.
 62. DONE Behat tests for final submit.
-63. If final submit fails, show appropriate help, including the download link.
-64. Improved warning about the current state of the network connection.
-65. For testing (developer debug?) a button to toggle simulated network disconnection.
-66. Sequential navigation mode.
-67. If the Moodle session is lost, some way to re-establish it without reloading.
-68. ??? Client-side auto-save JS.
-69. Think about all the usual complexity around the end of time.
+63. DONE If final submit fails, show appropriate help, including the download link.
+64. Responses from HTML editors not saved properly on upload.
+65. Test pressing F5 after changing a resonse. Does it reliably trigger an unsaved data warning?
+66. Improved warning about the current state of the network connection.
+67. For testing (developer debug?) a button to toggle simulated network disconnection.
+68. Sequential navigation mode.
+69. If the Moodle session is lost, some way to re-establish it without reloading.
+70. ??? Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
+71. Think about all the usual complexity around the end of time.

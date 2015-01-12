@@ -100,4 +100,21 @@ class behat_quizaccess_offlinemode extends behat_question_base {
     public function the_quiz_auto_save_period_is_set_to($time) {
         set_config('autosaveperiod', $time, 'quiz');
     }
+
+    /**
+     * Change every input type=hidden name=sesskey in the page to a wrong value.
+     * This will cause any form submit to fail. It will also simulate the user
+     * having logged out and logged in again.
+     * @When /^I simulate losing the session by changing sesskey$/
+     */
+    public function I_simulate_losing_the_session_by_changing_sesskey() {
+        $session = $this->getSession();
+
+        $session->evaluateScript('
+                Array.prototype.forEach.call(
+                        document.querySelectorAll("input[type=hidden][name=sesskey]"),
+                        function(input) {
+                            input.value = "00000000";
+                        });');
+    }
 }
