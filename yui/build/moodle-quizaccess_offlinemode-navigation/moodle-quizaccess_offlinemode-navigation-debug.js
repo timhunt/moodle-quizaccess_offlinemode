@@ -149,6 +149,9 @@ M.quizaccess_offlinemode.navigation = {
     nav_button_click: function(e) {
         // Prevent the quiz's own event handler running.
         e.halt();
+        if (!e.currentTarget.hasAttribute('href')) {
+            return;
+        }
 
         this.navigate_to_page(this.page_number_from_link(e.currentTarget));
         this.scroll_to_fragment_from_link(e.currentTarget);
@@ -199,12 +202,19 @@ M.quizaccess_offlinemode.navigation = {
      * @return Number the page number.
      */
     page_number_from_link: function(anchor) {
-        var pageidmatch = anchor.get('href').match(/page=(\d+)/);
+        var pageidmatch = anchor.get('className').match(/\bquizpage-(\d+)\b/);
         if (pageidmatch) {
             return +pageidmatch[1];
-        } else {
-            return 0;
         }
+
+        if (anchor.hasAttribute('href')) {
+            pageidmatch = anchor.get('href').match(/page=(\d+)/);
+            if (pageidmatch) {
+                return +pageidmatch[1];
+            }
+        }
+
+        return 0;
     },
 
     scroll_to_fragment_from_link: function(anchor) {
