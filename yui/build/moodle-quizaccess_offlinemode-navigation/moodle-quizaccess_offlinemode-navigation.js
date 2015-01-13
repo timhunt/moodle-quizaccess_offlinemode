@@ -199,13 +199,13 @@ M.quizaccess_offlinemode.navigation = {
      * @return Number the page number.
      */
     page_number_from_link: function(anchor) {
-        var pageidmatch = anchor.get('className').match(/\bquizpage-(\d+)\b/);
-        if (pageidmatch) {
-            return +pageidmatch[1];
+        var dataValue = anchor.getData('quiz-page');
+        if (dataValue !== undefined) {
+            return +dataValue;
         }
 
         if (anchor.hasAttribute('href')) {
-            pageidmatch = anchor.get('href').match(/page=(\d+)/);
+            var pageidmatch = anchor.get('href').match(/page=(\d+)/);
             if (pageidmatch) {
                 return +pageidmatch[1];
             }
