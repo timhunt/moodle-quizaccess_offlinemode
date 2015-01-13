@@ -190,7 +190,6 @@ M.quizaccess_offlinemode.navigation = {
             // Return to attempt button pressed. (Submit and finished is handled in the autosave module.)
             e.halt();
             this.navigate_to_page(+Y.one(this.SELECTORS.THIS_PAGE_INPUT).get('value'));
-            this.scroll_to_fragment_from_link(e.currentTarget);
         }
     },
 
