@@ -2,7 +2,7 @@
 Feature: Fault-tolerant mode submit only leaves if the submit works
   In order to attempt quizzes with dodgy wifi
   As a student
-  I need the submit and finish to be processed asynchronously..
+  I need the submit and finish to be processed asynchronously.
 
   Background:
     Given the following "courses" exist:
@@ -41,7 +41,7 @@ Feature: Fault-tolerant mode submit only leaves if the submit works
 
   @javascript
   Scenario: Submit and finish an attempt - failure.
-    When I simulate losing the session by changing sesskey
+    When I simulate losing the network by changing the submit URL
     And I press "Submit all and finish"
     And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
     Then I should see "Submit failed"

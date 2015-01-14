@@ -15,3 +15,17 @@
     padding: 0.5em;
     color: #0;
 }
+#dialogue-login .moodle-dialogue-hd {
+    line-height: 20px;
+}
+#dialogue-login .moodle-dialogue-bd {
+    padding: 0;
+}
+#dialogue-login .moodle-dialogue-ft {
+    display: none;
+}
+#dialogue-login .moodle-dialogue-bd iframe {
+    border: 0;
+    width: 100%;
+    height: 350px;
+}

@@ -78,6 +78,7 @@ if ($form->is_cancelled()) {
         echo $OUTPUT->heading(get_string('processingfile', 'quizaccess_offlinemode', s($file->get_filename())), 3);
 
         $originalpost = null;
+        $originalrequest = null;
         try {
             $data = json_decode($file->get_content());
 

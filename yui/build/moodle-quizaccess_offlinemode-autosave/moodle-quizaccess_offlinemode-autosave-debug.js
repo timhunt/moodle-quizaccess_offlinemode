@@ -118,6 +118,16 @@ M.quizaccess_offlinemode.autosave = {
     AUTOSAVE_HANDLER: M.cfg.wwwroot + '/mod/quiz/accessrule/offlinemode/autosave.ajax.php',
 
     /**
+     * The script which handles the autosaves.
+     *
+     * @property AUTOSAVE_HANDLER
+     * @type String
+     * @default M.cfg.wwwroot + '/mod/quiz/autosave.ajax.php'
+     * @private
+     */
+    RELOGIN_SCRIPT: M.cfg.wwwroot + '/mod/quiz/accessrule/offlinemode/relogin.php',
+
+    /**
      * The delay (in milliseconds) between a change being made, and it being auto-saved.
      *
      * @property delay
@@ -253,7 +263,7 @@ M.quizaccess_offlinemode.autosave = {
         this.form.all(this.SELECTORS.HIDDEN_INPUTS).each(function(hidden) {
             var name  = hidden.get('name'),
                 value = hidden.get('value');
-            if (!name) {
+            if (!name || name === 'sesskey') {
                 return;
             }
             if (!(name in this.hidden_field_values) || value !== this.hidden_field_values[name]) {
@@ -426,6 +436,14 @@ M.quizaccess_offlinemode.autosave = {
             result = Y.JSON.parse(response.responseText);
         } catch (e) {
             this.save_failed(transactionid, response);
+            return;
+        }
+
+        if (result.result === 'lostsession') {
+            Y.log('Session loss detected.', 'debug', 'moodle-quizaccess_offlinemode-autosave');
+            this.save_transaction = null;
+            this.dirty = true;
+            this.try_to_restore_session();
             return;
         }
 
@@ -643,6 +661,34 @@ M.quizaccess_offlinemode.autosave = {
     update_status_for_failed_save: function() {
         Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'hidden');
         Y.one(this.SELECTORS.SAVE_FAILED_NOTICE).show();
+    },
+
+    try_to_restore_session: function() {
+        this.loginDialogue = new M.core.notification.info({
+            id:        'dialogue-login',
+            width:     '70%',
+            center:    true,
+            modal:     true,
+            visible:   false,
+            draggable: false
+        });
+
+        this.loginDialogue.setStdModContent(Y.WidgetStdMod.HEADER,
+                '<h1 id="moodle-dialogue-login-header-text">' + M.util.get_string('logindialogueheader', 'quizaccess_offlinemode') + '</h1>', Y.WidgetStdMod.REPLACE);
+        this.loginDialogue.setStdModContent(Y.WidgetStdMod.BODY,
+                '<iframe src="' + this.RELOGIN_SCRIPT + '">', Y.WidgetStdMod.REPLACE);
+
+        // The dialogue was submitted with a positive value indication.
+        this.loginDialogue.render().show();
+    },
+
+    restore_session_complete: function(sesskey) {
+        Y.all('input[name=sesskey]').set('value', sesskey);
+        if (this.loginDialogue) {
+            this.loginDialogue.hide().destroy();
+            this.loginDialogue = null;
+        }
+        this.save_changes();
     }
 };
 

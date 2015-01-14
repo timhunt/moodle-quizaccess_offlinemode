@@ -36,7 +36,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I follow "Course 1"
     And I follow "Quiz fault-tolerant"
     And I press "Attempt quiz now"
-    When I simulate losing the session by changing sesskey
+    When I simulate losing the network by changing the submit URL
     And I click on "True" "radio" in the "#q1" "css_element"
     And I click on "False" "radio" in the "#q2" "css_element"
     And I set the field with xpath "//*[@class='editor_atto_content']" to "Answer to the third question"

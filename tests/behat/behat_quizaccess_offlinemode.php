@@ -103,8 +103,8 @@ class behat_quizaccess_offlinemode extends behat_question_base {
 
     /**
      * Change every input type=hidden name=sesskey in the page to a wrong value.
-     * This will cause any form submit to fail. It will also simulate the user
-     * having logged out and logged in again.
+     * This will cause any form submit to fail as if they have logged out and
+     * logged in again in another tab.
      * @When /^I simulate losing the session by changing sesskey$/
      */
     public function I_simulate_losing_the_session_by_changing_sesskey() {
@@ -116,5 +116,20 @@ class behat_quizaccess_offlinemode extends behat_question_base {
                         function(input) {
                             input.value = "00000000";
                         });');
+    }
+
+    /**
+     * Change every input type=hidden name=attempt in the page to a wrong value.
+     * This will cause any form submit to fail, simulating the user losing their
+     * network connection.
+     * @When /^I simulate losing the network by changing the submit URL$/
+     */
+    public function I_simulate_losing_the_network_by_changing_the_submit_url() {
+        global $CFG;
+        $session = $this->getSession();
+
+        $session->evaluateScript('
+                M.quizaccess_offlinemode.autosave.AUTOSAVE_HANDLER = "' .
+                        $CFG->wwwroot . '/mod/quiz/accessrule/offlinemode/does_not_exist.ajax.php";');
     }
 }

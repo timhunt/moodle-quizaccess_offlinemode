@@ -68,6 +68,6 @@
 66. DONE Improved warning about the current state of the network connection.
 67. INT-REV MDL-48829 class name on quiz nav buttons to indicate which page that question is on.
 68. DONE Sequential navigation mode.
-69. If the Moodle session is lost, some way to re-establish it without reloading.
-70. ??? Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
+69. DONE If the Moodle session is lost, some way to re-establish it without reloading.
+70. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
 71. ??? Think about all the usual complexity around the end of time.

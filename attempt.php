@@ -116,7 +116,7 @@ $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-download',
         array($emergencysavefilename, get_config('quizaccess_offlinemode', 'publickey')));
 $PAGE->requires->strings_for_js(array('answerchanged', 'downloadlink', 'submitting',
         'submitfailed', 'submitfailedmessage', 'submitfaileddownloadmessage',
-        'lastsaved', 'savingdots', 'savefailed'), 'quizaccess_offlinemode');
+        'lastsaved', 'savingdots', 'savefailed', 'logindialogueheader'), 'quizaccess_offlinemode');
 $PAGE->requires->strings_for_js(array('submitallandfinish', 'confirmclose'), 'quiz');
 $PAGE->requires->string_for_js('flagged', 'question');
 $PAGE->requires->string_for_js('confirmation', 'admin');
