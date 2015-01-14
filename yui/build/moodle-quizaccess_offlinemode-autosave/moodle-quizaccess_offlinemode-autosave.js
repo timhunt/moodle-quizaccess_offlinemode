@@ -575,7 +575,7 @@ M.quizaccess_offlinemode.autosave = {
         submitProgress.hide();
 
         // And show the failure message.
-        var failureMessage =this.get_submit_failed_message(submitButton.ancestor('.controls'));
+        var failureMessage = this.get_submit_failed_message(submitButton.ancestor('.controls'));
         failureMessage.header.show();
         failureMessage.message.show();
         this.update_status_for_failed_save();

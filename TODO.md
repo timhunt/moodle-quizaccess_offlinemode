@@ -70,4 +70,10 @@
 68. DONE Sequential navigation mode.
 69. DONE If the Moodle session is lost, some way to re-establish it without reloading.
 70. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
-71. ??? Think about all the usual complexity around the end of time.
+71. Client-side auto-save data should be encrypted.
+72. Write the functionality document.
+73. Test in IE.
+74. Test in ouvle.
+75. HTML validation of each page.
+76. Complete the handover checklist.
+77. ??? Think about all the usual complexity around the end of time.

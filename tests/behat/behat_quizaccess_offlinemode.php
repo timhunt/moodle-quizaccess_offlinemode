@@ -107,7 +107,7 @@ class behat_quizaccess_offlinemode extends behat_question_base {
      * logged in again in another tab.
      * @When /^I simulate losing the session by changing sesskey$/
      */
-    public function I_simulate_losing_the_session_by_changing_sesskey() {
+    public function i_simulate_losing_the_session_by_changing_sesskey() {
         $session = $this->getSession();
 
         $session->evaluateScript('
@@ -124,7 +124,7 @@ class behat_quizaccess_offlinemode extends behat_question_base {
      * network connection.
      * @When /^I simulate losing the network by changing the submit URL$/
      */
-    public function I_simulate_losing_the_network_by_changing_the_submit_url() {
+    public function i_simulate_losing_the_network_by_changing_the_submit_url() {
         global $CFG;
         $session = $this->getSession();
 
