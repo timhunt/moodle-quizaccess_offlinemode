@@ -72,7 +72,7 @@
 70. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
 71. Client-side auto-save data should be encrypted.
 72. Write the functionality document.
-73. Test in IE.
+73. DONE Test in IE.
 74. Test in ouvle.
 75. HTML validation of each page.
 76. Complete the handover checklist.
