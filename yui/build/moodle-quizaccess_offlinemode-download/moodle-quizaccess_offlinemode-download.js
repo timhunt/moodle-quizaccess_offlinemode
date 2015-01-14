@@ -101,8 +101,6 @@ M.quizaccess_offlinemode.download = {
             return;
         }
 
-        navblock.appendChild('<a class="response-download-link" download="' + filename + '" href="#">' +
-                M.util.get_string('downloadlink', 'quizaccess_offlinemode') + '</a>');
         Y.delegate('click', this.downloadClicked, 'body', '.response-download-link', this);
     },
 

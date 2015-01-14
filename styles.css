@@ -6,3 +6,12 @@
     font-family: monospace;
     font-size: 80%;
 }
+#quiz-save-status {
+    font-size: 80%;
+    color: #444;
+}
+#quiz-save-failed {
+    background-color: #fcc;
+    padding: 0.5em;
+    color: #0;
+}

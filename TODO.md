@@ -65,7 +65,7 @@
 63. DONE If final submit fails, show appropriate help, including the download link.
 64. DONE Responses from HTML editors not saved properly on upload.
 65. DONE Correctly track unsaved changes state through faile saves.
-66. Improved warning about the current state of the network connection.
+66. DONE Improved warning about the current state of the network connection.
 67. INT-REV MDL-48829 class name on quiz nav buttons to indicate which page that question is on.
 68. DONE Sequential navigation mode.
 69. If the Moodle session is lost, some way to re-establish it without reloading.

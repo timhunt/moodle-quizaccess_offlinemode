@@ -94,8 +94,6 @@ M.quizaccess_offlinemode.autosave = {
         VALUE_CHANGE_ELEMENTS: 'input, textarea, [contenteditable="true"]',
         CHANGE_ELEMENTS:       'input, select',
         HIDDEN_INPUTS:         'input[type=hidden]',
-        CONNECTION_ERROR:      '#connection-error',
-        CONNECTION_OK:         '#connection-ok',
         NAV_BUTTON:            '#quiznavbutton',                       // Must have slot appended.
         QUESTION_CONTAINER:    '#q',                                   // Must have slot appended.
         STATE_HOLDER:          ' .state',
@@ -103,7 +101,10 @@ M.quizaccess_offlinemode.autosave = {
         STATE_COLUMN:          ' .c1',
         FINISH_ATTEMPT_INPUT:  'input[name=finishattempt]',
         SUBMIT_BUTTON:         'input[type=submit]',
-        FORM:                  'form'
+        FORM:                  'form',
+        SAVING_NOTICE:         '#quiz-saving',
+        LAST_SAVED_TIME:       '#quiz-last-saved',
+        SAVE_FAILED_NOTICE:    '#quiz-save-failed'
     },
 
     /**
@@ -160,18 +161,19 @@ M.quizaccess_offlinemode.autosave = {
      * @property save_transaction
      * @type object
      * @default null
+     * @private
      */
     save_transaction: null,
 
     /**
      * Failed saves count.
      *
-     * @property savefailures
-     * @type Number
-     * @default 0
+     * @property lastSuccessfulSave
+     * @type Date
+     * @default null
      * @private
      */
-    savefailures: 0,
+    last_successful_save: null,
 
     /**
      * Properly bound key change handler.
@@ -221,6 +223,10 @@ M.quizaccess_offlinemode.autosave = {
         submitAndFinishButton.detach('click');
         submitAndFinishButton.on('click', this.submit_and_finish_clicked, this);
 
+        // Add status content to the navigation block.
+        this.create_status_messages();
+
+        // Start watching other things.
         this.init_tinymce(this.TINYMCE_DETECTION_REPEATS);
 
         this.save_hidden_field_values();
@@ -398,6 +404,8 @@ M.quizaccess_offlinemode.autosave = {
             },
             context: this
         });
+
+        Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'visible');
     },
 
     save_done: function(transactionid, response) {
@@ -415,6 +423,7 @@ M.quizaccess_offlinemode.autosave = {
         }
 
         this.save_transaction = null;
+        this.update_status_for_successful_save();
 
         this.update_question_state_classes(result.questionstates);
         this.update_question_state_strings(result.questionstatestrs);
@@ -423,28 +432,15 @@ M.quizaccess_offlinemode.autosave = {
             this.start_save_timer();
         }
 
-        if (this.savefailures > 0) {
-            Y.one(this.SELECTORS.CONNECTION_ERROR).hide();
-            Y.one(this.SELECTORS.CONNECTION_OK).show();
-            this.savefailures = this.FIRST_SUCCESSFUL_SAVE;
-        } else if (this.savefailures === this.FIRST_SUCCESSFUL_SAVE) {
-            Y.one(this.SELECTORS.CONNECTION_OK).hide();
-            this.savefailures = 0;
-        }
     },
 
     save_failed: function() {
         this.save_transaction = null;
+        this.update_status_for_failed_save();
 
         // We want to retry soon.
         this.dirty = true;
         this.start_save_timer();
-
-        this.savefailures = Math.max(1, this.savefailures + 1);
-        if (this.savefailures === this.FAILURES_BEFORE_NOTIFY) {
-            Y.one(this.SELECTORS.CONNECTION_ERROR).show();
-            Y.one(this.SELECTORS.CONNECTION_OK).hide();
-        }
     },
 
     is_time_nearly_over: function() {
@@ -565,6 +561,7 @@ M.quizaccess_offlinemode.autosave = {
         var failureMessage =this.get_submit_failed_message(submitButton.ancestor('.controls'));
         failureMessage.header.show();
         failureMessage.message.show();
+        this.update_status_for_failed_save();
     },
 
     get_submit_progress: function(controlsDiv) {
@@ -600,6 +597,34 @@ M.quizaccess_offlinemode.autosave = {
         failedMessage.append('<p>' + M.util.get_string('submitfaileddownloadmessage', 'quizaccess_offlinemode', downloadLink) + '</p>');
 
         return {header: failedHeader, message: failedMessage};
+    },
+
+    create_status_messages: function() {
+        var downloadLink = '<a href="#" class="response-download-link">' +
+                M.util.get_string('downloadlink', 'quizaccess_offlinemode') + '</a>';
+        Y.one('#mod_quiz_navblock .content').append('<div id="quiz-save-status">' +
+                '<div>' + M.util.get_string('lastsaved', 'quizaccess_offlinemode',
+                        '<span id="quiz-last-saved"></span>') + '</div>' +
+                '<div id="quiz-saving">' + M.util.get_string('savingdots', 'quizaccess_offlinemode') + '</div>' +
+                '<div id="quiz-save-failed">' + M.util.get_string('savefailed', 'quizaccess_offlinemode', downloadLink) + '</div>' +
+                '</div>');
+        this.update_status_for_successful_save();
+    },
+
+    update_status_for_successful_save: function() {
+        function pad(number) {
+            return number < 10 ? '0' + number : number;
+        }
+        this.last_successful_save = new Date();
+        Y.one(this.SELECTORS.LAST_SAVED_TIME).setHTML(pad(this.last_successful_save.getHours()) +
+                ':' + pad(this.last_successful_save.getMinutes()));
+        Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'hidden');
+        Y.one(this.SELECTORS.SAVE_FAILED_NOTICE).hide();
+    },
+
+    update_status_for_failed_save: function() {
+        Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'hidden');
+        Y.one(this.SELECTORS.SAVE_FAILED_NOTICE).show();
     }
 };
 

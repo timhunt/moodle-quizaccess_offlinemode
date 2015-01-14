@@ -31,13 +31,16 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
       | Question A | 1 |
       | Question B | 1 |
       | Question C | 1 |
+    And the quiz auto-save period is set to "2"
     And I log in as "student"
     And I follow "Course 1"
     And I follow "Quiz fault-tolerant"
     And I press "Attempt quiz now"
+    When I simulate losing the session by changing sesskey
     And I click on "True" "radio" in the "#q1" "css_element"
     And I click on "False" "radio" in the "#q2" "css_element"
     And I set the field with xpath "//*[@class='editor_atto_content']" to "Answer to the third question"
+    And I wait "2" seconds
 
   @javascript
   Scenario: Download the responses so far, then re-upload them without finishing the attempt.
