@@ -71,11 +71,11 @@
 69. DONE If the Moodle session is lost, some way to re-establish it without reloading.
 70. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
 71. Client-side auto-save data should be encrypted.
-72. Write the functionality document.
+72. DONE Write the functionality document.
 73. DONE Test in IE.
 74. DONE Test in ouvle.
 75. PEER-REV MDL-48859 Back-port a useful step from MDL-43835
 75. PEER-REV MDL-48860 Behat tests checking the value of selects do not work properly in 2.7
-75. HTML validation of each page.
+75. DONE HTML validation of each page.
 76. Complete the handover checklist.
 77. ??? Think about all the usual complexity around the end of time.

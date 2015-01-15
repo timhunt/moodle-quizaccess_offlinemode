@@ -1,0 +1,191 @@
+Functionality of the Fault-tolerant mode quiz plugin
+====================================================
+
+This plugin is designed to allow, as far as possible, a student to continue working
+on a quiz attempt even if the network connection goes down.
+
+
+Installation
+------------
+
+This plugin should be installed like any other Quiz access rule plugin. (Either
+from the plugins DB; or download the zip, uncompress as offlinemode and copy into
+mod/quiz/accessrule; or use this git command in the top level of your Moodle install
+
+    git clone https://github.com/timhunt/moodle-quizaccess_offlinemode.git mod/quiz/accessrule/offlinemode
+
+If you are using Moodle <= 2.7.5 or <= 2.8.3 then you need the following patches.
+(Some of these are alreaedy in 2.7.4 & 2.8.2.)
+
+# MDL-48373
+git cherry-pick 94b0ebcec630c3b0784bfab92faf2ffaf8613712
+git cherry-pick af331735123f2755002e0b903653aeeef6027c00
+git cherry-pick b60fb27879883e6a7e62ae8f654f11de38223a85
+git cherry-pick e75707f6e1662adc60ce0de6c0d2cec5734e59b8
+
+# MDL-48410
+git cherry-pick 0f0855277b95cab358495645f4566a22a60da60d
+git cherry-pick e3f04ff410d7013f3858e5b2578ead9636335f98
+git cherry-pick d8283bf54fbe26c7e5812af24675f1ee6ec3361d
+
+# MDL-48374
+git cherry-pick 8fbf748b27b3b2e195e9ff0978d98a498d105043
+git cherry-pick fd6dab3d50459667033cc1e4e71384bbfbc5334d
+git cherry-pick 4ef9c95b9763ca0726984d496bf829079de969fb
+git cherry-pick d17de5db94200856f9b45f1db624667e9a65a695
+git cherry-pick 71b1aefcf661d0aad7d9325f4f6c12d2f40e58aa
+
+# MDL-48639
+git cherry-pick 47f7c656baea9c43f481411805370a337ebdb15e
+
+# MDL-48653
+git cherry-pick 0cb5521993d8dd41247c9044ee53412b47b34d8c
+git cherry-pick 6a2cd3d21dbff38e513d510b99eef01c7e73fd09
+
+# MDL-48666
+git cherry-pick a0ecc72e1ccd414b07d1c35f2b15847f09dbf7e6
+
+# MDL-48829
+git cherry-pick 82de7d63d416d43c02f4e473cfe18f7663399638
+
+# MDL-48859
+git cherry-pick c8410c245c2e74629645a4ebacd6a06639f43d33
+
+# MDL-48860
+git cherry-pick da36d32ef79edba957e564f6304fbb553c084b31
+
+# MDL-44657
+git cherry-pick 23f202a2b89700f3a0b26c6a751aab2e63835a3a
+
+
+Quiz setting
+------------
+
+Once installed, this plugin adds new setting on the Quiz settings form:
+Extra restrictions on attempts -> Experimental fault-tolerant mode: Yes / No.
+By default this is an advanced setting, hidden behind Show more ..., and it is off.
+
+Note that the new setting is only available for quizzes with
+How questions behave set to Deferred feedback, or similar.
+
+This new setting is backed up and restored as appropriate when a Quiz or Course is.
+
+
+Admin settings
+--------------
+
+This plugin adds a few new site-wide settings at
+Site administration -> Plugins -> Activity modules -> Quiz -> Quiz fault-tolerant mode
+
+You can set the default for whether the Experimental fault-tolerant mode is on
+by default for new quizzes, and whether it is an advanced setting.
+
+You can also set a public/private key pair, to be used when encrypting downloaded
+responses (see below). public/private key pair is automatically generated on
+install. You may delete the keys, in which case the downloads are not encrypted.
+
+
+Capabilities
+------------
+
+This feature mostly uses the standard quiz capabilities. However it adds one
+new one: quizaccess/offlinemode:uploadresponses. Users with this capability
+get an additional link on the quiz info info page, which takes them to a script
+where they can upload response files saved on the client-side.
+
+
+Logging
+-------
+
+All actions using the new plugin are logged like the equivalent actions for a
+standard quiz attempt.
+
+
+When the fault-tolerant mode is enabled
+---------------------------------------
+
+All the above is basically book-keeping. The intersting thing is what happens
+when the quiz is attempted using this mode.
+
+All the questions are downloaded at the start of the attempt, and it is then
+possible to move from page to page of the attempt without any extra data being
+downloaded from the server.
+
+This includes being able to move to the Summary page and back.
+
+The navigation block is updated to hilight the questions on the current page.
+
+This also works correctly if the quiz is set to Navigation method: Sequential,
+as well as the default Navigation method: Free.
+
+When the response to a question is changed, the question status (beside the question,
+in the navigation block, and on the summary page) is changed to 'Answer changed'.
+
+Then, after the usual auto-save delay, the system tries to send the changes reponses
+to the server.
+
+(If auto-save is disabled for normal quizzes, then a delay of 1 minute is used.)
+
+If that suceeds, the question state is updated (normally to Answer saved, or
+Not yet answered) beside the question, in the navigation block, and on the summary
+page. The Last saved time (in the navigation block) is then updated.
+
+If the auto-save fails, then a warning is shown in the navigation block, with
+a link to download your responses in encrypted form.
+
+If you try to leave the quiz at a time when there are responses that have not
+been successfully saved to the server, then you get a pop-up alert warning you,
+which lets you either stay on the current page, or leave.
+
+If, at any point you get logged out (this could be a system error, but to simulate
+it you can open another tab and click the logout link) then a JavaScript dialogue
+pops up to let you log in again and continue.
+
+On the summary page, when you click Submit all and finish, you get the usual
+Are you sure dialogue. Then, the submit button is replaced by a progress indicator.
+
+If the submit succeeds, then you are redirected to the Review page (as usual,
+according to the quiz settings. if review is not allowed you get sent to the view.php page.)
+
+If the submit fails, then the Submit all and finish button re-appears, so you can
+try again. That is accompanied by an explanatory message that includes the download
+link again.
+
+When you click the download link (in either location) the browser will download
+a file. The file includes the quiz name, and the current time-stamp (plus some
+other ids.) The file extension is .attemptdata. If you look in the file, you
+will see that is is basically a text file containing JSON, with all the data
+encrypted.
+
+
+Uploading locally saved responses
+---------------------------------
+
+To use the downloaded file, as admin (or any user with the
+quizaccess/offlinemode:uploadresponses capability) go to the quiz and click the
+'upload exported responses' link.
+
+That takes you to a page with a filepicker where you can upload one or more
+downloaded files.
+
+The form has an option for whether the each attempt should have
+'Submit all and finish' done after the responses has been processed.
+
+When the form is submitted, the files are processed. They processing is done
+so that an error with one file/attempt will not prevent other files from being
+processed.
+
+For each file, there is a text box showing the decrypted data from the file.
+(This is mainly to help debugging.) Then an indication of whether processing
+the data succeeded. If the processing was successful, there is a link to
+review the attempt.
+
+
+Bonus debug tool
+----------------
+
+This is not a feature intended for users, but is useful for debugging. There
+is a script .../mod/quiz/accessrule/offlinemode/cryptotest.php which tests that
+the cryptography libraries used can successfully encrypt some data (in JavaScript)
+and then decrypt it again (in PHP on the server). It is worth knowing about this
+for debugging.
