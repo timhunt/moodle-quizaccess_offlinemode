@@ -96,10 +96,13 @@ if ($accessmanager->is_preflight_check_required($attemptobj->get_attemptid())) {
 question_engine::initialise_js();
 $PAGE->requires->js_module(quiz_get_js_module());
 $autosaveperiod = get_config('quiz', 'autosaveperiod');
-if ($autosaveperiod) {
-    $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-autosave',
-            'M.quizaccess_offlinemode.autosave.init', array($autosaveperiod));
+if (!$autosaveperiod) {
+    // Offline mode only works with autosave, so if it is off for normal quizzes,
+    // use a sensible default.
+    $autosaveperiod = 60;
 }
+$PAGE->requires->yui_module('moodle-quizaccess_offlinemode-autosave',
+        'M.quizaccess_offlinemode.autosave.init', array($autosaveperiod));
 
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-navigation',
         'M.quizaccess_offlinemode.navigation.init', array($page));

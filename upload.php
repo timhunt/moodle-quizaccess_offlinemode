@@ -27,7 +27,8 @@ require_once($CFG->dirroot . '/repository/lib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 
 $cmid = optional_param('id', 0, PARAM_INT);
-list($course, $cm) = get_course_and_cm_from_cmid($cmid, 'quiz');
+$cm = get_coursemodule_from_id('quiz', $cmid, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $quiz = $DB->get_record('quiz', array('id' => $cm->instance), '*', MUST_EXIST);
 $quizurl = new moodle_url('/mod/quiz/view.php', array('id' => $cm->id));
 $context = context_module::instance($cm->id);
