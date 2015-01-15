@@ -209,7 +209,11 @@ $summary .= html_writer::start_div('', array('id' => 'quizaccess_offlinemode-att
 $summary .= $output->heading(format_string($attemptobj->get_quiz_name()));
 $summary .= $output->heading(get_string('summaryofattempt', 'quiz'), 3);
 $summary .= $output->summary_table($attemptobj, $attemptobj->get_display_options(false));
-$summary .= $output->summary_page_controls($attemptobj);
+
+$controls = $output->summary_page_controls($attemptobj);
+$controls = preg_replace('~<div id="quiz-timer".*?</div>~', '', $controls);
+$summary .= $controls;
+
 $summary .= html_writer::end_div('');
 
 // Finish the form.
