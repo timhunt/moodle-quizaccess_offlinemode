@@ -2,7 +2,7 @@ Functionality of the Fault-tolerant mode quiz plugin
 ====================================================
 
 This plugin is designed to allow, as far as possible, a student to continue working
-on a quiz attempt even if the network connection goes down.
+on a deferred-feedback quiz attempt even if the network connection goes down.
 
 
 Installation
@@ -117,6 +117,9 @@ The navigation block is updated to hilight the questions on the current page.
 
 This also works correctly if the quiz is set to Navigation method: Sequential,
 as well as the default Navigation method: Free.
+
+If you flag a question, that is updated on the summary page as well as on the
+page with the question an in the navigation.
 
 When the response to a question is changed, the question status (beside the question,
 in the navigation block, and on the summary page) is changed to 'Answer changed'.

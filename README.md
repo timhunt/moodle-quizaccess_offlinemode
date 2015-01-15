@@ -1,7 +1,7 @@
 # Experimental fault-tolerant mode for the quiz
 
 This plugin is designed to allow, as far as possible, a student to continue working
-on a quiz attempt even if the network connection goes down.
+on a deferred-feedback quiz attempt even if the network connection goes down.
 
 For a fuller description, see
 [the functionality document](https://github.com/timhunt/moodle-quizaccess_offlinemode/blob/master/internaldoc/functionality.txt).
