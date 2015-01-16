@@ -24,6 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Post install hook implementation for the quizaccess_offlinemode plugin.
+ */
 function xmldb_quizaccess_offlinemode_install() {
     global $OUTPUT;
     // If OpenSSL is available, generate a public/private key pair.

@@ -128,6 +128,11 @@ Y.use('node', 'json', 'moodle-quizaccess_offlinemode-jsencrypt',
 
 echo $OUTPUT->footer();
 
+/**
+ * Decrypt the submitted data.
+ * @param string $json the submitted data.
+ * @param context $context the page context.
+ */
 function decrypt_json($json, $context) {
     global $PAGE, $OUTPUT;
 

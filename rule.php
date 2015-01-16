@@ -28,7 +28,9 @@ require_once($CFG->dirroot . '/mod/quiz/accessrule/accessrulebase.php');
 
 
 /**
- * A rule that hijacks the standard attempt.php page, and replaces it with @author tim
+ * The access rule class implementation for the quizaccess_offlinemode plugin.
+ *
+ * A rule that hijacks the standard attempt.php page, and replaces it with
  * different script which loads all the questions at once and then allows the
  * student to keep working, even if the network connection is lost. However,
  * if the network is working, responses are saved back to the server.

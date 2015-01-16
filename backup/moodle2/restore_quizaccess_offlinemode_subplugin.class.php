@@ -35,6 +35,9 @@ defined('MOODLE_INTERNAL') || die();
  * <quizaccess_offlinemode><enabled>1</enabled></quizaccess_offlinemode> tag
  * will be in the XML, and this needs to be written to the DB. Otherwise, nothing
  * needs to be written to the DB.
+ *
+ * @copyright 2014 The Open University
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restore_quizaccess_offlinemode_subplugin extends restore_mod_quiz_access_subplugin {
 

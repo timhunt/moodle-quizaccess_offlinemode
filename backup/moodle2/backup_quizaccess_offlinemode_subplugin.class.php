@@ -35,6 +35,9 @@ defined('MOODLE_INTERNAL') || die();
  * <quizaccess_offlinemode><enabled>1</enabled></quizaccess_offlinemode> tag
  * will be added to the XML in the appropriate place. Otherwise nothing will be
  * added. This matches the DB structure.
+ *
+ * @copyright 2014 The Open University
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_quizaccess_offlinemode_subplugin extends backup_mod_quiz_access_subplugin {
 
