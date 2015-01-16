@@ -37,8 +37,7 @@ M.quizaccess_offlinemode.download = {
      * @static
      */
     SELECTORS: {
-        QUIZ_FORM:      '#responseform',
-        LINK_CONTAINER: '#mod_quiz_navblock .othernav'
+        QUIZ_FORM:      '#responseform'
     },
 
     /**
@@ -69,15 +68,6 @@ M.quizaccess_offlinemode.download = {
     form: null,
 
     /**
-     * A Node reference to the download link.
-     *
-     * @property link
-     * @type Node
-     * @default null
-     */
-    link: null,
-
-    /**
      * Initialise the autosave code.
      *
      * @method init
@@ -92,12 +82,6 @@ M.quizaccess_offlinemode.download = {
         this.form = Y.one(this.SELECTORS.QUIZ_FORM);
         if (!this.form) {
             Y.log('No response form found. Why did you try to set up download?', 'debug', 'moodle-quizaccess_offlinemode-download');
-            return;
-        }
-
-        var navblock = Y.one(this.SELECTORS.LINK_CONTAINER);
-        if (!navblock) {
-            Y.log('Navigation block not found. Why did you try to set up download?', 'debug', 'moodle-quizaccess_offlinemode-download');
             return;
         }
 

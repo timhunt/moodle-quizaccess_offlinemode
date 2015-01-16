@@ -39,8 +39,7 @@ M.quizaccess_offlinemode.download = {
      * @static
      */
     SELECTORS: {
-        QUIZ_FORM:      '#responseform',
-        LINK_CONTAINER: '#mod_quiz_navblock .othernav'
+        QUIZ_FORM:      '#responseform'
     },
 
     /**
@@ -71,15 +70,6 @@ M.quizaccess_offlinemode.download = {
     form: null,
 
     /**
-     * A Node reference to the download link.
-     *
-     * @property link
-     * @type Node
-     * @default null
-     */
-    link: null,
-
-    /**
      * Initialise the autosave code.
      *
      * @method init
@@ -93,11 +83,6 @@ M.quizaccess_offlinemode.download = {
 
         this.form = Y.one(this.SELECTORS.QUIZ_FORM);
         if (!this.form) {
-            return;
-        }
-
-        var navblock = Y.one(this.SELECTORS.LINK_CONTAINER);
-        if (!navblock) {
             return;
         }
 
