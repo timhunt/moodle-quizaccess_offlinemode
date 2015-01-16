@@ -74,8 +74,8 @@
 72. DONE Write the functionality document.
 73. DONE Test in IE.
 74. DONE Test in ouvle.
-75. PEER-REV MDL-48859 Back-port a useful step from MDL-43835
-75. PEER-REV MDL-48860 Behat tests checking the value of selects do not work properly in 2.7
+75. INT-REV MDL-48859 Back-port a useful step from MDL-43835
+75. INT-REV MDL-48860 Behat tests checking the value of selects do not work properly in 2.7
 75. DONE HTML validation of each page.
 76. Complete the handover checklist.
 77. ??? Think about all the usual complexity around the end of time.
