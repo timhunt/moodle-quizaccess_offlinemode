@@ -164,9 +164,9 @@ encrypted.
 Uploading locally saved responses
 ---------------------------------
 
-To use the downloaded file, as admin (or any user with the
-quizaccess/offlinemode:uploadresponses capability) go to the quiz and click the
-'upload exported responses' link.
+To use the downloaded file, as Admin, Manager or Editing teacher (strictly any
+user with the quizaccess/offlinemode:uploadresponses capability) go to the quiz
+and click the 'upload exported responses' link.
 
 That takes you to a page with a filepicker where you can upload one or more
 downloaded files.
