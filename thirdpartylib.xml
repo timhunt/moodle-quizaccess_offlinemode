@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>yui/src/jsencrypt/js</location>
+    <name>JSEncrypt</name>
+    <license>MIT</license>
+    <version>2.1</version>
+    <licenseversion></licenseversion>
+  </library>
+  <library>
+    <location>yui/src/sjcl/js</location>
+    <name>Stanford Javascript Crypto Library</name>
+    <license>GPL</license>
+    <version>1.0</version>
+    <licenseversion>3.0+</licenseversion>
+  </library>
+</libraries>
