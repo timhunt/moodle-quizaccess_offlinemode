@@ -663,7 +663,7 @@ M.quizaccess_offlinemode.autosave = {
 
     try_to_restore_session: function() {
         this.loginDialogue = new M.core.notification.info({
-            id:        'dialogue-login',
+            id:        'quiz-relogin-dialogue',
             width:     '70%',
             center:    true,
             modal:     true,
@@ -672,7 +672,7 @@ M.quizaccess_offlinemode.autosave = {
         });
 
         this.loginDialogue.setStdModContent(Y.WidgetStdMod.HEADER,
-                '<h1 id="moodle-dialogue-login-header-text">' + M.util.get_string('logindialogueheader', 'quizaccess_offlinemode') + '</h1>', Y.WidgetStdMod.REPLACE);
+                '<h1 id="moodle-quiz-relogin-dialogue-header-text">' + M.util.get_string('logindialogueheader', 'quizaccess_offlinemode') + '</h1>', Y.WidgetStdMod.REPLACE);
         this.loginDialogue.setStdModContent(Y.WidgetStdMod.BODY,
                 '<iframe src="' + this.RELOGIN_SCRIPT + '">', Y.WidgetStdMod.REPLACE);
 
