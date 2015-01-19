@@ -16,7 +16,7 @@
 #quiz-save-failed {
     background-color: #fcc;
     padding: 0.5em;
-    color: #0;
+    color: #000;
 }
 #quiz-relogin-dialogue .moodle-dialogue-hd {
     line-height: 20px;
