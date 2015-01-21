@@ -79,3 +79,8 @@
 75. DONE HTML validation of each page.
 76. Complete the handover checklist.
 77. ??? Think about all the usual complexity around the end of time.
+78. After auto re-login, verify user id still matches before replacing sesskey!
+79. Customise lang strings for the OU.
+80. Do we want to style the submit failure message more like the autosave message? #17068
+81. Is there a reliable way to pre-load all required images? #17067
+82. Deal with the problem of initialising things on other pages. (Editor size #17049. Drag-drop.)
