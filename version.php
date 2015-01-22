@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015011400;
+$plugin->version   = 2015012200;
 $plugin->requires  = 2014041100;
 $plugin->cron      = 0;
 $plugin->component = 'quizaccess_offlinemode';
 $plugin->maturity  = MATURITY_BETA;
-$plugin->release   = '0.7 for Moodle 2.7+';
+$plugin->release   = '0.8 for Moodle 2.7+';
