@@ -102,6 +102,8 @@ M.quizaccess_offlinemode.navigation = {
             return;
         }
 
+        Y.on('load', this.preload_images, window, this);
+
         Y.all(this.SELECTORS.ALL_PAGE_DIVS).each(function(element) {
                     var pageno;
                     var matches = element.get('id').match(/quizaccess_offlinemode-attempt_page-(\d+)/);
@@ -137,6 +139,29 @@ M.quizaccess_offlinemode.navigation = {
 
         Y.log('Initialised fault-tolerant quiz mode.', 'debug', 'moodle-quizaccess_offlinemode-navigation');
     },
+
+    /**
+     * Pre-load all the images referred to on the page.
+     */
+    preload_images: function() {
+        var alreadyLoaded = {};
+
+        function preload_image(url) {
+            alreadyLoaded[url] = true;
+            document.createElement('img').src = url;
+        }
+
+        preload_image(M.util.image_url('i/flagged'));
+        preload_image(M.util.image_url('i/unflagged'));
+        Y.all('img').each(function(image) {
+            var url = image.get('src');
+            if (alreadyLoaded[url]) {
+                return;
+            }
+            preload_image(url);
+        });
+    },
+
 
     /**
      * Event handler for when a navigation button is clicked.
