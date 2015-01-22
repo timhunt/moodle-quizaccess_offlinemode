@@ -32,6 +32,7 @@ $string['descriptionlink'] = 'upload exported responses';
 $string['downloadlink'] = 'download your responses';
 $string['finishattemptsafterupload'] = 'Submit and finish each attempt after processing the upload';
 $string['lastsaved'] = 'Last saved: {$a}';
+$string['loggedinaswronguser'] = 'You have logged in with an account other than the one that was attempting the quiz. That will not work. Click Continue to login again as the right user.';
 $string['logindialogueheader'] = 'You may need to log in again';
 $string['loginokagain'] = 'Your login is now OK.';
 $string['offlinemodeenabled'] = 'Experimental fault-tolerant mode';

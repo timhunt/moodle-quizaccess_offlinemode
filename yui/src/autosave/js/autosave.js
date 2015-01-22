@@ -674,7 +674,8 @@ M.quizaccess_offlinemode.autosave = {
         this.loginDialogue.setStdModContent(Y.WidgetStdMod.HEADER,
                 '<h1 id="moodle-quiz-relogin-dialogue-header-text">' + M.util.get_string('logindialogueheader', 'quizaccess_offlinemode') + '</h1>', Y.WidgetStdMod.REPLACE);
         this.loginDialogue.setStdModContent(Y.WidgetStdMod.BODY,
-                '<iframe src="' + this.RELOGIN_SCRIPT + '">', Y.WidgetStdMod.REPLACE);
+                '<iframe src="' + this.RELOGIN_SCRIPT + '?userid=' +
+                Y.one('#quiz-userid').get('value') + '">', Y.WidgetStdMod.REPLACE);
 
         // The dialogue was submitted with a positive value indication.
         this.loginDialogue.render().show();

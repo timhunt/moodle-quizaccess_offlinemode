@@ -24,13 +24,20 @@
 
 require_once(__DIR__ . '/../../../../config.php');
 
-$PAGE->set_url('/mod/quiz/accessrule/offlinemode/relogin.php');
+$currentuserid = required_param('userid', PARAM_INT);
+
+$PAGE->set_url('/mod/quiz/accessrule/offlinemode/relogin.php', array('userid' => $currentuserid));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('embedded');
 $PAGE->set_title(get_string('logindialogueheader', 'quizaccess_offlinemode'));
 
 // Check login.
 require_login();
+
+if ($USER->id != $currentuserid) {
+    print_error('loggedinaswronguser', 'quizaccess_offlinemode',
+            new moodle_url('/login/logout.php', array('sesskey'=>sesskey(),'loginpage'=>1)));
+}
 
 $PAGE->requires->js_init_code('
             if (window.parent.M && window.parent.M.quizaccess_offlinemode && window.parent.M.quizaccess_offlinemode.autosave) {

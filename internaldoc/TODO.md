@@ -77,7 +77,7 @@
 75. DONE HTML validation of each page.
 76. DONE Complete the handover checklist.
 77. DONE Is there a reliable way to pre-load all required images? #17067
-78. After auto re-login, verify user id still matches before replacing sesskey!
+78. DONE After auto re-login, verify user id still matches before replacing sesskey!
 79. Customise lang strings for the OU. #17070
 80. Do we want to style the submit failure message more like the autosave message? #17068
 81. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?

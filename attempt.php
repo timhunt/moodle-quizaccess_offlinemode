@@ -196,6 +196,8 @@ $form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'se
         'value' => sesskey()));
 $form .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'scrollpos',
         'value' => '', 'id' => 'scrollpos'));
+$form .= html_writer::empty_tag('input', array('type' => 'hidden',
+        'value' => $USER->id, 'id' => 'quiz-userid'));
 
 // Add a hidden field with questionids. Do this at the end of the form, so
 // if you navigate before the form has finished loading, it does not wipe all
