@@ -69,8 +69,6 @@
 67. INTEGRATED MDL-48829 class name on quiz nav buttons to indicate which page that question is on.
 68. DONE Sequential navigation mode.
 69. DONE If the Moodle session is lost, some way to re-establish it without reloading.
-70. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
-71. Client-side auto-save data should be encrypted.
 72. DONE Write the functionality document.
 73. DONE Test in IE.
 74. DONE Test in ouvle.
@@ -78,9 +76,11 @@
 75. INTEGRATED MDL-48860 Behat tests checking the value of selects do not work properly in 2.7
 75. DONE HTML validation of each page.
 76. DONE Complete the handover checklist.
-77. ??? Think about all the usual complexity around the end of time.
+77. DONE Is there a reliable way to pre-load all required images? #17067
 78. After auto re-login, verify user id still matches before replacing sesskey!
 79. Customise lang strings for the OU. #17070
 80. Do we want to style the submit failure message more like the autosave message? #17068
-81. DONE Is there a reliable way to pre-load all required images? #17067
-82. Deal with the problem of initialising things on other pages. (Editor size #17049. Drag-drop.)
+81. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
+82. Client-side auto-save data should be encrypted.
+83. Deal with the problem of initialising things on other pages. (Editor size #17049. Drag-drop.)
+74. ??? Think about all the usual complexity around the end of time.
