@@ -69,11 +69,11 @@
 67. INTEGRATED MDL-48829 class name on quiz nav buttons to indicate which page that question is on.
 68. DONE Sequential navigation mode.
 69. DONE If the Moodle session is lost, some way to re-establish it without reloading.
-72. DONE Write the functionality document.
-73. DONE Test in IE.
-74. DONE Test in ouvle.
-75. INTEGRATED MDL-48859 Back-port a useful step from MDL-43835
-75. INTEGRATED MDL-48860 Behat tests checking the value of selects do not work properly in 2.7
+70. DONE Write the functionality document.
+71. DONE Test in IE.
+72. DONE Test in ouvle.
+73. INTEGRATED MDL-48859 Back-port a useful step from MDL-43835
+74. INTEGRATED MDL-48860 Behat tests checking the value of selects do not work properly in 2.7
 75. DONE HTML validation of each page.
 76. DONE Complete the handover checklist.
 77. DONE Is there a reliable way to pre-load all required images? #17067
@@ -83,4 +83,4 @@
 81. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
 82. Client-side auto-save data should be encrypted.
 83. Deal with the problem of initialising things on other pages. (Editor size #17049. Drag-drop.)
-74. ??? Think about all the usual complexity around the end of time.
+84. ??? Think about all the usual complexity around the end of time.
