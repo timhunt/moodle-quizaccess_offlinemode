@@ -45,9 +45,9 @@ Feature: Fault-tolerant mode submit only leaves if the submit works
     And I press "Submit all and finish"
     And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
     Then I should see "Submit failed"
-    And I should see "You responses could not be submitted. You can either try again ..."
+    And I should see "Your responses could not be submitted. You can either try again ..."
     And I should see "as a file which can be processed later"
     And "Submit all and finish" "button" should be visible
-    And "download your responses" "link" should be visible
+    And "save the responses" "link" should be visible
     # Now successfully navigate away, or the following test will fail.
     And I click on "Home" "link" confirming the dialogue
