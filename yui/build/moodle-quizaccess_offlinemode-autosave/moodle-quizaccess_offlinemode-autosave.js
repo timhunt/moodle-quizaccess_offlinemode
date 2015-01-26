@@ -99,6 +99,7 @@ M.quizaccess_offlinemode.autosave = {
         STATE_HOLDER:          ' .state',
         SUMMARY_ROW:           '.quizsummaryofattempt tr.quizsummary', // Must have slot appended.
         STATE_COLUMN:          ' .c1',
+        ATTEMPT_ID_INPUT:      'input[name=attempt]',
         FINISH_ATTEMPT_INPUT:  'input[name=finishattempt]',
         SUBMIT_BUTTON:         'input[type=submit]',
         FORM:                  'form',
@@ -116,6 +117,16 @@ M.quizaccess_offlinemode.autosave = {
      * @private
      */
     AUTOSAVE_HANDLER: M.cfg.wwwroot + '/mod/quiz/accessrule/offlinemode/autosave.ajax.php',
+
+    /**
+     * Prefix for the localStorage key.
+     *
+     * @property LOCAL_STORAGE_KEY_PREFIX
+     * @type String
+     * @default 'accessrule_offlinemode-responses-'
+     * @private
+     */
+    LOCAL_STORAGE_KEY_PREFIX: 'accessrule_offlinemode-responses-',
 
     /**
      * The script which handles the autosaves.
@@ -176,14 +187,14 @@ M.quizaccess_offlinemode.autosave = {
     save_transaction: null,
 
     /**
-     * Failed saves count.
+     * Time when we last tried to do a save.
      *
      * @property lastSuccessfulSave
      * @type Date
      * @default null
      * @private
      */
-    last_successful_save: null,
+    save_start_time: null,
 
     /**
      * Properly bound key change handler.
@@ -205,6 +216,29 @@ M.quizaccess_offlinemode.autosave = {
     hidden_field_values: {},
 
     /**
+     * The key used to store the results of this attempt in local storage.
+     *
+     * @property local_storage_key
+     * @type String
+     * @default null
+     * @private
+     */
+    local_storage_key: null,
+
+    /**
+     * A copy of the data in local storage.
+     *
+     * @property locally_stored_data
+     * @type Object
+     * @private
+     */
+    locally_stored_data: {
+        last_change: 0,
+        last_save: 0,
+        responses: ''
+    },
+
+    /**
      * Initialise the autosave code.
      *
      * @method init
@@ -224,6 +258,24 @@ M.quizaccess_offlinemode.autosave = {
         window.onbeforeunload = Y.bind(this.warn_if_unsaved_data, this);
 
         this.delay = delay * 1000;
+
+        this.local_storage_key = this.LOCAL_STORAGE_KEY_PREFIX +
+                Y.one(this.SELECTORS.ATTEMPT_ID_INPUT).get('value');
+        var storeddata = localStorage.getItem(this.local_storage_key);
+        if (storeddata) {
+            this.locally_stored_data = Y.JSON.parse(storeddata);
+        } else {
+            var now = new Date();
+            this.locally_stored_data = {
+                 last_change: now,
+                 last_save: now,
+                 responses: ''
+             };
+        }
+        if (this.locally_stored_data.last_change > this.locally_stored_data.last_save) {
+            this.try_to_use_locally_saved_responses();
+            return;
+        }
 
         this.form.delegate('valuechange', this.value_changed, this.SELECTORS.VALUE_CHANGE_ELEMENTS, this);
         this.form.delegate('change',      this.value_changed, this.SELECTORS.CHANGE_ELEMENTS,       this);
@@ -372,6 +424,9 @@ M.quizaccess_offlinemode.autosave = {
 
     start_save_timer_if_necessary: function() {
         this.dirty = true;
+        this.locally_stored_data.last_change = new Date();
+        this.locally_stored_data.responses = Y.IO.stringify(this.form);
+        localStorage.setItem(this.local_storage_key, Y.JSON.stringify(this.locally_stored_data));
 
         if (this.delay_timer || this.save_transaction) {
             // Already counting down or daving.
@@ -414,6 +469,7 @@ M.quizaccess_offlinemode.autosave = {
             },
             context: this
         });
+        this.save_start_time = new Date();
 
         Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'visible');
     },
@@ -453,6 +509,7 @@ M.quizaccess_offlinemode.autosave = {
 
     save_failed: function() {
         this.save_transaction = null;
+        this.save_start_time = null;
         this.update_status_for_failed_save();
 
         // We want to retry soon.
@@ -543,6 +600,7 @@ M.quizaccess_offlinemode.autosave = {
             },
             context: this
         });
+        this.save_start_time = new Date();
     },
 
     submit_done: function(transactionid, response) {
@@ -625,18 +683,23 @@ M.quizaccess_offlinemode.autosave = {
                 '<div id="quiz-saving">' + M.util.get_string('savingdots', 'quizaccess_offlinemode') + '</div>' +
                 '<div id="quiz-save-failed">' + M.util.get_string('savefailed', 'quizaccess_offlinemode', downloadLink) + '</div>' +
                 '</div>');
+
+        this.save_start_time = new Date();
         this.update_status_for_successful_save();
+        this.save_start_time = null;
     },
 
     update_status_for_successful_save: function() {
         function pad(number) {
             return number < 10 ? '0' + number : number;
         }
-        this.last_successful_save = new Date();
-        Y.one(this.SELECTORS.LAST_SAVED_TIME).setHTML(pad(this.last_successful_save.getHours()) +
-                ':' + pad(this.last_successful_save.getMinutes()));
+        Y.one(this.SELECTORS.LAST_SAVED_TIME).setHTML(pad(this.save_start_time.getHours()) +
+                ':' + pad(this.save_start_time.getMinutes()));
         Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'hidden');
         Y.one(this.SELECTORS.SAVE_FAILED_NOTICE).hide();
+        this.locally_stored_data.last_save = this.save_start_time;
+        localStorage.setItem(this.local_storage_key, Y.JSON.stringify(this.locally_stored_data));
+        this.save_start_time = null;
     },
 
     update_status_for_failed_save: function() {
@@ -683,6 +746,7 @@ M.quizaccess_offlinemode.autosave = {
         "event-valuechange",
         "node-event-delegate",
         "io-form",
+        "json",
         "core_question_engine",
         "mod_quiz"
     ]

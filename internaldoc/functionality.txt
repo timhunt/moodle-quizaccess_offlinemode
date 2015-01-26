@@ -140,6 +140,12 @@ If you try to leave the quiz at a time when there are responses that have not
 been successfully saved to the server, then you get a pop-up alert warning you,
 which lets you either stay on the current page, or leave.
 
+If you do leave the page when there is unsaved data (which, short of a browser
+crash, means you ignored the warning just mentioned) then when you continue the
+attempt you will see a pop-up dialogue telling you that you have potentially
+unsaved data, and asking you if you want to save, or discard it. Whichever
+choice you make, it should do that.
+
 If, at any point you get logged out (this could be a system error, but to simulate
 it you can open another tab and click the logout link) then a JavaScript dialogue
 pops up to let you log in again and continue.
