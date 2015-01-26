@@ -104,7 +104,7 @@ M.quizaccess_offlinemode.autosave = {
         FORM:                  'form',
         SAVING_NOTICE:         '#quiz-saving',
         LAST_SAVED_TIME:       '#quiz-last-saved',
-        SAVE_FAILED_NOTICE:    '#quiz-save-failed'
+        SAVE_FAILED_NOTICE:    '#mod_quiz_navblock .quiz-save-failed'
     },
 
     /**
@@ -527,6 +527,7 @@ M.quizaccess_offlinemode.autosave = {
         this.get_submit_progress(submitButton.ancestor('.controls')).show();
         submitButton.ancestor('.singlebutton').hide();
         var failureMessage = this.get_submit_failed_message(submitButton.ancestor('.controls'));
+        submitButton.ancestor('.controls').removeClass('quiz-save-failed');
         failureMessage.header.hide();
         failureMessage.message.hide();
         this.form.append('<input name="finishattempt" value="1">');
@@ -576,6 +577,7 @@ M.quizaccess_offlinemode.autosave = {
 
         // And show the failure message.
         var failureMessage = this.get_submit_failed_message(submitButton.ancestor('.controls'));
+        submitButton.ancestor('.controls').addClass('quiz-save-failed');
         failureMessage.header.show();
         failureMessage.message.show();
         this.update_status_for_failed_save();
@@ -609,7 +611,7 @@ M.quizaccess_offlinemode.autosave = {
         failedHeader.append('<p>' + M.util.get_string('submitfailedmessage', 'quizaccess_offlinemode') + '</p>');
 
         var downloadLink = '<a href="#" class="response-download-link">' +
-                M.util.get_string('downloadlink', 'quizaccess_offlinemode') + '</a>';
+                M.util.get_string('savetheresponses', 'quizaccess_offlinemode') + '</a>';
         var failedMessage = controlsDiv.appendChild('<div class="submit-failed-message">');
         failedMessage.append('<p>' + M.util.get_string('submitfaileddownloadmessage', 'quizaccess_offlinemode', downloadLink) + '</p>');
 
@@ -618,12 +620,12 @@ M.quizaccess_offlinemode.autosave = {
 
     create_status_messages: function() {
         var downloadLink = '<a href="#" class="response-download-link">' +
-                M.util.get_string('downloadlink', 'quizaccess_offlinemode') + '</a>';
+                M.util.get_string('savetheresponses', 'quizaccess_offlinemode') + '</a>';
         Y.one('#mod_quiz_navblock .content').append('<div id="quiz-save-status">' +
                 '<div>' + M.util.get_string('lastsaved', 'quizaccess_offlinemode',
                         '<span id="quiz-last-saved"></span>') + '</div>' +
                 '<div id="quiz-saving">' + M.util.get_string('savingdots', 'quizaccess_offlinemode') + '</div>' +
-                '<div id="quiz-save-failed">' + M.util.get_string('savefailed', 'quizaccess_offlinemode', downloadLink) + '</div>' +
+                '<div class="quiz-save-failed">' + M.util.get_string('savefailed', 'quizaccess_offlinemode', downloadLink) + '</div>' +
                 '</div>');
         this.update_status_for_successful_save();
     },

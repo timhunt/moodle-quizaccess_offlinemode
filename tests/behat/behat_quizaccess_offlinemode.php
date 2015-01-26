@@ -53,7 +53,7 @@ class behat_quizaccess_offlinemode extends behat_question_base {
                 };
                 document.body.addEventListener("click", window.behat_quizaccess_offlinemode_click_handler);');
 
-        $linknode = $this->find_link(get_string('downloadlink', 'quizaccess_offlinemode'));
+        $linknode = $this->find_link(get_string('savetheresponses', 'quizaccess_offlinemode'));
         $this->ensure_node_is_visible($linknode);
         $linknode->click();
 
@@ -61,7 +61,7 @@ class behat_quizaccess_offlinemode extends behat_question_base {
                 document.body.removeEventListener("click", window.behat_quizaccess_offlinemode_click_handler);');
 
         // Get the link again, or we won't seen the new URL.
-        $linknode = $this->find_link(get_string('downloadlink', 'quizaccess_offlinemode'));
+        $linknode = $this->find_link(get_string('savetheresponses', 'quizaccess_offlinemode'));
         $url = $linknode->getAttribute('href');
         if (substr($url, 0, 30) !== 'data:application/octet-stream,') {
             throw new ExpectationException('Expected the URL to look like a data URL, but it didn\'t.', $session);

@@ -79,7 +79,7 @@
 77. DONE Is there a reliable way to pre-load all required images? #17067
 78. DONE After auto re-login, verify user id still matches before replacing sesskey!
 79. Customise lang strings for the OU. #17070
-80. Do we want to style the submit failure message more like the autosave message? #17068
+80. DONE Do we want to style the submit failure message more like the autosave message? #17068
 81. Client-side auto-save JS - can we do it by forcing a submit of the saved data & reloading?
 82. Client-side auto-save data should be encrypted.
 83. Deal with the problem of initialising things on other pages. (Editor size #17049. Drag-drop.)

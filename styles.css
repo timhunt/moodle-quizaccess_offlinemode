@@ -13,7 +13,7 @@
     font-size: 80%;
     color: #444;
 }
-#quiz-save-failed {
+.quiz-save-failed {
     background-color: #fcc;
     padding: 0.5em;
     color: #000;
