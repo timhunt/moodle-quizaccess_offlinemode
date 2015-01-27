@@ -347,8 +347,10 @@ M.quizaccess_offlinemode.autosave = {
     set_question_state_string: function(slot, newstate) {
         Y.one(this.SELECTORS.QUESTION_CONTAINER + slot + this.SELECTORS.STATE_HOLDER)
                 .setHTML(Y.Escape.html(newstate));
-        Y.one(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.STATE_COLUMN)
-                .setHTML(Y.Escape.html(newstate));
+        var summaryRow = Y.one(this.SELECTORS.SUMMARY_ROW + slot + this.SELECTORS.STATE_COLUMN);
+        if (summaryRow) {
+            summaryRow.setHTML(Y.Escape.html(newstate));
+        }
         Y.one(this.SELECTORS.NAV_BUTTON + slot).set('title', Y.Escape.html(newstate));
     },
 
