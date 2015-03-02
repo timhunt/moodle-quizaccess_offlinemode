@@ -153,6 +153,7 @@ M.quizaccess_offlinemode.navigation = {
 
         preload_image(M.util.image_url('i/flagged'));
         preload_image(M.util.image_url('i/unflagged'));
+        preload_image(M.util.image_url('i/loading_small'));
         Y.all('img').each(function(image) {
             var url = image.get('src');
             if (alreadyLoaded[url]) {
