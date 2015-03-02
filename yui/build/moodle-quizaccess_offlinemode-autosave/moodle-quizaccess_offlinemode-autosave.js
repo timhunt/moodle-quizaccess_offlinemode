@@ -38,7 +38,7 @@ M.quizaccess_offlinemode.autosave = {
      * @default 500
      * @private
      */
-    TINYMCE_DETECTION_DELAY:  500,
+    TINYMCE_DETECTION_DELAY: 500,
 
     /**
      * The number of times to try redetecting TinyMCE.
@@ -58,28 +58,18 @@ M.quizaccess_offlinemode.autosave = {
      * @default 1000
      * @private
      */
-    WATCH_HIDDEN_DELAY:      1000,
+    WATCH_HIDDEN_DELAY: 1000,
 
     /**
-     * The number of failures to ignore before notifying the user.
+     * Time-out used whe ajax requests. Defaults to 30 seconds.
      *
-     * @property FAILURES_BEFORE_NOTIFY
-     * @type Number
-     * @default 1
-     * @private
-     */
-    FAILURES_BEFORE_NOTIFY:     1,
-
-    /**
-     * The value to use when resetting the successful save counter.
-     *
-     * @property FIRST_SUCCESSFUL_SAVE
+     * @property SAVE_TIMEOUT
      * @static
      * @type Number
-     * @default -1
+     * @default 30000
      * @private
      */
-    FIRST_SUCCESSFUL_SAVE:     -1,
+    SAVE_TIMEOUT: 30000,
 
     /**
      * The selectors used throughout this class.
@@ -414,7 +404,8 @@ M.quizaccess_offlinemode.autosave = {
                 success: this.save_done,
                 failure: this.save_failed
             },
-            context: this
+            context: this,
+            timeout: this.SAVE_TIMEOUT
         });
 
         Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'visible');
@@ -544,7 +535,8 @@ M.quizaccess_offlinemode.autosave = {
                 success: this.submit_done,
                 failure: this.submit_failed
             },
-            context: this
+            context: this,
+            timeout: this.SAVE_TIMEOUT
         });
     },
 
