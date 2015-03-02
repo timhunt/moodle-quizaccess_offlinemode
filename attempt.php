@@ -170,7 +170,8 @@ $form .= html_writer::start_tag('div');
 // Print all the questions on every page.
 $numpages = $attemptobj->get_num_pages();
 for ($i = 0; $i < $numpages; $i++) {
-    $form .= html_writer::start_div('', array('id' => 'quizaccess_offlinemode-attempt_page-' . $i));
+    $form .= html_writer::start_div('quiz-loading-hide',
+            array('id' => 'quizaccess_offlinemode-attempt_page-' . $i));
     foreach ($attemptobj->get_slots($i) as $slot) {
         $form .= $attemptobj->render_question($slot, false,
                 $attemptobj->attempt_url($slot, $page));

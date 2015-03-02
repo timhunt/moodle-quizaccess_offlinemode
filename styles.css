@@ -1,6 +1,9 @@
 #page-mod-quiz-attempt .region-content .hidden {
     display: none;
 }
+#page-mod-quiz-attempt .region-content .quiz-loading-hide {
+    opacity: 0;
+}
 #page-mod-quiz-accessrule-offlinemode-upload #region-main textarea {
     width: 100%;
 }

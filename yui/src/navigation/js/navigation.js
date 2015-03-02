@@ -104,6 +104,12 @@ M.quizaccess_offlinemode.navigation = {
 
         Y.on('load', this.preload_images, window, this);
 
+        Y.all('textarea').each(function (textarea) {
+            // This may appear to be a no-op, but in fact, it is required so
+            // that the text-areas remember their size even if they are hiddens,
+            // and hence so that TinyMCE initialises itself at the right size.
+            textarea.setStyle('height', textarea.getStyle('height'));
+        });
         Y.all(this.SELECTORS.ALL_PAGE_DIVS).each(function(element) {
                     var pageno;
                     var matches = element.get('id').match(/quizaccess_offlinemode-attempt_page-(\d+)/);
@@ -117,6 +123,7 @@ M.quizaccess_offlinemode.navigation = {
 
         Y.all(this.SELECTORS.ALL_PAGE_DIVS).addClass('hidden');
         this.navigate_to_page(+currentpage);
+        Y.all(this.SELECTORS.ALL_PAGE_DIVS).removeClass('quiz-loading-hide');
 
         Y.delegate('click', this.nav_button_click, this.SELECTORS.NAV_BLOCK, this.SELECTORS.NAV_BUTTON, this);
         Y.delegate('click', this.nav_button_click, this.SELECTORS.SUMMARY_TABLE, this.SELECTORS.SUMMARY_TABLE_LINK, this);
