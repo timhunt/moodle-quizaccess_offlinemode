@@ -30,3 +30,5 @@ $plugin->cron      = 0;
 $plugin->component = 'quizaccess_offlinemode';
 $plugin->maturity  = MATURITY_BETA;
 $plugin->release   = '0.8 for Moodle 2.7+';
+
+$plugin->outestssufficient = true;
