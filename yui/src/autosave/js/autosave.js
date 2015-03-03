@@ -91,6 +91,7 @@ M.quizaccess_offlinemode.autosave = {
         SUBMIT_BUTTON:         'input[type=submit]',
         FORM:                  'form',
         SAVING_NOTICE:         '#quiz-saving',
+        LAST_SAVED_MESSAGE:    '#quiz-last-saved-message',
         LAST_SAVED_TIME:       '#quiz-last-saved',
         SAVE_FAILED_NOTICE:    '#mod_quiz_navblock .quiz-save-failed'
     },
@@ -491,7 +492,7 @@ M.quizaccess_offlinemode.autosave = {
         }
 
         // Show a warning.
-        e.returnValue = M.util.get_string('changesmadereallygoaway', 'moodle');
+        e.returnValue = M.util.get_string('changesmadereallygoaway', 'quizaccess_offlinemode');
         return e.returnValue;
     },
 
@@ -633,7 +634,7 @@ M.quizaccess_offlinemode.autosave = {
         var downloadLink = '<a href="#" class="response-download-link">' +
                 M.util.get_string('savetheresponses', 'quizaccess_offlinemode') + '</a>';
         Y.one('#mod_quiz_navblock .content').append('<div id="quiz-save-status">' +
-                '<div>' + M.util.get_string('lastsaved', 'quizaccess_offlinemode',
+                '<div id="quiz-last-saved-message">' + M.util.get_string('lastsaved', 'quizaccess_offlinemode',
                         '<span id="quiz-last-saved"></span>') + '</div>' +
                 '<div id="quiz-saving">' + M.util.get_string('savingdots', 'quizaccess_offlinemode') + '</div>' +
                 '<div class="quiz-save-failed">' + M.util.get_string('savefailed', 'quizaccess_offlinemode', downloadLink) + '</div>' +
@@ -649,11 +650,16 @@ M.quizaccess_offlinemode.autosave = {
         Y.one(this.SELECTORS.LAST_SAVED_TIME).setHTML(pad(this.last_successful_save.getHours()) +
                 ':' + pad(this.last_successful_save.getMinutes()));
         Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'hidden');
+        Y.one(this.SELECTORS.SAVING_NOTICE).setHTML(M.util.get_string('savingdots', 'quizaccess_offlinemode'));
         Y.one(this.SELECTORS.SAVE_FAILED_NOTICE).hide();
     },
 
     update_status_for_failed_save: function() {
+        Y.one(this.SELECTORS.LAST_SAVED_MESSAGE).setHTML(
+                M.util.get_string('lastsavedtotheserver', 'quizaccess_offlinemode',
+                Y.one(this.SELECTORS.LAST_SAVED_TIME).get('outerHTML')));
         Y.one(this.SELECTORS.SAVING_NOTICE).setStyle('visibility', 'hidden');
+        Y.one(this.SELECTORS.SAVING_NOTICE).setHTML(M.util.get_string('savingtryagaindots', 'quizaccess_offlinemode'));
         Y.one(this.SELECTORS.SAVE_FAILED_NOTICE).show();
     },
 

@@ -39,7 +39,8 @@ M.quizaccess_offlinemode.download = {
      * @static
      */
     SELECTORS: {
-        QUIZ_FORM:      '#responseform'
+        DOWNLOAD_CONFIRM_MESSAGE: '#quiz-download-confirm-message',
+        QUIZ_FORM:                '#responseform'
     },
 
     /**
@@ -111,6 +112,8 @@ M.quizaccess_offlinemode.download = {
         }
 
         link.set('href', 'data:application/octet-stream,' + Y.JSON.stringify(data));
+
+        Y.later(500, this, this.showDownloadMessage, link.ancestor('p').ancestor());
     },
 
     /**
@@ -126,6 +129,23 @@ M.quizaccess_offlinemode.download = {
         }
         return '' + now.getUTCFullYear() + pad(now.getUTCMonth() + 1) +
                 pad(now.getUTCDate()) + pad(now.getUTCHours()) + pad(now.getUTCMinutes());
+    },
+
+    /**
+     * Display a message following the paragraph containing the link, to confirm
+     * that the responses were saved locally.
+     */
+    showDownloadMessage: function(container) {
+        if (Y.one(this.SELECTORS.DOWNLOAD_CONFIRM_MESSAGE)) {
+            Y.one(this.SELECTORS.DOWNLOAD_CONFIRM_MESSAGE).remove(true);
+        }
+        function pad(number) {
+            return number < 10 ? '0' + number : number;
+        }
+        now = new Date();
+        container.append('<p id="quiz-download-confirm-message">' +
+                M.util.get_string('lastsavedtothiscomputer', 'quizaccess_offlinemode',
+                        pad(now.getHours()) + ':' + pad(now.getMinutes())) + '</p>');
     },
 
     /**
