@@ -1,4 +1,4 @@
-@quizaccess @quizaccess_offlinemode
+@ou @ouvle @quizaccess @quizaccess_offlinemode
 Feature: Download responses, encrypted, on the client-side, and re-upload.
   In order to attempt quizzes with dodgy wifi that dies and never comes back
   As a student or invigilator
@@ -48,6 +48,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I click on "Home" "link" confirming the dialogue
     And I log out
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Quiz fault-tolerant"
     And I follow "upload exported responses"
@@ -69,6 +70,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     And I click on "Home" "link" confirming the dialogue
     And I log out
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Quiz fault-tolerant"
     And I follow "upload exported responses"

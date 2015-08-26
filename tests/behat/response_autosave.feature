@@ -1,4 +1,4 @@
-@quizaccess @quizaccess_offlinemode
+@ou @ouvle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode updates the question statuses are responses are changed and saved
   In order to know what is going on during my attempt
   As a student

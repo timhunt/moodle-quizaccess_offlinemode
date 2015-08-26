@@ -1,4 +1,4 @@
-@quizaccess @quizaccess_offlinemode
+@ou @ouvle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode quiz setting
   In order to run quizzes with dodgy wifi
   As a teacher

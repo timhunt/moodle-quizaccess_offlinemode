@@ -175,7 +175,7 @@ for ($i = 0; $i < $numpages; $i++) {
     $form .= html_writer::start_div('quiz-loading-hide',
             array('id' => 'quizaccess_offlinemode-attempt_page-' . $i));
     foreach ($attemptobj->get_slots($i) as $slot) {
-        $form .= $attemptobj->render_question($slot, false, $output
+        $form .= $attemptobj->render_question($slot, false, $output,
                 $attemptobj->attempt_url($slot, $page));
     }
     $form .= html_writer::end_div('');

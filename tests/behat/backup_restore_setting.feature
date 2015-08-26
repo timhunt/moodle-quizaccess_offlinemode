@@ -1,4 +1,4 @@
-@quizaccess @quizaccess_offlinemode
+@ou @ouvle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode backup and restore of quiz settings
   In order to reuse quizzes using fault-tolerant mode
   As a teacher
