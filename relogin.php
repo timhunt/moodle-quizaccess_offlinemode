@@ -36,7 +36,7 @@ require_login();
 
 if ($USER->id != $currentuserid) {
     print_error('loggedinaswronguser', 'quizaccess_offlinemode',
-            new moodle_url('/login/logout.php', array('sesskey'=>sesskey(),'loginpage'=>1)));
+            new moodle_url('/login/logout.php', array('sesskey' => sesskey(), 'loginpage' => 1)));
 }
 
 $PAGE->requires->js_init_code('
