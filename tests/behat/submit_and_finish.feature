@@ -50,4 +50,4 @@ Feature: Fault-tolerant mode submit only leaves if the submit works
     And "Submit all and finish" "button" should be visible
     And "save the responses" "link" should be visible
     # Now successfully navigate away, or the following test will fail.
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue

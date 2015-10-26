@@ -39,7 +39,7 @@ Feature: Fault-tolerant mode updates the question statuses are responses are cha
     And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"
     And I should see "Answer changed" in the "1" "table_row"
     # Now successfully navigate away, or the following test will fail.
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue
 
   @javascript
   Scenario: When a response is changed, it is auto-saved & the status changes to "Answer saved"

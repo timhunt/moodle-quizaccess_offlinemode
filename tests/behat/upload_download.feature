@@ -45,7 +45,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
   @javascript
   Scenario: Download the responses so far, then re-upload them without finishing the attempt.
     When I follow the emergency download link
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue
     And I log out
     And I log in as "admin"
     And I am on site homepage
@@ -67,7 +67,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
   @javascript
   Scenario: Download the responses so far, then re-upload them finishing the attempt.
     When I follow the emergency download link
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue
     And I log out
     And I log in as "admin"
     And I am on site homepage

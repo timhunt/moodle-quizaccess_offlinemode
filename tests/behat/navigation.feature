@@ -62,7 +62,7 @@ Feature: Fault-tolerant mode navigation without page reloads
     And "#quiznavbutton3.thispage" "css_element" should not exist
     And a new page should not have loaded since I started watching
     # Now successfully navigate away, or the following test will fail.
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue
 
   @javascript
   Scenario: Start a quiz attempt and verify that switching to the summary works.
@@ -98,4 +98,4 @@ Feature: Fault-tolerant mode navigation without page reloads
     And "#quiznavbutton3.thispage" "css_element" should exist
     And a new page should not have loaded since I started watching
     # Now successfully navigate away, or the following test will fail.
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue

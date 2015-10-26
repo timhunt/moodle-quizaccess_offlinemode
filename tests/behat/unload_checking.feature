@@ -32,19 +32,19 @@ Feature: Fault-tolerant mode warns if you try to leave with unsaved respones.
 
   @javascript
   Scenario: Can navigate away if you have not changed any responses.
-    When I follow "Home"
+    When I follow "Miscellaneous"
     Then I should not see "You have made changes. Are you sure you want to navigate away and lose your changes?"
 
   @javascript @_alert
   Scenario: After changing a response, student is warned if they try to leave, but can if they want.
     When I click on "True" "radio" in the "#q1" "css_element"
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue
     Then I should not see "Answer me A"
 
   @javascript @_alert
   Scenario: After changing a response, student is warned if they try to leave, and can cancel.
     When I click on "True" "radio" in the "#q1" "css_element"
-    And I click on "Home" "link" dismissing the dialogue
+    And I click on "Miscellaneous" "link" dismissing the dialogue
     Then I should see "Answer me A"
     # Now successfully navigate away, or the following test will fail.
-    And I click on "Home" "link" confirming the dialogue
+    And I click on "Miscellaneous" "link" confirming the dialogue

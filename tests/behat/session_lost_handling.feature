@@ -39,4 +39,4 @@ Feature: Fault-tolerant mode can restore a working session if the use gets logge
     Then I should not see "Save failed."
     And I should not see "Answer changed"
     # The nest step is important to make sure that the data is recorded as all being saved.
-    And I follow "Home"
+    And I follow "Miscellaneous"
