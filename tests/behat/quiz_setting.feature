@@ -1,4 +1,4 @@
-@ou @ouvle @quizaccess @quizaccess_offlinemode
+@ou @ou_vle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode quiz setting
   In order to run quizzes with dodgy wifi
   As a teacher
@@ -25,6 +25,7 @@ Feature: Fault-tolerant mode quiz setting
       | Experimental fault-tolerant mode | Yes                           |
     And I follow "Quiz with fault-tolerant mode"
     And I navigate to "Edit settings" node in "Quiz administration"
+    And I expand all fieldsets
     Then the field "Experimental fault-tolerant mode" matches value "Yes"
 
   @javascript
@@ -35,6 +36,7 @@ Feature: Fault-tolerant mode quiz setting
       | Experimental fault-tolerant mode | No                               |
     And I follow "Quiz without fault-tolerant mode"
     And I navigate to "Edit settings" node in "Quiz administration"
+    And I expand all fieldsets
     Then the field "Experimental fault-tolerant mode" matches value "No"
 
   @javascript
@@ -45,6 +47,7 @@ Feature: Fault-tolerant mode quiz setting
     When I follow "Course 1"
     And I follow "Quiz 1"
     And I navigate to "Edit settings" node in "Quiz administration"
+    And I expand all fieldsets
     And I set the field "Experimental fault-tolerant mode" to "Yes"
     And I press "Save and display"
     And I navigate to "Edit settings" node in "Quiz administration"
@@ -58,6 +61,7 @@ Feature: Fault-tolerant mode quiz setting
     When I follow "Course 1"
     And I follow "Quiz 1"
     And I navigate to "Edit settings" node in "Quiz administration"
+    And I expand all fieldsets
     And I set the field "Experimental fault-tolerant mode" to "No"
     And I press "Save and display"
     And I navigate to "Edit settings" node in "Quiz administration"
@@ -67,5 +71,6 @@ Feature: Fault-tolerant mode quiz setting
   Scenario: The experimental setting is disabled if you select an interactive behaviour.
     When I turn editing mode on
     And I add a "Quiz" to section "0"
+    And I expand all fieldsets
     And I set the field "How questions behave" to "Adaptive mode"
     Then the "Experimental fault-tolerant mode" "field" should be disabled

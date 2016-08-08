@@ -1,4 +1,4 @@
-@ou @ouvle @quizaccess @quizaccess_offlinemode
+@ou @ou_vle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode submit only leaves if the submit works
   In order to attempt quizzes with dodgy wifi
   As a student

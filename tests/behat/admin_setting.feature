@@ -1,4 +1,4 @@
-@ou @ouvle @quizaccess @quizaccess_offlinemode
+@ou @ou_vle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode admin setting
   In order to save teachers time
   As an admin

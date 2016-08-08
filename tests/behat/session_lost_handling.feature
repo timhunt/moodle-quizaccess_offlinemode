@@ -1,4 +1,4 @@
-@ou @ouvle @quizaccess @quizaccess_offlinemode
+@ou @ou_vle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode can restore a working session if the use gets logged out.
   In order to not lose data if I am logged out
   As a student

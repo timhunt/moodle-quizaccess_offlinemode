@@ -1,4 +1,4 @@
-@ou @ouvle @quizaccess @quizaccess_offlinemode
+@ou @ou_vle @quizaccess @quizaccess_offlinemode
 Feature: Fault-tolerant mode navigation without page reloads for a quiz in sequential mode.
   In order to attempt quizzes with dodgy wifi
   As a student

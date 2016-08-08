@@ -1,8 +1,21 @@
-@ou @ouvle @quizaccess @quizaccess_offlinemode
+@ou @ou_vle @quizaccess @quizaccess_offlinemode
 Feature: Download responses, encrypted, on the client-side, and re-upload.
   In order to attempt quizzes with dodgy wifi that dies and never comes back
   As a student or invigilator
   I need to be able to download my responses on the client-side, and later upload them to the quiz.
+
+# This feature is not currently working in any browser, even though it used to work.
+# At some point it should be fixed, and renamed back to .feature.
+#
+# In Chrome, the 'I simulate losing the network by changing the submit URL' step
+# fails silently, so then the test crashes out at 'I follow the emergency download link'
+# since that link does not exist.
+#
+# In PhantomJS, it crashes at the 'I follow the emergency download link' step, with
+# and error saying that the link is not visible, when it can be clearly seen in
+# the screen grab.
+#
+# I can't get Firefox to work right now.
 
   Background:
     Given the following "courses" exist:
