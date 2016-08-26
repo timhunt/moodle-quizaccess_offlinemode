@@ -110,7 +110,7 @@ class behat_quizaccess_offlinemode extends behat_question_base {
     public function i_simulate_losing_the_session_by_changing_sesskey() {
         $session = $this->getSession();
 
-        $session->evaluateScript('
+        $session->executeScript('
                 Array.prototype.forEach.call(
                         document.querySelectorAll("input[type=hidden][name=sesskey]"),
                         function(input) {
@@ -128,7 +128,7 @@ class behat_quizaccess_offlinemode extends behat_question_base {
         global $CFG;
         $session = $this->getSession();
 
-        $session->evaluateScript('
+        $session->executeScript('
                 M.quizaccess_offlinemode.autosave.AUTOSAVE_HANDLER = "' .
                         $CFG->wwwroot . '/mod/quiz/accessrule/offlinemode/does_not_exist.ajax.php";');
     }
