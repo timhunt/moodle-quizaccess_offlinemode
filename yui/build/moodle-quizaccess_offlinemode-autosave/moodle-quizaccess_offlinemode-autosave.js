@@ -90,7 +90,7 @@ M.quizaccess_offlinemode.autosave = {
         SUMMARY_ROW:           '.quizsummaryofattempt tr.quizsummary', // Must have slot appended.
         STATE_COLUMN:          ' .c1',
         FINISH_ATTEMPT_INPUT:  'input[name=finishattempt]',
-        SUBMIT_BUTTON:         'input[type=submit]',
+        SUBMIT_BUTTON:         '[type=submit]',
         FORM:                  'form',
         SAVING_NOTICE:         '#quiz-saving',
         LAST_SAVED_MESSAGE:    '#quiz-last-saved-message',
@@ -220,7 +220,7 @@ M.quizaccess_offlinemode.autosave = {
         this.form.delegate('change',      this.value_changed, this.SELECTORS.CHANGE_ELEMENTS,       this);
 
         // We need to remove the standard 'Finish attempt...' click hander before we add our own.
-        var submitAndFinishButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).previous(this.SELECTORS.SUBMIT_BUTTON);
+        var submitAndFinishButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).siblings(this.SELECTORS.SUBMIT_BUTTON).pop();
         submitAndFinishButton.detach('click');
         submitAndFinishButton.on('click', this.submit_and_finish_clicked, this);
 
@@ -517,7 +517,7 @@ M.quizaccess_offlinemode.autosave = {
         e.halt();
         this.stop_autosaving();
 
-        var submitButton = Y.one('input[name=finishattempt]').previous('input[type=submit]');
+        var submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).siblings(this.SELECTORS.SUBMIT_BUTTON).pop();
         this.get_submit_progress(submitButton.ancestor('.controls')).show();
         submitButton.ancestor('.singlebutton').hide();
         var failureMessage = this.get_submit_failed_message(submitButton.ancestor('.controls'));
@@ -565,7 +565,7 @@ M.quizaccess_offlinemode.autosave = {
 
         // Re-display the submit button.
         this.form.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).remove();
-        var submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).previous('input[type=submit]');
+        var submitButton = Y.one(this.SELECTORS.FINISH_ATTEMPT_INPUT).siblings(this.SELECTORS.SUBMIT_BUTTON).pop();
         var submitProgress = this.get_submit_progress(submitButton.ancestor('.controls'));
         submitButton.ancestor('.singlebutton').show();
         submitProgress.hide();

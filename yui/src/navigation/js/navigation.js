@@ -47,7 +47,7 @@ M.quizaccess_offlinemode.navigation = {
         SUMMARY_ROW:          '.quizsummaryofattempt tr.quizsummary', // Must have slot appended.
         SUMMARY_LINK_IN_ROW:  ' > td.c0 > a',
         FLAG_ICON_IN_ROW:     ' .questionflag',
-        SUMMARY_PAGE_BUTTON:  '#quizaccess_offlinemode-attempt_page--1 .submitbtns input[type=submit]',
+        SUMMARY_PAGE_BUTTON:  '#quizaccess_offlinemode-attempt_page--1 .submitbtns [type=submit]',
         PAGE_DIV_ROOT:        '#quizaccess_offlinemode-attempt_page-',
         ALL_PAGE_DIVS:        'div[id|=quizaccess_offlinemode-attempt_page]',
         THIS_PAGE_INPUT:      'input#followingpage',
