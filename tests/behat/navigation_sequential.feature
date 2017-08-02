@@ -34,7 +34,7 @@ Feature: Fault-tolerant mode navigation without page reloads for a quiz in seque
     And I follow "Quiz fault-tolerant"
 
   @javascript
-  Scenario: Start a quiz attempt, and verify we see only page 1.
+  Scenario: Start a quiz attempt in sequential mode, and verify we see only page 1.
     When I press "Attempt quiz now"
     Then I should see "Answer me A"
     And I should not see "Answer me B"
@@ -79,7 +79,7 @@ Feature: Fault-tolerant mode navigation without page reloads for a quiz in seque
     And I click on "C1" "link" confirming the dialogue
 
   @javascript
-  Scenario: Start a quiz attempt and verify that switching to the summary works.
+  Scenario: Start a quiz attempt in sequential mode and verify that switching to the summary works.
     When I press "Attempt quiz now"
     And I start watching to see if a new page loads
     And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"

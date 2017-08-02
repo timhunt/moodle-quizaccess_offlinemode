@@ -15,7 +15,7 @@ Feature: Fault-tolerant mode backup and restore of quiz settings
     And I log in as "admin"
 
   @javascript
-  Scenario: Change the setting for a quiz from off to on.
+  Scenario: Test that backed up fault-tolerant settings are restored correctly
     When I backup "Course 1" course using this options:
       | Confirmation | Filename | test_backup.mbz |
     And I restore "test_backup.mbz" backup into a new course using this options:
