@@ -27,7 +27,7 @@ Feature: Fault-tolerant mode can restore a working session if the use gets logge
       | Question A | 1 |
     And the quiz auto-save period is set to "2"
     And I log in as "student"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I follow "Quiz fault-tolerant"
     And I press "Attempt quiz now"
 

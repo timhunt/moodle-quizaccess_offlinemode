@@ -30,7 +30,7 @@ Feature: Fault-tolerant mode navigation without page reloads for a quiz in seque
       | Question B | 2 |
       | Question C | 3 |
     And I log in as "student"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I follow "Quiz fault-tolerant"
 
   @javascript

@@ -13,7 +13,7 @@ Feature: Fault-tolerant mode admin setting
 
   @javascript
   Scenario: Fault-tolerant mode defaults to disabled.
-    When I follow "Course 1"
+    When I am on "Course 1" course homepage
     And I turn editing mode on
     And I add a "Quiz" to section "0"
     Then the field "Experimental fault-tolerant mode" matches value "No"
@@ -24,7 +24,7 @@ Feature: Fault-tolerant mode admin setting
     And I set the field "Experimental fault-tolerant mode" to "1"
     And I press "Save changes"
     And I am on site homepage
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add a "Quiz" to section "0"
     Then the field "Experimental fault-tolerant mode" matches value "Yes"

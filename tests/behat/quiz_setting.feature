@@ -15,7 +15,7 @@ Feature: Fault-tolerant mode quiz setting
       | user    | course | role           |
       | teacher | C1     | editingteacher |
     And I log in as "teacher"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
 
   @javascript
   Scenario: Create a quiz with the setting on.
@@ -44,7 +44,7 @@ Feature: Fault-tolerant mode quiz setting
     Given the following "activities" exist:
       | activity   | name   | course | idnumber | offlinemode_enabled |
       | quiz       | Quiz 1 | C1     | quiz1    | 0                   |
-    When I follow "Course 1"
+    When I am on "Course 1" course homepage
     And I follow "Quiz 1"
     And I navigate to "Edit settings" node in "Quiz administration"
     And I expand all fieldsets
@@ -58,7 +58,7 @@ Feature: Fault-tolerant mode quiz setting
     Given the following "activities" exist:
       | activity   | name   | course | idnumber | offlinemode_enabled |
       | quiz       | Quiz 1 | C1     | quiz1    | 1                   |
-    When I follow "Course 1"
+    When I am on "Course 1" course homepage
     And I follow "Quiz 1"
     And I navigate to "Edit settings" node in "Quiz administration"
     And I expand all fieldsets
