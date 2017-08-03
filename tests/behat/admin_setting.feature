@@ -23,7 +23,6 @@ Feature: Fault-tolerant mode admin setting
     When I navigate to "Quiz fault-tolerant mode" node in "Site administration > Plugins > Activity modules > Quiz"
     And I set the field "Experimental fault-tolerant mode" to "1"
     And I press "Save changes"
-    And I am on site homepage
     And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add a "Quiz" to section "0"
