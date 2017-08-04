@@ -23,7 +23,7 @@ Feature: Fault-tolerant mode backup and restore of quiz settings
     And I follow "Quiz fault-tolerant"
     And I navigate to "Edit settings" node in "Quiz administration"
     Then the field "Experimental fault-tolerant mode" matches value "Yes"
-    And I am on "Course 2" course homepage
+    And I follow "Course 2"
     And I follow "Quiz normal"
     And I navigate to "Edit settings" node in "Quiz administration"
     And the field "Experimental fault-tolerant mode" matches value "No"
