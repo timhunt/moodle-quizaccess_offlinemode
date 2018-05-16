@@ -64,3 +64,4 @@ $string['uploadingresponsesfor'] = 'Uploading responses for {$a}';
 $string['uploadmoreresponses'] = 'Upload more responses';
 $string['uploadresponses'] = 'Upload responses';
 $string['uploadresponsesfor'] = 'Upload responses for {$a}';
+$string['privacy:metadata'] = 'The Quiz fault-tolerant mode plugin does not store any personal data.';
