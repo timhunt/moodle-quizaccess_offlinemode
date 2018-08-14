@@ -142,7 +142,9 @@ if ($form->is_cancelled()) {
                 throw new coding_exception('The uploaded data did not include an attempt id.');
             }
 
-            echo html_writer::tag('textarea', s(print_r($postdata, true)), array('readonly' => 'readonly'));
+            echo html_writer::tag('textarea', s(
+                    print_r($postdata, true)), // @codingStandardsIgnoreLine
+                    array('readonly' => 'readonly'));
 
             // Load the attempt.
             $attemptobj = quiz_attempt::create($postdata['attempt']);

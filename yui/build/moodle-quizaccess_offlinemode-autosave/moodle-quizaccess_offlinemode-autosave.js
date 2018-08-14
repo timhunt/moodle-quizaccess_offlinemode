@@ -608,7 +608,8 @@ M.quizaccess_offlinemode.autosave = {
         var downloadLink = '<a href="#" class="response-download-link">' +
                 M.util.get_string('savetheresponses', 'quizaccess_offlinemode') + '</a>';
         var failedMessage = controlsDiv.appendChild('<div class="submit-failed-message">');
-        failedMessage.append('<p>' + M.util.get_string('submitfaileddownloadmessage', 'quizaccess_offlinemode', downloadLink) + '</p>');
+        failedMessage.append('<p>' + M.util.get_string('submitfaileddownloadmessage',
+                'quizaccess_offlinemode', downloadLink) + '</p>');
 
         return {header: failedHeader, message: failedMessage};
     },
@@ -620,7 +621,8 @@ M.quizaccess_offlinemode.autosave = {
                 '<div id="quiz-last-saved-message">' + M.util.get_string('lastsaved', 'quizaccess_offlinemode',
                         '<span id="quiz-last-saved"></span>') + '</div>' +
                 '<div id="quiz-saving">' + M.util.get_string('savingdots', 'quizaccess_offlinemode') + '</div>' +
-                '<div class="quiz-save-failed">' + M.util.get_string('savefailed', 'quizaccess_offlinemode', downloadLink) + '</div>' +
+                '<div class="quiz-save-failed">' + M.util.get_string('savefailed',
+                        'quizaccess_offlinemode', downloadLink) + '</div>' +
                 '</div>');
         this.update_status_for_successful_save();
     },
@@ -657,7 +659,9 @@ M.quizaccess_offlinemode.autosave = {
         });
 
         this.loginDialogue.setStdModContent(Y.WidgetStdMod.HEADER,
-                '<h1 id="moodle-quiz-relogin-dialogue-header-text">' + M.util.get_string('logindialogueheader', 'quizaccess_offlinemode') + '</h1>', Y.WidgetStdMod.REPLACE);
+                '<h1 id="moodle-quiz-relogin-dialogue-header-text">' +
+                M.util.get_string('logindialogueheader', 'quizaccess_offlinemode') + '</h1>',
+                Y.WidgetStdMod.REPLACE);
         this.loginDialogue.setStdModContent(Y.WidgetStdMod.BODY,
                 '<iframe src="' + this.RELOGIN_SCRIPT + '?userid=' +
                 Y.one('#quiz-userid').get('value') + '">', Y.WidgetStdMod.REPLACE);
