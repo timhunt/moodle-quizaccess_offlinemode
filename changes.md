@@ -1,6 +1,11 @@
 # Change log for Experimental fault-tolerant mode for the quiz
 
 
+## Changes in 1.3
+
+* Fix Behat tests for Moodle 3.6.
+
+
 ## Changes in 1.2
 
 * Privacy API implementation.
