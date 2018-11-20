@@ -20,7 +20,7 @@ Feature: Fault-tolerant mode admin setting
 
   @javascript
   Scenario: The default can be changed so that fault-tolerant mode is enabled by default.
-    When I navigate to "Quiz fault-tolerant mode" node in "Site administration > Plugins > Activity modules > Quiz"
+    When I navigate to "Plugins > Activity modules > Quiz > Quiz fault-tolerant mode" in site administration
     And I set the field "Experimental fault-tolerant mode" to "1"
     And I press "Save changes"
     And I am on "Course 1" course homepage

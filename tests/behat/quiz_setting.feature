@@ -24,7 +24,7 @@ Feature: Fault-tolerant mode quiz setting
       | Name                             | Quiz with fault-tolerant mode |
       | Experimental fault-tolerant mode | Yes                           |
     And I follow "Quiz with fault-tolerant mode"
-    And I navigate to "Edit settings" node in "Quiz administration"
+    And I navigate to "Edit settings" in current page administration
     And I expand all fieldsets
     Then the field "Experimental fault-tolerant mode" matches value "Yes"
 
@@ -35,7 +35,7 @@ Feature: Fault-tolerant mode quiz setting
       | Name                             | Quiz without fault-tolerant mode |
       | Experimental fault-tolerant mode | No                               |
     And I follow "Quiz without fault-tolerant mode"
-    And I navigate to "Edit settings" node in "Quiz administration"
+    And I navigate to "Edit settings" in current page administration
     And I expand all fieldsets
     Then the field "Experimental fault-tolerant mode" matches value "No"
 
@@ -46,11 +46,11 @@ Feature: Fault-tolerant mode quiz setting
       | quiz       | Quiz 1 | C1     | quiz1    | 0                   |
     When I am on "Course 1" course homepage
     And I follow "Quiz 1"
-    And I navigate to "Edit settings" node in "Quiz administration"
+    And I navigate to "Edit settings" in current page administration
     And I expand all fieldsets
     And I set the field "Experimental fault-tolerant mode" to "Yes"
     And I press "Save and display"
-    And I navigate to "Edit settings" node in "Quiz administration"
+    And I navigate to "Edit settings" in current page administration
     Then the field "Experimental fault-tolerant mode" matches value "Yes"
 
   @javascript
@@ -60,11 +60,11 @@ Feature: Fault-tolerant mode quiz setting
       | quiz       | Quiz 1 | C1     | quiz1    | 1                   |
     When I am on "Course 1" course homepage
     And I follow "Quiz 1"
-    And I navigate to "Edit settings" node in "Quiz administration"
+    And I navigate to "Edit settings" in current page administration
     And I expand all fieldsets
     And I set the field "Experimental fault-tolerant mode" to "No"
     And I press "Save and display"
-    And I navigate to "Edit settings" node in "Quiz administration"
+    And I navigate to "Edit settings" in current page administration
     Then the field "Experimental fault-tolerant mode" matches value "No"
 
   @javascript
