@@ -22,13 +22,13 @@ var sjcl = {
 
   /** @namespace Key exchange functions.  Right now only SRP is implemented. */
   keyexchange: {},
-  
+
   /** @namespace Block cipher modes of operation. */
   mode: {},
 
   /** @namespace Miscellaneous.  HMAC and PBKDF2. */
   misc: {},
-  
+
   /**
    * @namespace Bit array encoders and decoders.
    *
@@ -39,7 +39,7 @@ var sjcl = {
    * the method names are "fromBits" and "toBits".
    */
   codec: {},
-  
+
   /** @namespace Exceptions. */
   exception: {
     /** @constructor Ciphertext is corrupt. */
@@ -47,13 +47,13 @@ var sjcl = {
       this.toString = function() { return "CORRUPT: "+this.message; };
       this.message = message;
     },
-    
+
     /** @constructor Invalid parameter. */
     invalid: function(message) {
       this.toString = function() { return "INVALID: "+this.message; };
       this.message = message;
     },
-    
+
     /** @constructor Bug or missing feature in SJCL. @constructor */
     bug: function(message) {
       this.toString = function() { return "BUG: "+this.message; };
@@ -68,6 +68,7 @@ var sjcl = {
   }
 };
 
+/* OU-specific. This packaging code was conflicting with AMD, so remove.
 if(typeof module !== 'undefined' && module.exports){
   module.exports = sjcl;
 }
@@ -76,3 +77,4 @@ if (typeof define === "function") {
         return sjcl;
     });
 }
+End of ou-specific comment out. */

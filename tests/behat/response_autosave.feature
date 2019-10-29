@@ -33,7 +33,7 @@ Feature: Fault-tolerant mode updates the question statuses are responses are cha
   @javascript
   Scenario: When a response is saved, the question state changes to "Answer changed".
     When I press "Attempt quiz now"
-    And I click on "True" "radio" in the "#q1" "css_element"
+    And I click on "True" "radio" in the "Answer me A" "question"
     Then the state of "Answer me A" question is shown as "Answer changed"
     And "#quiznavbutton1.answersaved" "css_element" should exist
     And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"
@@ -44,7 +44,7 @@ Feature: Fault-tolerant mode updates the question statuses are responses are cha
   @javascript
   Scenario: When a response is changed, it is auto-saved & the status changes to "Answer saved"
     When I press "Attempt quiz now"
-    And I click on "True" "radio" in the "#q1" "css_element"
+    And I click on "True" "radio" in the "Answer me A" "question"
     And I wait "3" seconds
     Then the state of "Answer me A" question is shown as "Answer saved"
     And "#quiznavbutton1.answersaved" "css_element" should exist

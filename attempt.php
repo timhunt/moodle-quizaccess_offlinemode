@@ -101,8 +101,9 @@ if (!$autosaveperiod) {
     // use a sensible default.
     $autosaveperiod = 60;
 }
+$firstquestionouterdivid = $attemptobj->get_question_attempt(1)->get_outer_question_div_unique_id();
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-autosave',
-        'M.quizaccess_offlinemode.autosave.init', array($autosaveperiod));
+        'M.quizaccess_offlinemode.autosave.init', array($autosaveperiod, '#' . substr($firstquestionouterdivid, 0, -1)));
 
 $PAGE->requires->yui_module('moodle-quizaccess_offlinemode-navigation',
         'M.quizaccess_offlinemode.navigation.init', array($page));

@@ -199,8 +199,10 @@ M.quizaccess_offlinemode.autosave = {
      * @method init
      * @param {Number} delay the delay, in seconds, between a change being detected, and
      * a save happening.
+     * @param {String} question_outer_div_id_prefix prefix for the id of the outer div of each question.
      */
-    init: function(delay) {
+    init: function(delay, question_outer_div_id_prefix) {
+        this.SELECTORS.QUESTION_CONTAINER = question_outer_div_id_prefix;
         this.form = Y.one(this.SELECTORS.QUIZ_FORM);
         if (!this.form) {
             Y.log('No response form found. Why did you try to set up autosave?', 'debug', 'moodle-quizaccess_offlinemode-autosave');

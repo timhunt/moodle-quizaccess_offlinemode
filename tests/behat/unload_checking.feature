@@ -37,13 +37,13 @@ Feature: Fault-tolerant mode warns if you try to leave with unsaved respones.
 
   @javascript @_alert
   Scenario: After changing a response, student is warned if they try to leave, but can if they want.
-    When I click on "True" "radio" in the "#q1" "css_element"
+    When I click on "True" "radio" in the "Answer me A" "question"
     And I click on "C1" "link" confirming the dialogue
     Then I should not see "Answer me A"
 
   @javascript @_alert
   Scenario: After changing a response, student is warned if they try to leave, and can cancel.
-    When I click on "True" "radio" in the "#q1" "css_element"
+    When I click on "True" "radio" in the "Answer me A" "question"
     And I click on "C1" "link" dismissing the dialogue
     Then I should see "Answer me A"
     # Now successfully navigate away, or the following test will fail.

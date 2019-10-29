@@ -29,7 +29,7 @@ Feature: Fault-tolerant mode submit only leaves if the submit works
     And I am on "Course 1" course homepage
     And I follow "Quiz fault-tolerant"
     And I press "Attempt quiz now"
-    And I click on "True" "radio" in the "#q1" "css_element"
+    And I click on "True" "radio" in the "Answer me A" "question"
     And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"
 
   @javascript

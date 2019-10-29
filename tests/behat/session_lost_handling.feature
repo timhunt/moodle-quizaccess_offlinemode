@@ -34,7 +34,7 @@ Feature: Fault-tolerant mode can restore a working session if the use gets logge
   @javascript
   Scenario: User logs out and logs in again elsewhere, we handle it.
     When I simulate losing the session by changing sesskey
-    And I click on "True" "radio" in the "#q1" "css_element"
+    And I click on "True" "radio" in the "Answer me A" "question"
     And I wait "4" seconds
     Then I should not see "Save failed."
     And I should not see "Answer changed"
