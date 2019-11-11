@@ -9,6 +9,7 @@ perfectly with all question types. (The project for which this was created only 
 
 To install, either install from the Moodle plugins database, using the link above,
 or install using git:
+
     git clone https://github.com/timhunt/moodle-quizaccess_offlinemode.git mod/quiz/accessrule/offlinemode
     echo '/mod/quiz/accessrule/offlinemode/' >> .git/info/exclude
 

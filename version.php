@@ -24,10 +24,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018112000;
-$plugin->requires  = 2017111300;
+$plugin->version   = 2019111100;
+$plugin->requires  = 2018051700;
 $plugin->component = 'quizaccess_offlinemode';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.3 for Moodle 3.4+';
+$plugin->release   = '1.4 for Moodle 3.5+';
 
 $plugin->outestssufficient = true;
