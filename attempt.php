@@ -142,7 +142,10 @@ $event->add_record_snapshot('quiz_attempts', $attemptobj->get_attempt());
 $event->trigger();
 
 // Arrange for the navigation to be displayed in the first region on the page.
-$navbc = $attemptobj->get_navigation_panel($output, 'quiz_attempt_nav_panel', -1);
+// Passing page number -2 here is a hack. (Conventionally it would be -1 to mean
+// that all pages are being shown, but then that causes the Finish attempt link to
+// not appear. -2 seems to work.
+$navbc = $attemptobj->get_navigation_panel($output, 'quiz_attempt_nav_panel', -2);
 $regions = $PAGE->blocks->get_regions();
 $PAGE->blocks->add_fake_block($navbc, reset($regions));
 
@@ -220,7 +223,7 @@ $controls = $output->summary_page_controls($attemptobj);
 $controls = preg_replace('~<div id="quiz-timer".*?</div>~', '', $controls);
 $summary .= $controls;
 
-$summary .= html_writer::end_div('');
+$summary .= html_writer::end_div();
 
 // Finish the form.
 $form .= html_writer::end_tag('div');
