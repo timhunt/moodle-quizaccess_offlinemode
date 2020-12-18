@@ -1,5 +1,9 @@
 # Change log for Experimental fault-tolerant mode for the quiz
 
+## Changes in 1.5
+
+* Trying to fix compatibility with Moodle 3.9+.
+
 
 ## Changes in 1.4
 
