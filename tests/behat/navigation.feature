@@ -29,9 +29,7 @@ Feature: Fault-tolerant mode navigation without page reloads
       | Question A | 1 |
       | Question B | 2 |
       | Question C | 3 |
-    And I log in as "student"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz fault-tolerant"
+    And I am on the "Quiz fault-tolerant" "mod_quiz > View" page logged in as "student"
 
   @javascript
   Scenario: Start a quiz attempt, and verify we see only page 1.

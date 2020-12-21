@@ -26,9 +26,7 @@ Feature: Fault-tolerant mode updates the question statuses are responses are cha
     And quiz "Quiz fault-tolerant" contains the following questions:
       | Question A | 1 |
     And the quiz auto-save period is set to "2"
-    And I log in as "student"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz fault-tolerant"
+    And I am on the "Quiz fault-tolerant" "mod_quiz > View" page logged in as "student"
 
   @javascript
   Scenario: When a response is saved, the question state changes to "Answer changed".

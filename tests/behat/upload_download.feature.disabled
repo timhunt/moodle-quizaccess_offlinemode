@@ -45,9 +45,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
       | Question B | 1 |
       | Question C | 1 |
     And the quiz auto-save period is set to "2"
-    And I log in as "student"
-    And I follow "Course 1"
-    And I follow "Quiz fault-tolerant"
+    And I am on the "Quiz fault-tolerant" "mod_quiz > View" page logged in as "student"
     And I press "Attempt quiz now"
     When I simulate losing the network by changing the submit URL
     And I click on "True" "radio" in the "#q1" "css_element"
@@ -60,10 +58,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     When I follow the emergency download link
     And I click on "C1" "link" confirming the dialogue
     And I log out
-    And I log in as "admin"
-    And I am on site homepage
-    And I follow "Course 1"
-    And I follow "Quiz fault-tolerant"
+    And I am on the "Quiz fault-tolerant" "mod_quiz > View" page logged in as "admin"
     And I follow "upload exported responses"
     And I upload the saved responses file to "Response files" filemanager
     And I press "Upload responses"
@@ -82,10 +77,7 @@ Feature: Download responses, encrypted, on the client-side, and re-upload.
     When I follow the emergency download link
     And I click on "C1" "link" confirming the dialogue
     And I log out
-    And I log in as "admin"
-    And I am on site homepage
-    And I follow "Course 1"
-    And I follow "Quiz fault-tolerant"
+    And I am on the "Quiz fault-tolerant" "mod_quiz > View" page logged in as "admin"
     And I follow "upload exported responses"
     And I upload the saved responses file to "Response files" filemanager
     And I set the field "Submit and finish each attempt after processing the upload" to "Yes"

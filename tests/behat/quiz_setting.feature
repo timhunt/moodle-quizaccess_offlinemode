@@ -14,8 +14,7 @@ Feature: Fault-tolerant mode quiz setting
     And the following "course enrolments" exist:
       | user    | course | role           |
       | teacher | C1     | editingteacher |
-    And I log in as "teacher"
-    And I am on "Course 1" course homepage
+    And I am on the "C1" "Course" page logged in as "teacher"
 
   @javascript
   Scenario: Create a quiz with the setting on.

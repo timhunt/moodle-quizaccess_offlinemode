@@ -25,9 +25,7 @@ Feature: Fault-tolerant mode submit only leaves if the submit works
       | quiz       | Quiz fault-tolerant | C1     | quiz1    | 1                | 1                   |
     And quiz "Quiz fault-tolerant" contains the following questions:
       | Question A | 1 |
-    And I log in as "student"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz fault-tolerant"
+    And I am on the "Quiz fault-tolerant" "mod_quiz > View" page logged in as "student"
     And I press "Attempt quiz now"
     And I click on "True" "radio" in the "Answer me A" "question"
     And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"

@@ -25,9 +25,7 @@ Feature: Fault-tolerant mode warns if you try to leave with unsaved respones.
       | quiz       | Quiz fault-tolerant | C1     | quiz1    | 1                | 1                   |
     And quiz "Quiz fault-tolerant" contains the following questions:
       | Question A | 1 |
-    And I log in as "student"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz fault-tolerant"
+    And I am on the "Quiz fault-tolerant" "mod_quiz > View" page logged in as "student"
     And I press "Attempt quiz now"
 
   @javascript
