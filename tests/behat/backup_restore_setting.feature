@@ -20,10 +20,10 @@ Feature: Fault-tolerant mode backup and restore of quiz settings
       | Confirmation | Filename | test_backup.mbz |
     And I restore "test_backup.mbz" backup into a new course using this options:
       | Schema | Course name | Course 2 |
-    And I follow "Quiz fault-tolerant"
-    And I navigate to "Edit settings" in current page administration
+    And I turn editing mode on
+    And I set the field "Edit title" in the "Quiz fault-tolerant" "activity" to "Renamed Quiz fault-tolerant"
+    And I set the field "Edit title" in the "Quiz normal" "activity" to "Renamed Quiz normal"
+    And I am on the "Renamed Quiz fault-tolerant" "quiz activity editing" page
     Then the field "Experimental fault-tolerant mode" matches value "Yes"
-    And I follow "Course 2"
-    And I follow "Quiz normal"
-    And I navigate to "Edit settings" in current page administration
+    And I am on the "Renamed Quiz normal" "quiz activity editing" page
     And the field "Experimental fault-tolerant mode" matches value "No"
