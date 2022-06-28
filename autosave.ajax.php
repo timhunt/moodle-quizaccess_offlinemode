@@ -98,7 +98,8 @@ if ($finishattempt) {
             'courseid' => $attemptobj->get_courseid(),
             'context' => context_module::instance($attemptobj->get_cmid()),
             'other' => array(
-                    'quizid' => $attemptobj->get_quizid()
+                    'quizid' => $attemptobj->get_quizid(),
+                    'page' => $attemptobj->get_currentpage()
             )
     );
     $event = \mod_quiz\event\attempt_viewed::create($params);

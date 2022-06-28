@@ -30,7 +30,7 @@ Feature: Fault-tolerant mode can restore a working session if the use gets logge
 
   @javascript
   Scenario: User logs out and logs in again elsewhere, we handle it.
-    When I press "Attempt quiz now"
+    When I press "Attempt quiz"
     And I simulate losing the session by changing sesskey
     And I click on "True" "radio" in the "Answer me A" "question"
     And I wait "4" seconds

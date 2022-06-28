@@ -33,7 +33,7 @@ Feature: Fault-tolerant mode navigation without page reloads
 
   @javascript
   Scenario: Start a quiz attempt, and verify we see only page 1.
-    When I press "Attempt quiz now"
+    When I press "Attempt quiz"
     Then I should see "Answer me A"
     And I should not see "Answer me B"
     And I should not see "Answer me C"
@@ -46,7 +46,7 @@ Feature: Fault-tolerant mode navigation without page reloads
 
   @javascript
   Scenario: Start a quiz attempt and verify that switching to page 2 works.
-    When I press "Attempt quiz now"
+    When I press "Attempt quiz"
     And I start watching to see if a new page loads
     And I click on "Question 2" "link" in the "Quiz navigation" "block"
     Then I should not see "Answer me A"
@@ -64,7 +64,7 @@ Feature: Fault-tolerant mode navigation without page reloads
 
   @javascript
   Scenario: Start a quiz attempt and verify that switching to the summary works.
-    When I press "Attempt quiz now"
+    When I press "Attempt quiz"
     And I start watching to see if a new page loads
     And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"
     Then I should not see "Answer me A"
@@ -81,7 +81,7 @@ Feature: Fault-tolerant mode navigation without page reloads
 
   @javascript
   Scenario: Start a quiz attempt and verify that switching from the summary works.
-    When I press "Attempt quiz now"
+    When I press "Attempt quiz"
     And I start watching to see if a new page loads
     And I click on "Finish attempt ..." "link" in the "Quiz navigation" "block"
     And I click on "3" "link" in the "quizsummaryofattempt" "table"

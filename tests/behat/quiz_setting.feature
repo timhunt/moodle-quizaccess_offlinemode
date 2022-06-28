@@ -22,8 +22,7 @@ Feature: Fault-tolerant mode quiz setting
     And I add a "Quiz" to section "0" and I fill the form with:
       | Name                             | Quiz with fault-tolerant mode |
       | Experimental fault-tolerant mode | Yes                           |
-    And I follow "Quiz with fault-tolerant mode"
-    And I navigate to "Edit settings" in current page administration
+    And I am on the "Quiz with fault-tolerant mode" "quiz activity editing" page
     And I expand all fieldsets
     Then the field "Experimental fault-tolerant mode" matches value "Yes"
 
@@ -33,8 +32,7 @@ Feature: Fault-tolerant mode quiz setting
     And I add a "Quiz" to section "0" and I fill the form with:
       | Name                             | Quiz without fault-tolerant mode |
       | Experimental fault-tolerant mode | No                               |
-    And I follow "Quiz without fault-tolerant mode"
-    And I navigate to "Edit settings" in current page administration
+    And I am on the "Quiz without fault-tolerant mode" "quiz activity editing" page
     And I expand all fieldsets
     Then the field "Experimental fault-tolerant mode" matches value "No"
 
@@ -43,13 +41,11 @@ Feature: Fault-tolerant mode quiz setting
     Given the following "activities" exist:
       | activity   | name   | course | idnumber | offlinemode_enabled |
       | quiz       | Quiz 1 | C1     | quiz1    | 0                   |
-    When I am on "Course 1" course homepage
-    And I follow "Quiz 1"
-    And I navigate to "Edit settings" in current page administration
+    When I am on the "Quiz 1" "quiz activity editing" page
     And I expand all fieldsets
     And I set the field "Experimental fault-tolerant mode" to "Yes"
     And I press "Save and display"
-    And I navigate to "Edit settings" in current page administration
+    And I am on the "Quiz 1" "quiz activity editing" page
     Then the field "Experimental fault-tolerant mode" matches value "Yes"
 
   @javascript
@@ -57,13 +53,11 @@ Feature: Fault-tolerant mode quiz setting
     Given the following "activities" exist:
       | activity   | name   | course | idnumber | offlinemode_enabled |
       | quiz       | Quiz 1 | C1     | quiz1    | 1                   |
-    When I am on "Course 1" course homepage
-    And I follow "Quiz 1"
-    And I navigate to "Edit settings" in current page administration
+    When I am on the "Quiz 1" "quiz activity editing" page
     And I expand all fieldsets
     And I set the field "Experimental fault-tolerant mode" to "No"
     And I press "Save and display"
-    And I navigate to "Edit settings" in current page administration
+    And I am on the "Quiz 1" "quiz activity editing" page
     Then the field "Experimental fault-tolerant mode" matches value "No"
 
   @javascript
